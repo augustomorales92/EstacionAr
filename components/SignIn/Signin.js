@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Button,View,Alert,Image } from 'react-native';
-
-import { Container, Content, Form, Item, Input, Label } from 'native-base';
+import { Container, Content, Form, Item, Input, Label,Button,Text } from 'native-base';
+import {View,Alert,Image } from 'react-native';
+import {styles} from './SignInStyle'
 const signin = (props) => {
     
     return (
@@ -31,13 +31,15 @@ const signin = (props) => {
           </Form>
           <View style={styles.fixToText}>
         
-        <Button
-          title="Registrate"
+        <Button dark rounded
           onPress={() => {
              Alert.alert("Usuario creado")  
              return setTimeout(()=>props.navigation.popToTop(),1000) }}
-          color='white' 
-          />
+             >
+                 <Text style ={styles.colores}>
+                     Registrate
+                 </Text>
+          </Button>
       </View>
       <View style={styles.imagen}>
             <Image
@@ -51,46 +53,5 @@ const signin = (props) => {
       </Container>
     );
 };
-
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'orange',
-      height: '100%',
-      
-     
-    },
-    
-      stretch: {
-        width: 200,
-        height: 180,
-        resizeMode: 'stretch',
-        
-      },
-      fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginTop: 20,
-        marginRight:20
-      },
-      imagen:{
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '50%'
-      },
-      labelstyle:{
-        color:'white'
-    },
-    formStyle:{
-        margin:20
-    },
-    itemStyle:{
-        marginTop: 30
-    }
-  });
-  
 
 export default signin;

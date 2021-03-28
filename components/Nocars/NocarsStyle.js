@@ -8,21 +8,16 @@ export const styles = StyleSheet.create({
       height: '100%',
       },
       colores:{
-          fontSize:20,
+          fontSize:30,
           textAlign:'center',
 
       },
-      cardStyle:{
-          borderRadius:15,
-          backgroundColor:'white',
-          textAlign:'center',
-          height:200,
-          
-          },
     card2Style:{
         borderRadius:15,
         opacity:0.7,
         marginTop:80,
+        backgroundColor:'black',
+        height:200,
         
     },
     fixToText: {
@@ -34,13 +29,13 @@ export const styles = StyleSheet.create({
     texto:{
         fontSize:30,
         textAlign:'center',
-        textAlignVertical:'center',
-        marginTop:35,
-        marginLeft:45
+        color:'white',
+        marginTop:30
     },
     button:{
-        width:80,
-        height:80
+       backgroundColor:'black',
+       borderRadius:60
+
     }
 })
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import { Container,  Text, Form, Button,Item, Label,Input, Left, Body, Right,Card, CardItem} from 'native-base';
-import{View,Alert} from 'react-native'
+import {View,Alert,SafeAreaView,Text} from 'react-native';
+import {Button,Card,Input} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {styles} from './ParkingStyle'
 import Clock from '../clock/clock'
@@ -16,75 +16,58 @@ const timer = ()=>{
   setTime(time+3000)
 }
 return (
-        <Container style ={styles.container}>
-        <View style={styles.code}>
-        <Form >
-            <Item floatingLabel last rounded  style={styles.input}>
-              <Label style={styles.labelstyle}>Ingresar codigo de cuadra</Label>
-              <Input />
-            </Item>
-            </Form>
-        </View>
-
-        <View style={styles.fixToText}>
-        <Button rounded dark
-        style={styles.button}
+  <SafeAreaView style={styles.container}>
+    <Card containerStyle={styles.input}>
+      <Input
+        label="Ingresar codigo"
+        placeholder="182"
+        inputStyle={styles.colorInput}
+      />
+    </Card>
+    <Card containerStyle={styles.input}>
+      <View style={styles.fixToText}>
+        <Text style={styles.colores}>Escanear QR</Text>
+        <Button
+          buttonStyle={styles.button}
           onPress={() => {
-             Alert.alert("abrir camara")  
-            /*    return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */  }}
-          >
-              <Icon name='camera' size={80} color="white"/>
-              </Button>
-              <Text style ={styles.camera}>escanear QR</Text>
-        </View>
-        <View style={styles.fixToText}>
-        
-       
-              <Text style ={styles.colores}>Tiempo de estacionamiento</Text>
-             
+            Alert.alert("abrir camara");
+            /*    return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
+          }}
+          icon={<Icon name="camera" size={60} color="white" />}
+        ></Button>
       </View>
-      <Card style={styles.card2Style} >
-            <CardItem thumbnail style={styles.cardStyle2}>
-              <Left>
-              <Text style ={styles.colores}>
-                0.5hs
-                </Text>
-              </Left>
-              
-              <Right>
-              <Button rounded dark
-        style={styles.button}
-        onPress={timer}>
-              <Icon name='clock' size={80} color="white"/>
-              
-              
-              </Button>
-              </Right>
-            </CardItem>
-          </Card>
-          <Card style={styles.card2Style} >
-            <CardItem thumbnail style={styles.cardStyle2}>
-              <Left>
-              <Text style ={styles.colores}>
-                Libre
-                </Text>
-              </Left>
-              
-              <Right>
-              <Button rounded dark
-        style={styles.button}
-          onPress={() => {
-             Alert.alert("libre")  
-               /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */  }}
-          >
-              <Icon name='play' size={80} color="white"/>
-              
-              </Button>
-              </Right>
-            </CardItem>
-          </Card>
+    </Card>
+    <View style={styles.fixToText}>
+      <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
+    </View>
+    <Card containerStyle={styles.input}>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.colores}>0.5hs</Text>
 
-      {/* <View style={styles.fixToText}>
+        <Button
+          buttonStyle={styles.button}
+          onPress={timer}
+          icon={<Icon name="clock" size={60} color="white" />}
+        ></Button>
+      </View>
+    </Card >
+
+    <Card containerStyle={styles.input}>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.colores}>Libre</Text>
+
+        <Button
+          buttonStyle={styles.button}
+          onPress={() => {
+            Alert.alert("libre");
+            /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
+          }}
+          icon={<Icon name="play" size={60} color="white" />}
+        ></Button>
+      </View>
+    </Card>
+
+    {/* <View style={styles.fixToText}>
         <Text style={styles.colores}>0.5hs</Text>
         <Text style={styles.colores}>Libre</Text>
         </View>
@@ -107,32 +90,33 @@ return (
               
               </Button>
       </View> */}
-          <Card style={styles.card2Style} transparent>
-            <CardItem thumbnail style={styles.cardStyle}>
-              <Left>
-              <Text style ={styles.clock}>
-                <Clock time={time}/> 
-                </Text>
-              </Left>
-              
-              <Right>
-                <Button dark rounded onPress={() => {setTime(0)}}>
-                  <Text style ={styles.colores}>Reset</Text>
-                </Button>
-              </Right>
-            </CardItem>
-          </Card>
+    <Card containerStyle={styles.input2}>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.clock}>
+          <Clock time={time} />
+        </Text>
 
-     
-      <View style={styles.lastButton}>
-              <Button rounded dark
-          onPress={() => {setTime(0)}}
-          >
-              <Text style ={styles.colores}>Ir a estacionar</Text>
-              </Button>
-      </View> 
-      </Container>
-    );
+        <Button
+          buttonStyle={styles.buttons2}
+          title="reset"
+          onPress={() => {
+            setTime(0);
+          }}
+        ></Button>
+      </View>
+    </Card>
+
+    <View style={styles.lastButton}>
+      <Button
+      buttonStyle={styles.buttons}
+        title="ir a estacionar"
+        onPress={() => {
+          setTime(0);
+        }}
+      ></Button>
+    </View>
+  </SafeAreaView>
+);
 };
 
 

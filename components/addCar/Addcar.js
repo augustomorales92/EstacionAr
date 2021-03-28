@@ -1,47 +1,50 @@
 import React from 'react';
-import { Container, Content, Form, Item, Input, Label,Button,Text } from 'native-base';
-import {View,Alert,Image } from 'react-native';
+import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
+import {Button,Input,Card,Image} from 'react-native-elements'
+
 import {styles} from './addCarStyle'
 
 const addcar = (props) => {
   return (
-    <Container style={styles.container}>
-      <Content>
-        <View>
-          <Text style={styles.texto}>Registre su vehiculo</Text>
-        </View>
-        <Form style={styles.formStyle}>
-          <Item floatingLabel last rounded style={styles.itemStyle}>
-            <Label style={styles.labelstyle}>Marca</Label>
-            <Input />
-          </Item>
-          <Item floatingLabel last rounded style={styles.itemStyle}>
-            <Label style={styles.labelstyle}>Modelo</Label>
-            <Input />
-          </Item>
-          <Item floatingLabel last rounded style={styles.itemStyle}>
-            <Label style={styles.labelstyle}>Color</Label>
-            <Input />
-          </Item>
-          <Item floatingLabel last rounded style={styles.itemStyle}>
-            <Label style={styles.labelstyle}>Año</Label>
-            <Input />
-          </Item>
-          <Item floatingLabel last rounded style={styles.itemStyle}>
-            <Label style={styles.labelstyle}>Patente</Label>
-            <Input />
-          </Item>
-        </Form>
+    <SafeAreaView style={styles.container}>
+     
+      <Card containerStyle={styles.input}>
+          <Input
+          label='Marca'
+          placeholder='chevrolet'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Modelo'
+          placeholder='corsa'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Color'
+          placeholder='negro'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Año'
+          placeholder='2021'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Patente'
+          placeholder='AB 123 CD'
+          inputStyle={styles.colorInput}
+          />
+        </Card>
         <View style={styles.fixToText}>
           <Button
-            rounded
-            dark
+            title='Agregar vehiculo'
+            buttonStyle={styles.colores}
             onPress={() => {
               Alert.alert("Auto agregado correctamente");
               return setTimeout(() => props.navigation.navigate("autos"), 1000);
             }}
           >
-            <Text style={styles.colores}>Agregar vehiculo</Text>
+            
           </Button>
         </View>
         <View style={styles.imagen}>
@@ -52,8 +55,8 @@ const addcar = (props) => {
             }}
           />
         </View>
-      </Content>
-    </Container>
+      
+    </SafeAreaView>
   );
 };
 export default addcar;

@@ -26,4 +26,37 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         marginRight:20
       },
+      input: {
+        backgroundColor:'black',
+        borderRadius:10,
+        opacity:0.5,
+        marginTop:30
+        },
+        colorText:{
+          color:'white'
+        },
+        texto:{
+            fontSize:25,
+            textAlign:'justify',
+            color:'white',
+            marginTop:10,
+            marginLeft:10,
+           
+        },
+        titulo:{
+            fontSize:20,
+            textAlign:'center',
+            color:'white',
+            marginTop:10  
+        },
+        button:{
+            backgroundColor:'black',
+            },
+            cardButton:{
+                backgroundColor:'grey',
+                width:150
+                },
+            buttonPositions:{
+                marginLeft:80
+            }
 })

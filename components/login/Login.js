@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Content, Form, Item, Input, Label,Button,Text } from 'native-base';
-import {View,Alert,Image } from 'react-native';
+import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
+import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
 
 
@@ -8,53 +8,56 @@ import {styles} from './LoginStyle'
 const Login = (props) => {
 
      return (
-       <Container style={styles.container}>
-         <Content>
+      <SafeAreaView style={styles.container}>
            <View style={styles.imagen}>
              <Image
                style={styles.stretch}
-               source={{
-                 uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png",
-               }}
+               source={{uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png",}}
+               PlaceholderContent={<ActivityIndicator />}
              />
            </View>
-           <Form>
-             <Item floatingLabel last rounded style={styles.input}>
-               <Label style={styles.labelstyle}>Email</Label>
-               <Input />
-             </Item>
-             <Item floatingLabel last rounded style={styles.input}>
-               <Label style={styles.labelstyle}>contraseña</Label>
-               <Input />
-             </Item>
-           </Form>
+           
+               <Card containerStyle={styles.input}>
+          <Input
+          label='Email'
+          placeholder='email@adress.com'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Contraseña'
+          placeholder='password'
+          inputStyle={styles.colorInput}
+          />
+        </Card>
+           
            <View style={styles.fixToText}>
              <Button
-               dark
-               transparent
+               title='¿Olvidaste tu contraseña?'
+               type='clear'
+               titleStyle={styles.clearButton}
                onPress={() => Alert.alert("forgot password button pressed")}
              >
-               <Text>¿Olvidaste tu contraseña?</Text>
+               
              </Button>
              <Button
-               rounded
-               dark
+             buttonStyle={styles.colores}
+               title='Iniciar sesion'
                onPress={() => props.navigation.navigate("sin autos")}
              >
-               <Text style={styles.colores}>Iniciar sesion</Text>
+               
              </Button>
            </View>
            <View style={styles.signin}>
              <Button
-               dark
-               transparent
+             type='clear'
+              title='¿No tenes cuenta? Registrate!'
+              titleStyle={styles.clearButton}
                onPress={() => props.navigation.navigate("Registrate")}
              >
-               <Text style={styles.colores}>¿No tenes cuenta? Registrate!</Text>
+               
              </Button>
            </View>
-         </Content>
-       </Container>
+           </SafeAreaView>
      );
 };
 

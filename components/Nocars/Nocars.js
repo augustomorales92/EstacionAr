@@ -1,18 +1,16 @@
 import React from 'react';
-import { Container,  Text, Body, Button,Card, CardItem} from 'native-base';
-import{View,Alert} from 'react-native'
+import {View,Alert,SafeAreaView,Text} from 'react-native';
+import {Button,Card} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {styles} from './NocarsStyle'
 const Nocars = (props) => {
     return (
-        <Container style ={styles.container}>
+        <SafeAreaView style ={styles.container}>
         <View>
-          <Card style={styles.card2Style} >
-            <CardItem thumbnail style={styles.cardStyle}>
-              <Body >
+          <Card containerStyle={styles.card2Style} >
+            
                 <Text style ={styles.texto}>NO HAY VEHICULOS REGISTRADOS EN SU CUENTA</Text>
-                 </Body>
-             </CardItem>
+                 
           </Card>
         </View>
         <View style={styles.fixToText}>
@@ -24,17 +22,20 @@ const Nocars = (props) => {
         
         <View style={styles.fixToText}>
         
-        <Button rounded dark
-        style={styles.button}
+        <Button 
+        buttonStyle={styles.button}
+        icon={
+          <Icon name='plus' size={80} color="white"/>
+        }
           onPress={() => {
              Alert.alert("agregar auto")  
                return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)   }}
           >
-              <Icon name='plus' size={80} color="white"/>
               
-              </Button>
+              
+              </Button> 
       </View>
-      </Container>
+      </SafeAreaView>
     );
 };
 

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     fixToText: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 20,
+        marginTop: 30,
         marginRight:20
       },
       signin: {
@@ -24,23 +24,27 @@ export const styles = StyleSheet.create({
         
       },
       imagen:{
+        flex:0.8,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '85%'
       },
-      labelstyle:{
-          color:'black',
-          textAlign:'center'
-      },
       colores:{
         fontSize:20,
-        
-
-    },
+        backgroundColor:'black'
+        },
     input: {
-        borderWidth: 1,
-        borderColor: 'black'
+      backgroundColor:'black',
+      borderRadius:10,
+      opacity:0.5
+      },
+      clearButton:{
+        color:'black'
+      },
+      colorInput:{
+        color:'white'
       }
+   
   });
   

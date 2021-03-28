@@ -1,44 +1,50 @@
 import React from 'react';
-import { Container, Content, Form, Item, Input, Label,Button,Text } from 'native-base';
-import {View,Alert,Image } from 'react-native';
+import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
+import {Button,Input,Card,Image} from 'react-native-elements'
+
 import {styles} from './SignInStyle'
 const signin = (props) => {
     
     return (
-        <Container style ={styles.container}>
-        <Content>
-          <Form style={styles.formStyle}>
-            <Item floatingLabel last rounded style={styles.itemStyle}>
-              <Label style={styles.labelstyle}>Nombre</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last rounded style={styles.itemStyle}>
-              <Label style={styles.labelstyle}>Apellido</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last rounded style={styles.itemStyle}>
-              <Label style={styles.labelstyle}>Email</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last rounded style={styles.itemStyle}>
-              <Label style={styles.labelstyle}>Contraseña</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last rounded style={styles.itemStyle}>
-              <Label style={styles.labelstyle}>Repetir contraseña</Label>
-              <Input />
-            </Item>
-          </Form>
+        <SafeAreaView style ={styles.container}>
+        
+        <Card containerStyle={styles.input}>
+          <Input
+          label='Nombre'
+          placeholder='juan'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Apellido'
+          placeholder='rodriguez'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Email'
+          placeholder='juanrodriguez@adress.com'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Contraseña'
+          placeholder='*********'
+          inputStyle={styles.colorInput}
+          />
+          <Input
+          label='Repetir contraseña'
+          placeholder='*********'
+          inputStyle={styles.colorInput}
+          />
+        </Card>
           <View style={styles.fixToText}>
         
-        <Button dark rounded
+        <Button 
+        title='Registrate'
+        buttonStyle={styles.colores}
           onPress={() => {
              Alert.alert("Usuario creado")  
              return setTimeout(()=>props.navigation.popToTop(),1000) }}
              >
-                 <Text style ={styles.colores}>
-                     Registrate
-                 </Text>
+                 
           </Button>
       </View>
       <View style={styles.imagen}>
@@ -49,8 +55,8 @@ const signin = (props) => {
         }}
         />
         </View>
-        </Content>
-      </Container>
+        
+      </SafeAreaView>
     );
 };
 

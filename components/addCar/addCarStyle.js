@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '50%'
+        height: '40%'
       },
       labelstyle:{
         color:'black',

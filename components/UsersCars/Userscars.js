@@ -6,7 +6,7 @@ const Userscars = (props) => {
     return (
         <Container style ={styles.container}>
         <View>
-          <Card /* style={styles.cardStyle} */ style={styles.card2Style} >
+          <Card style={styles.card2Style} >
             <CardItem thumbnail style={styles.cardStyle}>
               <Left>
               <Text style ={styles.colores}>AB 123 CD </Text>

@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '50%'
+        height: '35%'
       },
       labelstyle:{
         color:'black',
@@ -41,9 +41,17 @@ export const styles = StyleSheet.create({
         borderColor: 'black'
     },
     colores:{
-        fontSize:20,
-        marginLeft:10
-
-    },
+      fontSize:20,
+      backgroundColor:'black'
+      },
+    input: {
+      backgroundColor:'black',
+      borderRadius:10,
+      opacity:0.5,
+      marginTop:30
+      },
+      colorInput:{
+        color:'white'
+      }
    
   });

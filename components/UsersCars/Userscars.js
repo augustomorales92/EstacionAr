@@ -1,40 +1,54 @@
 import React from 'react';
-import { Container,  Text, Left, Body, Right, Button,Card, CardItem,Icon } from 'native-base';
-import{View,Alert} from 'react-native'
+import {View,SafeAreaView,Text} from 'react-native';
+import {Button,Card,CheckBox} from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {styles} from './UsersCarsStyle'
 const Userscars = (props) => {
     return (
-        <Container style ={styles.container}>
-        <View>
-          <Card style={styles.card2Style} >
-            <CardItem thumbnail style={styles.cardStyle}>
-              <Left>
-              <Text style ={styles.colores}>AB 123 CD </Text>
-              </Left>
-              <Body >
-                <Text style ={styles.colores}>Chevrolet</Text>
-                <Text note numberOfLines={1} style ={styles.colores}>Corsita</Text>
-              </Body>
-              <Right>
-                <Button dark rounded >
-                  <Text style ={styles.colores}>Editar</Text>
-                </Button>
-              </Right>
-            </CardItem>
-          </Card>
-        </View>
+        <SafeAreaView style ={styles.container}>
+        
+          <Card containerStyle={styles.input} >
+            <Card.Title style={styles.titulo}>SU VEHICULO</Card.Title>
+            <Card.Divider/>
+            <View style={{flexDirection:'row'}}>
+            
+            <Text style ={styles.texto}>AB 123 CD {"\n"} Corsita</Text>
+              <View style={styles.buttonPositions}>
+              <CheckBox
+                title='Seleccionar'
+                checkedColor='white'
+                checked={true}
+                containerStyle={styles.cardButton}
+                textStyle={styles.colorText}
+              />
+             
+              <CheckBox
+                title='Editar'
+                uncheckedIcon='edit'
+                uncheckedColor='white'
+                containerStyle={styles.cardButton}
+                textStyle={styles.colorText}
+              />
+                </View>
+                </View>
+            </Card>
+        
         <View style={styles.fixToText}>
         
-        <Button rounded dark
+        <Button 
+        title='Estacionar'
+        buttonStyle={styles.button}
+        icon={
+          <Icon name='car' color='white' style={{marginRight:10}}/>
+        }
           onPress={() => {
              /* Alert.alert("Auto estacionado")  */ 
                return setTimeout(()=>props.navigation.navigate('estacionar'),1000)   }}
           >
-              <Icon name='car' />
-              <Text style ={styles.colores}>Estacionar</Text>
+              
               </Button>
       </View>
-      </Container>
+      </SafeAreaView>
     );
 };
 

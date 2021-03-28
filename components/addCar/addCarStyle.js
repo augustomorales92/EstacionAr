@@ -28,18 +28,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         height: '40%'
       },
-      labelstyle:{
-        color:'black',
-        textAlign:'center'
-    },
-    formStyle:{
-        margin:20
-    },
-    itemStyle:{
-        marginTop: 20,
-        borderWidth: 1,
-        borderColor: 'black'
-    },
+      
+    input: {
+      backgroundColor:'black',
+      borderRadius:10,
+      opacity:0.5,
+      marginTop:30
+      },
     texto:{
         fontSize: 30,
         fontWeight: "bold",
@@ -51,9 +46,11 @@ export const styles = StyleSheet.create({
 
     },
     colores:{
-        fontSize:20,
-        
-
-    }
+      fontSize:20,
+      backgroundColor:'black'
+      },
+        colorInput:{
+          color:'white'
+        }
   });
   

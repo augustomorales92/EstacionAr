@@ -1,11 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
 import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
 
+import firebase from '../../back/db/firebase'
 
 
 const Login = (props) => {
+
+  const [input, setInput] = useState({
+    email: '',
+    password: ''
+  })
+  const [user, setUser] = useState({});
+
+  firebase.auth.onAuthStateChanged((loggedUser) => {
+    if (loggedUser) {
+        setUser(loggedUser);
+    }
+  
+    console.log('USER', user)
+    console.log('USER ID', user.uid)
+    
+  });
+
+  
+  const loginUser = () => {
+    const {email, password} = input
+    firebase.auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      alert('Usuario logeado')
+      props.navigation.navigate("sin autos")
+    })
+    .catch(error => alert ('Logeo incorrecto', error.message))
+  }
+
+  const handleChangeText = (name, value) => {
+    setInput({...input, [name]: value})
+  }
 
      return (
       <SafeAreaView style={styles.container}>
@@ -22,11 +54,14 @@ const Login = (props) => {
           label='Email'
           placeholder='email@adress.com'
           inputStyle={styles.colorInput}
+          onChangeText={(value)=> handleChangeText('email', value)}
           />
           <Input
           label='Contraseña'
           placeholder='password'
+          type='password'
           inputStyle={styles.colorInput}
+          onChangeText={(value)=> handleChangeText('password', value)}
           />
         </Card>
            
@@ -42,7 +77,9 @@ const Login = (props) => {
              <Button
              buttonStyle={styles.colores}
                title='Iniciar sesion'
-               onPress={() => props.navigation.navigate("sin autos")}
+               onPress={() => {
+                loginUser();
+              }}
              >
                
              </Button>

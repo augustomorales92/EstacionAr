@@ -5,8 +5,13 @@ import {styles} from './LoginStyle'
 
 import firebase from '../../back/db/firebase'
 
+//importo useSelector y dispatch
+import {userSelector, useDispatch} from 'react-redux'
+//importamos la funcion para guardar el newUser
+import {logUser} from "../../redux/reducer/userReducer"
 
 const Login = (props) => {
+  const dispatch = useDispatch()
 
   const [input, setInput] = useState({
     email: '',
@@ -14,25 +19,21 @@ const Login = (props) => {
   })
   const [user, setUser] = useState({});
 
-  firebase.auth.onAuthStateChanged((loggedUser) => {
-    if (loggedUser) {
-        setUser(loggedUser);
-    }
-  
-    console.log('USER', user)
-    console.log('USER ID', user.uid)
-    
-  });
+  // firebase.auth.onAuthStateChanged((loggedUser) => {
+  //   if (loggedUser) {
+  //       setUser(loggedUser);
+  //   }
+  //   console.log('USER', user)
+  //   console.log('USER ID', user.uid)
+  // });
 
-  
   const loginUser = () => {
     const {email, password} = input
-    firebase.auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      alert('Usuario logeado')
-      props.navigation.navigate("sin autos")
-    })
-    .catch(error => alert ('Logeo incorrecto', error.message))
+    dispatch(logUser(email, password))
+    .then(props.navigation.navigate("autos"))
+    // firebase.auth.signInWithEmailAndPassword(email, password)
+    // .then((cred) => console.log('---->', cred))
+    // .catch(error => alert ('Logeo incorrecto', error.message))  
   }
 
   const handleChangeText = (name, value) => {

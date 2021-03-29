@@ -54,7 +54,7 @@ return (
 
     <Card containerStyle={styles.input}>
       <View style={{ flexDirection: "row" }}>
-        <Text style={styles.colores}>Libre</Text>
+        <Text style={styles.colores}> Libre</Text>
 
         <Button
           buttonStyle={styles.button}

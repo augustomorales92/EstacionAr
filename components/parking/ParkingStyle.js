@@ -28,7 +28,8 @@ export const styles = StyleSheet.create({
     },
     button:{
         borderRadius:100,
-        marginLeft:220
+        marginLeft:220,
+        backgroundColor:'black'
     },
   input: {
       borderWidth: 1,

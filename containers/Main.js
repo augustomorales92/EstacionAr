@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from '../components/login/Login'
-import Signin from '../components/SignIn/Signin'
+import SignUp from '../components/SignUp/SignUp'
 import Addcar from '../components/addCar/Addcar'
 import Userscars from '../components/UsersCars/Userscars'
 import Nocars from '../components/Nocars/Nocars'
@@ -19,7 +19,7 @@ const Main = () => {
         /* screenOptions={{headerShown: false}} */
         >
             <Stack.Screen name='Iniciar Sesion' component={Login} />
-            <Stack.Screen name='Registrate' component={Signin} />
+            <Stack.Screen name='Registrate' component={SignUp} />
             <Stack.Screen name='sin autos' component={Nocars} />
             <Stack.Screen name='agregar un auto' component={Addcar} />
             <Stack.Screen name='autos' component={Userscars} />

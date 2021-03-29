@@ -1,23 +1,14 @@
-import React   from "react";
+import React from "react";
 import { format } from "./format";
-import { Container,  Text} from 'native-base';
-import {styles} from './clockStyle'
+import { styles } from "./clockStyle";
+import { SafeAreaView, Text } from "react-native";
 
-
-
-export default ({time}) => {
-
-
-  
+export default ({ time }) => {
   return (
-      <Container style={styles.container}>
-          
-              <Text style={styles.clock}>
-              {format(time)}
-              </Text>
-         
-      </Container>
-  
- 
-)
-}
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.clock}>{format(time)}</Text>
+      </View>
+    </SafeAreaView>
+  );
+};

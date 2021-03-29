@@ -7,6 +7,7 @@ import Addcar from '../components/addCar/Addcar'
 import Userscars from '../components/UsersCars/Userscars'
 import Nocars from '../components/Nocars/Nocars'
 import Parking from '../components/parking/Parking'
+import Home from "../components/home/Home"
 
 const Stack = createStackNavigator()
 
@@ -16,8 +17,9 @@ const Main = () => {
     return (
         
         <Stack.Navigator  
-        /* screenOptions={{headerShown: false}} */
-        >
+        screenOptions={{headerShown: false}}
+        >   
+            <Stack.Screen name='Inicio' component={Home} />
             <Stack.Screen name='Iniciar Sesion' component={Login} />
             <Stack.Screen name='Registrate' component={Signin} />
             <Stack.Screen name='sin autos' component={Nocars} />

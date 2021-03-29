@@ -3,6 +3,7 @@ import { format } from "./format";
 import { SafeAreaView, Text, View } from "react-native";
 import { styles } from "./clockStyle";
 
+
 export default ({ time }) => {
   return (
     <SafeAreaView style={styles.container}>

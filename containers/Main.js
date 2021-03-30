@@ -1,38 +1,30 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import Login from '../components/login/Login'
-import Signin from '../components/SignIn/Signin'
-import Addcar from '../components/addCar/Addcar'
-import Userscars from '../components/UsersCars/Userscars'
-import Nocars from '../components/Nocars/Nocars'
-import Parking from '../components/parking/Parking'
-import Home from "../components/home/Home"
-import Timer from "../components/timer/Timer"
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import {UsersCarsContainer} from './UsersCarsContainer'
+import {ParkingContainer} from './ParkingContainer'
+import {HomeContainer} from './HomeContainer'
+import {AddCarContainer} from './AddCarContainer'
+import Login from '../components/login/Login';
+import { getUserLogged } from "../redux/reducer/userReducer";
+import { useDispatch } from "react-redux";
 
-const Stack = createStackNavigator()
-
-
-
+const Drawer = createDrawerNavigator();
 const Main = () => {
-    return (
-        
-        <Stack.Navigator  
-        screenOptions={{headerShown: false}}
-        >   
-            <Stack.Screen name='Timer' component={Timer} />
-            <Stack.Screen name='Inicio' component={Home} />
-            <Stack.Screen name='Iniciar Sesion' component={Login} />
-            <Stack.Screen name='Registrate' component={Signin} />
-            <Stack.Screen name='sin autos' component={Nocars} />
-            <Stack.Screen name='agregar un auto' component={Addcar} />
-            <Stack.Screen name='autos' component={Userscars} />
-            <Stack.Screen name='estacionar' component={Parking} />
+  const dispatch = useDispatch();
 
-         </Stack.Navigator>
- 
-    );
+  useEffect(() => {
+    getUserLogged(dispatch)
+  }, []);
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="home" component={HomeContainer} />
+      <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
+      <Drawer.Screen name="autos" component={UsersCarsContainer} />
+      <Drawer.Screen name="estacionar" component={ParkingContainer} />
+      <Drawer.Screen name="Salir" component={Login} />
+    </Drawer.Navigator>
+  );
 };
 
 export default Main;
-

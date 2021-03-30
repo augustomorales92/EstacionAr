@@ -1,19 +1,16 @@
 import React from "react";
 import { styles } from "./HomeStyle";
-import { View, SafeAreaView } from "react-native";
-import { Button, Card, Header, Text } from "react-native-elements";
-//import MapView from 'react-native-maps';
+import { View } from "react-native";
+import { Button, Card, Text } from "react-native-elements";
+import {useNavigation} from '@react-navigation/native'
+
 
 const Home = () => {
+  const navigation = useNavigation()
+
   return (
     <SafeAreaView>
     <View>
-      <Header
-        placement="left"
-        containerStyle={styles.headerStyle}
-        leftComponent={{ icon: "menu", color: "#fff" }}
-        centerComponent={{ text: "EstacionAr", style: { color: "#fff" }}}
-      />
       <View style={{ marginHorizontal: 15, marginVertical: 10}}>
         <Card containerStyle={styles.card}>
             <View style={{flexDirection: "row", justifyContent: "space-around", marginBottom:10}}>

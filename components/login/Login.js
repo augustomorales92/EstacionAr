@@ -1,11 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
 import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
+import {useNavigation} from '@react-navigation/native'
 
+import firebase from '../../back/db/firebase'
 
+//importo useSelector y dispatch
+import {userSelector, useDispatch} from 'react-redux'
+//importamos la funcion para guardar el newUser
+import {logUser} from "../../redux/reducer/userReducer"
 
 const Login = (props) => {
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
+  const [input, setInput] = useState({
+    email: '',
+    password: ''
+  })
+  const [user, setUser] = useState({});
+
+  // firebase.auth.onAuthStateChanged((loggedUser) => {
+  //   if (loggedUser) {
+  //       setUser(loggedUser);
+  //   }
+  //   console.log('USER', user)
+  //   console.log('USER ID', user.uid)
+  // });
+
+  const loginUser = () => {
+    const {email, password} = input
+    dispatch(logUser({email, password}))
+    .then(navigation.navigate("drawer"))
+    // firebase.auth.signInWithEmailAndPassword(email, password)
+    // .then((cred) => console.log('---->', cred))
+    // .catch(error => alert ('Logeo incorrecto', error.message))  
+  }
+
+  const handleChangeText = (name, value) => {
+    setInput({...input, [name]: value})
+  }
 
      return (
       <SafeAreaView style={styles.container}>
@@ -22,11 +56,14 @@ const Login = (props) => {
           label='Email'
           placeholder='email@adress.com'
           inputStyle={styles.colorInput}
+          onChangeText={(value)=> handleChangeText('email', value)}
           />
           <Input
           label='Contraseña'
           placeholder='password'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
+          onChangeText={(value)=> handleChangeText('password', value)}
           />
         </Card>
            
@@ -42,7 +79,9 @@ const Login = (props) => {
              <Button
              buttonStyle={styles.colores}
                title='Iniciar sesion'
-               onPress={() => props.navigation.navigate("sin autos")}
+               onPress={() => {
+                loginUser();
+              }}
              >
                
              </Button>
@@ -52,7 +91,7 @@ const Login = (props) => {
              type='clear'
               title='¿No tenes cuenta? Registrate!'
               titleStyle={styles.clearButton}
-               onPress={() => props.navigation.navigate("Registrate")}
+               onPress={() => navigation.navigate("Registrate")}
              >
                
              </Button>

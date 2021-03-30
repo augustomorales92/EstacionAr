@@ -8,6 +8,7 @@ export default ({ time }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
+        
         <Text style={styles.clock}>{format(time)}</Text>
       </View>
     </SafeAreaView>

@@ -1,7 +1,8 @@
 import React from "react";
 import { format } from "./format";
+import { SafeAreaView, Text, View } from "react-native";
 import { styles } from "./clockStyle";
-import { SafeAreaView, Text } from "react-native";
+
 
 export default ({ time }) => {
   return (

@@ -1,37 +1,29 @@
 import React, { useEffect } from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import Login from "../components/login/Login";
-import SignUp from "../components/SignUp/SignUp";
-import Addcar from "../components/addCar/Addcar";
-import Userscars from "../components/UsersCars/Userscars";
-import Nocars from "../components/Nocars/Nocars";
-import Parking from "../components/parking/Parking";
-
-const Stack = createStackNavigator();
-
-//importamos getUserLogged
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import {UsersCarsContainer} from './UsersCarsContainer'
+import {ParkingContainer} from './ParkingContainer'
+import {HomeContainer} from './HomeContainer'
+import {AddCarContainer} from './AddCarContainer'
+import Login from '../components/login/Login';
 import { getUserLogged } from "../redux/reducer/userReducer";
 import { useDispatch } from "react-redux";
 
+const Drawer = createDrawerNavigator();
 const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     getUserLogged(dispatch)
   }, []);
-
   return (
-    <Stack.Navigator
-    /* screenOptions={{headerShown: false}} */
-    >
-      <Stack.Screen name="Iniciar Sesion" component={Login} />
-      <Stack.Screen name="Registrate" component={SignUp} />
-      <Stack.Screen name="sin autos" component={Nocars} />
-      <Stack.Screen name="agregar un auto" component={Addcar} />
-      <Stack.Screen name="autos" component={Userscars} />
-      <Stack.Screen name="estacionar" component={Parking} />
-    </Stack.Navigator>
+    <Drawer.Navigator>
+      <Drawer.Screen name="home" component={HomeContainer} />
+      <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
+      <Drawer.Screen name="autos" component={UsersCarsContainer} />
+      <Drawer.Screen name="estacionar" component={ParkingContainer} />
+      <Drawer.Screen name="Salir" component={Login} />
+    </Drawer.Navigator>
   );
 };
 

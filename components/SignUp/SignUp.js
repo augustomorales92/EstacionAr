@@ -79,7 +79,7 @@ const SignUp = (props) => {
         <Input
           label='Contraseña'
           name='password'
-          type='password'
+          secureTextEntry={true}
           placeholder='*********'
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password', value)}
@@ -87,6 +87,7 @@ const SignUp = (props) => {
         <Input
           label='Repetir contraseña'
           placeholder='*********'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password2', value)}
         />

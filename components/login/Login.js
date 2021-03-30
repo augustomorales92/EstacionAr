@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
 import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
+import {useNavigation} from '@react-navigation/native'
 
 import firebase from '../../back/db/firebase'
 
@@ -12,7 +13,7 @@ import {logUser} from "../../redux/reducer/userReducer"
 
 const Login = (props) => {
   const dispatch = useDispatch()
-
+  const navigation = useNavigation()
   const [input, setInput] = useState({
     email: '',
     password: ''
@@ -30,7 +31,7 @@ const Login = (props) => {
   const loginUser = () => {
     const {email, password} = input
     dispatch(logUser({email, password}))
-    .then(props.navigation.navigate("autos"))
+    .then(navigation.navigate("drawer"))
     // firebase.auth.signInWithEmailAndPassword(email, password)
     // .then((cred) => console.log('---->', cred))
     // .catch(error => alert ('Logeo incorrecto', error.message))  
@@ -60,7 +61,7 @@ const Login = (props) => {
           <Input
           label='Contraseña'
           placeholder='password'
-          type='password'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password', value)}
           />
@@ -90,7 +91,7 @@ const Login = (props) => {
              type='clear'
               title='¿No tenes cuenta? Registrate!'
               titleStyle={styles.clearButton}
-               onPress={() => props.navigation.navigate("Registrate")}
+               onPress={() => navigation.navigate("Registrate")}
              >
                
              </Button>

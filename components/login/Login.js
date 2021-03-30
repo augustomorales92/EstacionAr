@@ -29,7 +29,7 @@ const Login = (props) => {
 
   const loginUser = () => {
     const {email, password} = input
-    dispatch(logUser(email, password))
+    dispatch(logUser({email, password}))
     .then(props.navigation.navigate("autos"))
     // firebase.auth.signInWithEmailAndPassword(email, password)
     // .then((cred) => console.log('---->', cred))

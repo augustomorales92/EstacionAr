@@ -18,7 +18,7 @@ const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserLogged());
+    getUserLogged(dispatch)
   }, []);
 
   return (

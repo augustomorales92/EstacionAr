@@ -1,29 +1,41 @@
-import { createReducer, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import {
+  createReducer,
+  createAsyncThunk,
+  createAction,
+} from "@reduxjs/toolkit";
+
 //importamos Firebase
 import firebase from "../../back/db/firebase";
 
 const initialState = {
   user: {},
   allUsers: [],
-  logUser:{},
 };
-export const getUserLogged = createAction("userLogged", () => {
-  return   firebase.auth.onAuthStateChanged((loggedUser) => {
+
+export const setUserLogged = createAction('userLogged') 
+
+export const getUserLogged = (dispatch) => {
+  firebase.auth.onAuthStateChanged((loggedUser) => {
     if (loggedUser) {
-       console.log(loggedUser.uid);
-       return loggedUser.uid
+      dispatch(setUserLogged({email: loggedUser.email ,uid: loggedUser.uid}))
+      console.log(loggedUser.uid);
     }
   });
-});
+}
 
-export const logUser = createAsyncThunk("logUser", (email, password) => {
-  return firebase.auth.signInWithEmailAndPassword(email, password)
-  .then((cred) => console.log('---->', cred))
-  .catch(error => alert ('Logeo incorrecto', error.message))
+
+export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
+  return firebase.auth
+    .signInWithEmailAndPassword(email, password)
+    .then((cred) => ({ email: cred.user.email, uid: cred.user.uid }))
+    .catch((error) => alert("Logeo incorrecto", error.message));
 });
 
 export const userReducer = createReducer(initialState, {
-  [getUserLogged]: (state, action) => {
-    return state.user = action.payload;
+  [logUser.fulfilled]: (state, action) => {
+    return { ...state, user: action.payload };
+  },
+  [setUserLogged]: (state, action) => {
+    return { ...state, user: action.payload };
   },
 });

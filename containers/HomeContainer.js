@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from '../components/login/Login'
-import Signin from '../components/SignIn/Signin'
+import SignUp from "../components/SignUp/SignUp"
 import Home from "../components/home/Home"
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button} from 'react-native-elements'
@@ -34,7 +34,7 @@ export const HomeContainer = () => {
 
       <Stack.Screen
         name="Registrate"
-        component={Signin}
+        component={SignUp}
         options={{
           title: "",
           headerStyle: {

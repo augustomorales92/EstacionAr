@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View,Alert,SafeAreaView,Text} from 'react-native';
 import {Button,Card} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {styles} from './NocarsStyle'
+import firebase from '../../back/db/firebase'
+
 const Nocars = (props) => {
+
+
+
     return (
         <SafeAreaView style ={styles.container}>
         <View>

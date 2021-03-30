@@ -1,17 +1,15 @@
 import React from "react";
 import { styles } from "./HomeStyle";
 import { View } from "react-native";
-import { Button, Card, Header, Text } from "react-native-elements";
+import { Button, Card, Text } from "react-native-elements";
+import {useNavigation} from '@react-navigation/native'
+
 
 const Home = () => {
+  const navigation = useNavigation()
+
   return (
     <View>
-      <Header
-        placement="left"
-        containerStyle={styles.headerStyle}
-        leftComponent={{ icon: "menu", color: "#fff" }}
-        centerComponent={{ text: "EstacionAr", style: { color: "#fff" }}}
-      />
 
       <View style={{ marginHorizontal: 15, marginVertical: 10}}>
         <Card containerStyle={styles.card}>

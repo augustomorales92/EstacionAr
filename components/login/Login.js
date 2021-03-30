@@ -2,12 +2,14 @@ import React from 'react';
 import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
 import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
+import {useNavigation} from '@react-navigation/native'
 
 
+const Login = () => {
 
-const Login = (props) => {
-
-     return (
+  const navigation = useNavigation()
+     
+return (
       <SafeAreaView style={styles.container}>
            <View style={styles.imagen}>
              <Image
@@ -26,6 +28,7 @@ const Login = (props) => {
           <Input
           label='Contraseña'
           placeholder='password'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
           />
         </Card>
@@ -42,7 +45,7 @@ const Login = (props) => {
              <Button
              buttonStyle={styles.colores}
                title='Iniciar sesion'
-               onPress={() => props.navigation.navigate("sin autos")}
+               onPress={() => navigation.navigate("drawer")}
              >
                
              </Button>
@@ -52,7 +55,7 @@ const Login = (props) => {
              type='clear'
               title='¿No tenes cuenta? Registrate!'
               titleStyle={styles.clearButton}
-               onPress={() => props.navigation.navigate("Registrate")}
+               onPress={() => navigation.navigate("Registrate")}
              >
                
              </Button>

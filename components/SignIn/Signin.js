@@ -27,11 +27,13 @@ const signin = (props) => {
           <Input
           label='Contraseña'
           placeholder='*********'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
           />
           <Input
           label='Repetir contraseña'
           placeholder='*********'
+          secureTextEntry={true}
           inputStyle={styles.colorInput}
           />
         </Card>

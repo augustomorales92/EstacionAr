@@ -8,6 +8,7 @@ import Userscars from '../components/UsersCars/Userscars'
 import Nocars from '../components/Nocars/Nocars'
 import Parking from '../components/parking/Parking'
 import Home from "../components/home/Home"
+import Timer from "../components/timer/Timer"
 
 const Stack = createStackNavigator()
 
@@ -19,6 +20,7 @@ const Main = () => {
         <Stack.Navigator  
         screenOptions={{headerShown: false}}
         >   
+            <Stack.Screen name='Timer' component={Timer} />
             <Stack.Screen name='Inicio' component={Home} />
             <Stack.Screen name='Iniciar Sesion' component={Login} />
             <Stack.Screen name='Registrate' component={Signin} />

@@ -1,10 +1,12 @@
 import React from "react";
 import { styles } from "./HomeStyle";
-import { View } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import { Button, Card, Header, Text } from "react-native-elements";
+//import MapView from 'react-native-maps';
 
 const Home = () => {
   return (
+    <SafeAreaView>
     <View>
       <Header
         placement="left"
@@ -12,7 +14,6 @@ const Home = () => {
         leftComponent={{ icon: "menu", color: "#fff" }}
         centerComponent={{ text: "EstacionAr", style: { color: "#fff" }}}
       />
-
       <View style={{ marginHorizontal: 15, marginVertical: 10}}>
         <Card containerStyle={styles.card}>
             <View style={{flexDirection: "row", justifyContent: "space-around", marginBottom:10}}>
@@ -49,8 +50,8 @@ const Home = () => {
             </View>
         </Card>
       </View>
-      {/* <Card><MapView style={styles.map}/></Card> */}
     </View>
+    </SafeAreaView>
   );
 };
 

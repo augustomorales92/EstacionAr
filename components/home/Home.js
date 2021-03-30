@@ -10,6 +10,7 @@ const Home = () => {
 
   return (
     <View>
+
       <View style={{ marginHorizontal: 15, marginVertical: 10}}>
         <Card containerStyle={styles.card}>
             <View style={{flexDirection: "row", justifyContent: "space-around", marginBottom:10}}>

@@ -12,9 +12,7 @@ const Stack = createStackNavigator();
 
 export const HomeContainer = () => {
   let userInTheApp = useSelector((state) => state.userReducer);
-
-  console.log('----user---->', userInTheApp.user);
-  
+    
   return (
     <Stack.Navigator>
       {!userInTheApp.user ? (

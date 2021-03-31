@@ -5,11 +5,9 @@ import {styles} from './LoginStyle'
 import {useNavigation} from '@react-navigation/native'
 
 //importo useSelector y dispatch
-import {useDispatch, useSelector } from 'react-redux'
+import {useDispatch } from 'react-redux'
 //importamos la funcion para guardar el newUser
 import {logUser} from "../../redux/reducer/userReducer"
-//importamos firebase
-import firebase from "../../back/db/firebase"
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { styles } from "./HomeStyle";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native'
 
 const Home = () => {
   const navigation = useNavigation()
+
 
   return (
     <View>
@@ -43,6 +44,7 @@ const Home = () => {
             onPress={() => alert("boton estacionar presionado!")}
           >
           </Button>
+
             </View>
             </View>
         </Card>

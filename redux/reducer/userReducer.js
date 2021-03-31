@@ -8,31 +8,42 @@ import {
 import firebase from "../../back/db/firebase";
 
 const initialState = {
-  user: {},
-  allUsers: [],
+  user: null,
 };
 
-export const setUserLogged = createAction('userLogged') 
+export const setUserLogged = createAction("userLogged");
 
 export const getUserLogged = (dispatch) => {
   firebase.auth.onAuthStateChanged((loggedUser) => {
     if (loggedUser) {
-      dispatch(setUserLogged({email: loggedUser.email ,uid: loggedUser.uid}))
-      console.log(loggedUser.uid);
+      dispatch(setUserLogged(loggedUser.uid));
     }
   });
-}
+};
 
+export const signOutUser = createAsyncThunk("signOut", () => {
+  return firebase.auth
+    .signOut()
+    .then(() => {
+      console.log("sali");
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
+});
 
 export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
   return firebase.auth
     .signInWithEmailAndPassword(email, password)
-    .then((cred) => ({ email: cred.user.email, uid: cred.user.uid }))
+    .then((cred) => (cred.user.uid))
     .catch((error) => alert("Logeo incorrecto", error.message));
 });
 
 export const userReducer = createReducer(initialState, {
   [logUser.fulfilled]: (state, action) => {
+    return { ...state, user: action.payload };
+  },
+  [signOutUser.fulfilled]: (state, action) => {
     return { ...state, user: action.payload };
   },
   [setUserLogged]: (state, action) => {

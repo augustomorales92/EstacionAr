@@ -58,7 +58,7 @@ export const HomeContainer = () => {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerRight: () => (
+            headerLeft: () => (
               <Button
                 type="clear"
                 icon={

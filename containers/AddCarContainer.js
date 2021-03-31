@@ -27,7 +27,7 @@ export const AddCarContainer = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
-          headerRight: () => (
+          headerLeft: () => (
             <Button
               type="clear"
               icon={

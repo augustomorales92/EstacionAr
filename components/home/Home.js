@@ -1,16 +1,17 @@
 import React, {useEffect} from "react";
 import { styles } from "./HomeStyle";
-import { View } from "react-native";
+import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
+import MapView , { Marker }from 'react-native-maps';
 
 
-const Home = () => {
+const Home = ({position}) => {
   const navigation = useNavigation()
 
 
   return (
-    <View>
+    <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
 
       <View style={{ marginHorizontal: 15, marginVertical: 10}}>
         <Card containerStyle={styles.card}>
@@ -34,6 +35,7 @@ const Home = () => {
             <View style={{flexDirection: "row", justifyContent: "space-around"}}>
             <View>
           <Text h4>Su vehiculo </Text>
+          <Card.Divider style={{color:'black'}}/>
           <Text>AAA 123 BB</Text>
           <Text>Corsita</Text>
             </View>
@@ -49,9 +51,27 @@ const Home = () => {
             </View>
         </Card>
       </View>
-      {/* <Card><MapView style={styles.map}/></Card> */}
+      <View style={{ marginHorizontal: 15 }}>
+
+       <Card containerStyle={styles.card}>
+         
+      <MapView
+      initialRegion={{
+        latitude: -26.8248387,
+        longitude: -65.2050432,
+        longitudeDelta: 0.09,
+        latitudeDelta: 0.05,
+      }}  
+      minZoomLevel={15}
+      style={styles.map} />
+  </Card>
     </View>
+    </SafeAreaView>
   );
 };
+
+
+
+
 
 export default Home;

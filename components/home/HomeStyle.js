@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet,Dimensions } from "react-native";
 
 export const styles = StyleSheet.create({
     headerStyle: {
@@ -14,8 +14,9 @@ export const styles = StyleSheet.create({
     button: {
       backgroundColor: "#353535",
     },
-    //   map: {
-    //     width: Dimensions.get('window').width,
-    //     height: Dimensions.get('window').height,
-    //   },
+      map: {
+        width: '100%',
+        height: 500,
+      },
+     
   });

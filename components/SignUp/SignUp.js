@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { View, Alert, SafeAreaView, ActivityIndicator } from 'react-native';
-import { Button,  Input, Card, Image } from 'react-native-elements'
+import { Button,  Input, Card, Image, Text } from 'react-native-elements'
+import { validateEmail, validatePassword } from "../../utils/validations"
 
 import { styles } from './SignUpStyle'
 import firebase from '../../back/db/firebase'
@@ -13,6 +14,13 @@ const SignUp = (props) => {
     email: '',
     password: ''
   })
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [errorPassword2, setErrorPassword2] = useState("");
+  const [isOkEmail, setIsOkEmail] = useState(false)
+  const [isOkPassword, setIsOkPassword] = useState(false)
+  const [isOkPassword2, setIsOkPassword2] = useState(false)
+  let isOk = false
 
 
   const saveNewUser = () => {
@@ -50,6 +58,36 @@ const SignUp = (props) => {
     setInput({...input, [name]: value})
   }
 
+  const onBlurValidateEmail = (e)=>{
+    if (validateEmail(e) !== false) {
+      setIsOkEmail(true)
+   } else {
+      setErrorEmail("ingresa un email valido")
+   }
+  }
+
+  const onBlurValidatePassword = (e)=>{
+    if (validatePassword(e) !== false) {
+       setIsOkPassword(true)
+    } else {
+      setErrorPassword("ingresa una contraseña de mas de 6 caracteres")
+    }
+  }
+
+  const onBlurValidatePassword2 = (e)=>{
+    if (validatePassword(e) !== false) {
+      setIsOkPassword2(true)
+    } else {
+      setErrorPassword2("ingresa una contraseña de mas de 6 caracteres")
+    }
+  }
+
+  const isOkFunction = () => {
+    if(isOkEmail && isOkPassword && isOkPassword2){
+      return isOk = true
+    }
+  }
+
   return (
 
     <SafeAreaView style={styles.container}>
@@ -75,6 +113,8 @@ const SignUp = (props) => {
           placeholder='juanrodriguez@adress.com'
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('email', value)}
+          onBlur={(e)=>{onBlurValidateEmail(e.nativeEvent.text)}}
+          errorMessage={!isOkEmail && errorEmail}
         />
         <Input
           label='Contraseña'
@@ -83,6 +123,8 @@ const SignUp = (props) => {
           placeholder='*********'
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password', value)}
+          onBlur={(e)=>{onBlurValidatePassword(e.nativeEvent.text)}}
+          errorMessage={!isOkPassword && errorPassword}
         />
         <Input
           label='Repetir contraseña'
@@ -90,20 +132,22 @@ const SignUp = (props) => {
           secureTextEntry={true}
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password2', value)}
+          onBlur={(e)=>{onBlurValidatePassword2(e.nativeEvent.text)}}
+          errorMessage={!isOkPassword2 && errorPassword2}
         />
       </Card>
       <View style={styles.fixToText}>
 
-        <Button
-          title='Registrate'
-          buttonStyle={styles.colores}
-          onPress={() => {
-            saveNewUser();
-            return setTimeout(() => props.navigation.popToTop(), 100)
-          }}
-        >
+      <Button
+              disabled={!isOkFunction()}
+              buttonStyle={styles.colores}
+              title='Iniciar sesion'
+              onPress={() => {
+                loginUser();
+              }}
+             >
+             </Button>
 
-        </Button>
       </View>
       <View style={styles.imagen}>
         <Image

@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import CustomDrawerContent from './drawerContainer/Drawer';
 import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';
 
+import Timer from "../components/timer/Timer"
+
 const Drawer = createDrawerNavigator();
 
 const Main = () => {

@@ -3,6 +3,7 @@ import {View,Alert,SafeAreaView,ActivityIndicator, Modal, StyleSheet, Text, Pres
 import {Button,Input,Card,Image} from 'react-native-elements'
 import {styles} from './LoginStyle'
 import {useNavigation} from '@react-navigation/native'
+import { validateEmail, validatePassword } from "../../utils/validations"
 
 //importo useSelector y dispatch
 import {useDispatch, useSelector } from 'react-redux'
@@ -10,7 +11,7 @@ import {useDispatch, useSelector } from 'react-redux'
 import {logUser} from "../../redux/reducer/userReducer"
 //importamos firebase
 import firebase from "../../back/db/firebase"
-import { set } from 'react-native-reanimated';
+
 
 
 
@@ -26,6 +27,11 @@ const Login = () => {
     password: ''
   })
   const [resetPassword, setResetPassword] = useState({recoveryEmail:''})
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [isOkEmail, setIsOkEmail] = useState(false)
+  const [isOkPassword, setIsOkPassword] = useState(false)
+  let isOk = false
 
   console.log('el error es mensaje este',message.split(':')[1])
 
@@ -44,6 +50,30 @@ const Login = () => {
     .catch(error => console.log('catch ----->',error))
     
   }
+
+  const onBlurValidateEmail = (e)=>{
+    if (validateEmail(e) !== false) {
+      setIsOkEmail(true)
+   } else {
+      setErrorEmail("ingresa un email valido")
+      setIsOkEmail(false)
+   }
+  }
+
+  const onBlurValidatePassword = (e)=>{
+    if (validatePassword(e) !== false) {
+       setIsOkPassword(true)
+    } else {
+      setErrorPassword("ingresa una contraseña de mas de 6 caracteres")
+      setIsOkPassword(false)
+    }
+  }
+
+  const isOkFunction = () => {
+    if(isOkEmail && isOkPassword){
+      return isOk = !isOk    }
+  }
+
   const handleChangeText = (name, value) => {
     setInput({...input, [name]: value})
     setResetPassword({...resetPassword,[name]:value})
@@ -79,7 +109,8 @@ const Login = () => {
           placeholder='email@adress.com'
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('email', value)}
-          
+          onBlur={(e)=>{onBlurValidateEmail(e.nativeEvent.text)}}
+          errorMessage={!isOkEmail && errorEmail}
           />
           <Input
           label='Contraseña'
@@ -87,8 +118,9 @@ const Login = () => {
           secureTextEntry={true}
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password', value)}
-          errorMessage={mistake && message}
           errorStyle={{fontSize:15}}
+          onBlur={(e)=>{onBlurValidatePassword(e.nativeEvent.text)}}
+          errorMessage={(!isOkPassword && errorPassword) || (mistake && message)}
           />
           
 
@@ -146,19 +178,22 @@ const Login = () => {
                 setModalVisible(!modalVisible)
                /*  Alert.alert("forgot password button pressed") */}}
              >
-               
              </Button>
-            
-             <Button
-             buttonStyle={styles.colores}
-               title='Iniciar sesion'
-               onPress={() => {
+
+             
+              <Button
+              disabled={!isOkFunction()}
+              buttonStyle={styles.colores}
+              title='Iniciar sesion'
+              onPress={() => {
                 loginUser();
               }}
              >
-               
              </Button>
             
+             
+
+
            </View>
            <View style={styles.signin}>
              <Button

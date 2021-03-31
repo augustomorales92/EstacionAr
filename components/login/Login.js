@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View,Alert,SafeAreaView,ActivityIndicator} from 'react-native';
-import {Button,Input,Card,Image} from 'react-native-elements'
+import {Button,Input,Card,Image,Text} from 'react-native-elements'
 import {styles} from './LoginStyle'
 import {useNavigation} from '@react-navigation/native'
+import { validateEmail, validatePassword } from "../../utils/validations"
 
 //importo useSelector y dispatch
 import {useDispatch, useSelector } from 'react-redux'
@@ -21,11 +22,38 @@ const Login = () => {
     email: '',
     password: ''
   })
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [isOkEmail, setIsOkEmail] = useState(false)
+  const [isOkPassword, setIsOkPassword] = useState(false)
+  let isOk = false
 
   const loginUser = () => {
     const {email, password} = input
     dispatch(logUser({email, password}))
     .then(()=>setTimeout(()=> navigation.navigate("drawer"),2000))
+  }
+
+  const onBlurValidateEmail = (e)=>{
+    if (validateEmail(e) !== false) {
+      setIsOkEmail(true)
+   } else {
+      setErrorEmail("ingresa un email valido")
+   }
+  }
+
+  const onBlurValidatePassword = (e)=>{
+    if (validatePassword(e) !== false) {
+       setIsOkPassword(true)
+    } else {
+      setErrorPassword("ingresa una contraseña de mas de 6 caracteres")
+    }
+  }
+
+  const isOkFunction = () => {
+    if(isOkEmail && isOkPassword){
+      return isOk = true
+    }
   }
 
   const handleChangeText = (name, value) => {
@@ -48,6 +76,8 @@ const Login = () => {
           placeholder='email@adress.com'
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('email', value)}
+          onBlur={(e)=>{onBlurValidateEmail(e.nativeEvent.text)}}
+          errorMessage={!isOkEmail && errorEmail}
           />
           <Input
           label='Contraseña'
@@ -55,9 +85,12 @@ const Login = () => {
           secureTextEntry={true}
           inputStyle={styles.colorInput}
           onChangeText={(value)=> handleChangeText('password', value)}
+          onBlur={(e)=>{onBlurValidatePassword(e.nativeEvent.text)}}
+          errorMessage={!isOkPassword && errorPassword}
           />
         </Card>
-           
+        
+        
            <View style={styles.fixToText}>
              <Button
                title='¿Olvidaste tu contraseña?'
@@ -65,17 +98,22 @@ const Login = () => {
                titleStyle={styles.clearButton}
                onPress={() => Alert.alert("forgot password button pressed")}
              >
-               
              </Button>
-             <Button
-             buttonStyle={styles.colores}
-               title='Iniciar sesion'
-               onPress={() => {
+
+             
+              <Button
+              disabled={!isOkFunction()}
+              buttonStyle={styles.colores}
+              title='Iniciar sesion'
+              onPress={() => {
                 loginUser();
               }}
              >
-               
              </Button>
+            
+             
+
+
            </View>
            <View style={styles.signin}>
              <Button

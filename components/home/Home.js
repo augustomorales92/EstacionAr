@@ -3,7 +3,7 @@ import { styles } from "./HomeStyle";
 import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
-import MapView , { Marker }from 'react-native-maps';
+// import MapView , { Marker }from 'react-native-maps';
 
 
 const Home = ({position}) => {
@@ -55,7 +55,7 @@ const Home = ({position}) => {
 
        <Card containerStyle={styles.card}>
          
-      <MapView
+      {/* <MapView
       initialRegion={{
         latitude: -26.8248387,
         longitude: -65.2050432,
@@ -63,7 +63,7 @@ const Home = ({position}) => {
         latitudeDelta: 0.05,
       }}  
       minZoomLevel={15}
-      style={styles.map} />
+      style={styles.map} /> */}
   </Card>
     </View>
     </SafeAreaView>

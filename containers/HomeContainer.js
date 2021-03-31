@@ -5,7 +5,6 @@ import SignUp from "../components/SignUp/SignUp"
 import Home from "../components/home/Home"
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button} from 'react-native-elements'
-import {View} from 'react-native'
 
 
 const Stack = createStackNavigator()

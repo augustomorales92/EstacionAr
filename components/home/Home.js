@@ -3,6 +3,7 @@ import { styles } from "./HomeStyle";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
+import MapView from 'react-native-maps';
 
 
 const Home = () => {
@@ -47,7 +48,13 @@ const Home = () => {
             </View>
         </Card>
       </View>
-      {/* <Card><MapView style={styles.map}/></Card> */}
+      <View style={{ marginHorizontal: 15 }}>
+
+       <Card containerStyle={styles.card}>
+         
+      <MapView style={styles.map} />
+  </Card>
+    </View>
     </View>
   );
 };

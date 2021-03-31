@@ -1,63 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, Text } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { Button, Card, CheckBox } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./UsersCarsStyle";
 import { useSelector, useDispatch } from "react-redux";
-import {getUserCars} from "../../redux/reducer/carReducer"
-//importamos Firebase
-import firebase from "../../back/db/firebase";
+import { getAllCars } from "../../redux/reducer/carReducer";
 
 const Userscars = (props) => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const userInTheApp = useSelector((state) => state.userReducer);
-  const [allUserCars, setAllUserCars] = useState([]);
-
-
+  const {allUserCars} = useSelector((state) => state.carReducer);
+  
   useEffect(() => {
-    firebase.db
-      .collection("users")
-      .where("id", "==", `${userInTheApp.user}`)
-      .get()
-      .then((querySnap) => {
-        querySnap.forEach((doc) => {
-          let cars = [];
-          const {marca, año, patente, modelo} = doc.data().cars
-          cars.push(doc.data().cars)
-          setAllUserCars(cars)
-        });
-      })
-      .catch((err) => console.log(err));
-    // dispatch(getUserCars(userInTheApp))
+    getAllCars(dispatch, userInTheApp.user)
   }, []);
-
-  console.log('-----ALLUSERCARS--->', allUserCars);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Card containerStyle={styles.input}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.texto}>AB 123 CD {"\n"} Corsita </Text>
-          <View style={styles.buttonPositions}>
-            <CheckBox
-              title="Seleccionar"
-              checkedColor="white"
-              checked={true}
-              containerStyle={styles.cardButton}
-              textStyle={styles.colorText}
-            />
+    <ScrollView style={styles.container}>
+      {allUserCars?.map((car) => (
+        <Card containerStyle={styles.input} key={car.patente}>
+          <Card.Title style={styles.titulo}>{car.modelo}</Card.Title>
+          <Card.Divider />
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={styles.texto}>
+              {car.patente} {"\n"} {car.marca}
+            </Text>
+            <View>
+              <CheckBox
+                title="Seleccionar"
+                checkedColor="white"
+                checked={true}
+                containerStyle={styles.cardButton}
+                textStyle={styles.colorText}
+              />
 
-            <CheckBox
-              title="Editar"
-              uncheckedIcon="edit"
-              uncheckedColor="white"
-              containerStyle={styles.cardButton}
-              textStyle={styles.colorText}
-            />
+              <CheckBox
+                title="Editar"
+                uncheckedIcon="edit"
+                uncheckedColor="white"
+                containerStyle={styles.cardButton}
+                textStyle={styles.colorText}
+              />
+            </View>
           </View>
-        </View>
-      </Card>)
-      
+        </Card>
+      ))}
 
       <View style={styles.fixToText}>
         <Button
@@ -73,7 +61,7 @@ const Userscars = (props) => {
           }}
         ></Button>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

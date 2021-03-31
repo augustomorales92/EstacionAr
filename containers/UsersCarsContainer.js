@@ -21,7 +21,7 @@ export const UsersCarsContainer = () => {
         options={({ navigation }) => ({
           title: "",
           headerStyle: {
-            backgroundColor: "#f4511e",
+            backgroundColor: "orange",
           },
           headerTintColor: "#fff",
           headerTitleStyle: {

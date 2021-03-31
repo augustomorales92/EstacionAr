@@ -22,9 +22,7 @@ export const HomeContainer = () => {
             component={Login}
             options={{
               title: "",
-              headerStyle: {
-                backgroundColor: "#f4511e",
-              },
+              headerTransparent: true
             }}
           />
 
@@ -34,7 +32,7 @@ export const HomeContainer = () => {
             options={{
               title: "",
               headerStyle: {
-                backgroundColor: "#f4511e",
+                backgroundColor: "orange",
               },
               headerTintColor: "#fff",
               headerTitleStyle: {
@@ -50,8 +48,9 @@ export const HomeContainer = () => {
           options={({ navigation }) => ({
             title: "",
             headerStyle: {
-              backgroundColor: "#f4511e",
+              backgroundColor: "black",
             },
+            
             headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",

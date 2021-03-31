@@ -56,7 +56,5 @@ export const styles = StyleSheet.create({
                 backgroundColor:'grey',
                 width:150
                 },
-            buttonPositions:{
-                marginLeft:80
-            }
+           
 })

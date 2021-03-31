@@ -24,8 +24,9 @@ return (
         inputStyle={styles.colorInput}
       />
     </Card>
+    <View style={{justifyContent:'space-around'}}>
     <Card containerStyle={styles.input}>
-      <View style={styles.fixToText}>
+      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
         <Text style={styles.colores}>Escanear QR</Text>
         <Button
           buttonStyle={styles.button}
@@ -37,11 +38,13 @@ return (
         ></Button>
       </View>
     </Card>
+    </View>
     <View style={styles.fixToText}>
       <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
     </View>
+    
     <Card containerStyle={styles.input}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row" , justifyContent:'space-between'}}>
         <Text style={styles.colores}>0.5hs</Text>
 
         <Button
@@ -51,9 +54,9 @@ return (
         ></Button>
       </View>
     </Card >
-
+  
     <Card containerStyle={styles.input}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", justifyContent:'space-between' }}>
         <Text style={styles.colores}> Libre</Text>
 
         <Button
@@ -91,7 +94,7 @@ return (
               </Button>
       </View> */}
     <Card containerStyle={styles.input2}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row",justifyContent:'space-between' }}>
         <Text style={styles.clock}>
           <Clock time={time} />
         </Text>

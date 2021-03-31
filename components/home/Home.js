@@ -3,13 +3,14 @@ import { styles } from "./HomeStyle";
 import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
-import MapView , { Marker }from 'react-native-maps';
+ import MapView , { Marker }from 'react-native-maps';
 
 
-const Home = ({position}) => {
+const Home = (props) => {
   const navigation = useNavigation()
 
-
+console.log('este es el id de la patente',props.route.params)
+const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
 
@@ -32,22 +33,53 @@ const Home = ({position}) => {
 
       <View style={{ marginHorizontal: 15 }}>
         <Card containerStyle={styles.card}>
+
             <View style={{flexDirection: "row", justifyContent: "space-around"}}>
-            <View>
-          <Text h4>Su vehiculo </Text>
-          <Card.Divider style={{color:'black'}}/>
-          <Text>AAA 123 BB</Text>
-          <Text>Corsita</Text>
+            <>
+              {vehiculo == undefined?
+              <>
+            <View style={{flexDirection: "column", alignItems: "center",justifyContent:'space-around'}}>
+          <Text h4>Seleccione un vehiculo </Text>
+
+          
             </View>
             <View style={{flexDirection: "row", alignItems: "center"}}>
           <Button
-            title="ESTACIONAR"
+            title="VEHICULOS"
             buttonStyle={styles.button}
-            onPress={() => alert("boton estacionar presionado!")}
-          >
+            onPress={() => props.navigation.navigate('autos')}
+            >
           </Button>
 
             </View>
+            </>
+            :
+            <>
+            <View style={{flexDirection: "column", alignItems: "center",justifyContent:'space-around'}}>
+            <Text h3>{vehiculo.modeloId} </Text>
+            <Card.Divider style={{color:'black'}}/>
+            <Text h4>{vehiculo.patenteId}</Text>
+            <Text h4>{vehiculo.marcaId}</Text>
+              </View>
+              <View style={{flexDirection: "column", alignItems: "center",justifyContent:'space-around'}}>
+            <Button
+              title="ESTACIONAR"
+              buttonStyle={styles.button}
+              onPress={() => props.navigation.navigate('estacionar')}
+              >
+            </Button>
+            <Button
+              title="CAMBIAR VEHICULO"
+              buttonStyle={styles.button}
+              onPress={() => props.navigation.navigate('autos')}
+              >
+            </Button>
+  
+              </View>
+              </>
+
+          }
+          </>
             </View>
         </Card>
       </View>
@@ -55,7 +87,7 @@ const Home = ({position}) => {
 
        <Card containerStyle={styles.card}>
          
-      <MapView
+       <MapView
       initialRegion={{
         latitude: -26.8248387,
         longitude: -65.2050432,
@@ -63,7 +95,7 @@ const Home = ({position}) => {
         latitudeDelta: 0.05,
       }}  
       minZoomLevel={15}
-      style={styles.map} />
+      style={styles.map} /> 
   </Card>
     </View>
     </SafeAreaView>

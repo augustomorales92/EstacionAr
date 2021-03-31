@@ -9,15 +9,19 @@ import firebase from "../../back/db/firebase";
 
 const initialState = {
   user: null,
+  recovery:null
 };
 
 export const setUserLogged = createAction("userLogged");
 
 export const getUserLogged = (dispatch) => {
   firebase.auth.onAuthStateChanged((loggedUser) => {
-    if (loggedUser) {
-      dispatch(setUserLogged(loggedUser.uid));
+    if (loggedUser && loggedUser.emailVerified ) {
+      console.log('loged user aca ---------------->',loggedUser)
+      
+      dispatch(setUserLogged(loggedUser.uid))
     }
+    
   });
 };
 
@@ -35,9 +39,14 @@ export const signOutUser = createAsyncThunk("signOut", () => {
 export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
   return firebase.auth
     .signInWithEmailAndPassword(email, password)
-    .then((cred) => (cred.user.uid))
-    .catch((error) => alert("Logeo incorrecto", error.message));
+    .then((cred) => {
+      if(cred.user.emailVerified)
+      { return cred.user.uid }
+      else{ throw new Error ('Verifique su email') }})
+    .catch((error) => {throw new Error(error)});
 });
+
+
 
 export const userReducer = createReducer(initialState, {
   [logUser.fulfilled]: (state, action) => {
@@ -49,4 +58,5 @@ export const userReducer = createReducer(initialState, {
   [setUserLogged]: (state, action) => {
     return { ...state, user: action.payload };
   },
+  
 });

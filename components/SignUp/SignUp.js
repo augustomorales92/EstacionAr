@@ -88,6 +88,8 @@ const SignUp = (props) => {
     }
   }
 
+
+
   return (
 
     <SafeAreaView style={styles.container}>
@@ -143,7 +145,8 @@ const SignUp = (props) => {
               buttonStyle={styles.colores}
               title='Iniciar sesion'
               onPress={() => {
-                loginUser();
+                saveNewUser();
+                return setTimeout(() => props.navigation.popToTop(), 100)
               }}
              >
              </Button>

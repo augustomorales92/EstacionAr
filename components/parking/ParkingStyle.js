@@ -28,7 +28,6 @@ export const styles = StyleSheet.create({
     },
     button:{
         borderRadius:100,
-        marginLeft:220,
         backgroundColor:'black'
     },
   input: {
@@ -68,6 +67,6 @@ export const styles = StyleSheet.create({
         ,
         buttons2:{
             backgroundColor:'black',
-            marginLeft:200
+            
         }
 })

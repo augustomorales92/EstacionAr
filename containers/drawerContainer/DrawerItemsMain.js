@@ -1,0 +1,23 @@
+export const drawerItemsMain = [
+    {
+      key: 'home',
+      title: 'Home',
+      route: {nav: 'MainDrawer', routeName: 'home', title: 'home'},
+    },
+    {
+      key: 'agregar un auto',
+      title: 'Agregar un Vehiculo',
+      route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
+    },
+    {
+        key: 'autos',
+        title: 'Mis Vehiculos',
+        route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
+      },
+      {
+        key: 'estacionar',
+        title: 'Ir a Estacionar',
+        route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
+      },
+  ];
+  

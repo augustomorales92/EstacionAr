@@ -28,7 +28,7 @@ export const ParkingContainer = () => {
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
-                headerRight: () => (
+                headerLeft: () => (
                   <Button
                   type='clear'
                   icon={<Icon name='bars' color='white' style={{marginRight:10}} size={30}/>} 

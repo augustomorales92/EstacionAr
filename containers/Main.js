@@ -10,6 +10,8 @@ import { AddCarContainer } from "./AddCarContainer";
 import salir from "../components/salir/salir";
 import { getUserLogged } from "../redux/reducer/userReducer";
 import { useDispatch } from "react-redux";
+import CustomDrawerContent from './drawerContainer/Drawer';
+import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,7 +24,11 @@ const Main = () => {
 
   return (
     // <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+      initialRouteName="home"
+      drawerContent={(props) => (
+        <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
+      )}>
         <Drawer.Screen name="home" component={HomeContainer} />
         <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
         <Drawer.Screen name="autos" component={UsersCarsContainer} />

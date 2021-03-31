@@ -27,7 +27,7 @@ export const UsersCarsContainer = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
-          headerRight: () => (
+          headerLeft: () => (
             <Button
               type="clear"
               icon={

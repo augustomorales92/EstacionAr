@@ -6,43 +6,46 @@ import ClockTimer from "./ClockTimer"
 
 const Timer = () => {
 
-    // const [isRunning, setRunning] = useState(false);
-    // const [time, setTime] = useState(0);
-  
-    // function toggleState() {
-    //   setRunning(!isRunning);
-    // }
-    //poner en el boton de detener -->  onPress={() => toggleState()}
+    const [isRunning, setRunning] = React.useState(false);
+    const [time, setTime] = React.useState(0);
+    const [finalTime, setFinalTime] = React.useState(0);
+
+    function runningOn() {
+      setRunning(true);
+    }
+    
+    function endParking() {
+      setRunning(false);
+    }
   
     // const reset = () => {
     //   setTime(0);
     //   setRunning(false);
     // };
   
-    // useEffect(
-    //   function () {
-    //     let intervalo;
-    //     if (isRunning) {
-    //       intervalo = setInterval(() => {
-    //         setTime((time) => time + 1);
-    //       }, 1000);
-    //     }
-    //     return () => {
-    //       clearInterval(intervalo);
-    //     };
-    //   },
-    //   [isRunning]
-    // );
-
+    React.useEffect(
+      function () {
+        let intervalo;
+        if (isRunning) {
+          intervalo = setInterval(() => {
+            setTime((time) => time + 1);
+          }, 1000);
+        }
+        return () => {
+          clearInterval(intervalo);
+        };
+      },
+      [isRunning]
+    );
 
   return (
     <SafeAreaView>
-      <Header
+      {/* <Header
         placement="left"
         containerStyle={styles.headerStyle}
         leftComponent={{ icon: "menu", color: "#fff" }}
         centerComponent={{ text: "EstacionAr", style: { color: "#fff" } }}
-      />
+      /> */}
       <View>
         <Card containerStyle={styles.card}>
             <Text h4>Vehiculo a estacionar</Text>
@@ -50,17 +53,28 @@ const Timer = () => {
             <Text>Corsita</Text>
         </Card>
         <Card containerStyle={styles.card}>
-        <ClockTimer/>
+        <ClockTimer time={time}/>
         <View  style={{flexDirection: "row", justifyContent: "space-around"}}>
-        <Button
-            title="DETENER"
+          {isRunning ? 
+          (
+            <Button
+            title="INICIAR"
+            disabled
             buttonStyle={styles.button}
-            onPress={() => alert("boton detener presionado!")}
-          /> 
+            />
+          ) : 
+          (
+            <Button
+            title="INICIAR"
+            buttonStyle={styles.button}
+            onPress={() => runningOn()}
+            />
+          )}
+         
           <Button
             title="FINALIZAR"
             buttonStyle={styles.button}
-            onPress={() => alert("boton finalizar presionado!")}
+            onPress={() => endParking()}
           /> 
         </View>
         </Card> 

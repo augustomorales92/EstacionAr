@@ -1,6 +1,6 @@
 import React from "react";
 import { styles } from "./HomeStyle";
-import { View } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
 

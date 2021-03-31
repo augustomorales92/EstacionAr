@@ -9,6 +9,8 @@ import Login from '../components/login/Login';
 import { getUserLogged } from "../redux/reducer/userReducer";
 import { useDispatch } from "react-redux";
 
+import Timer from "../components/timer/Timer"
+
 const Drawer = createDrawerNavigator();
 const Main = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const Main = () => {
   }, []);
   return (
     <Drawer.Navigator>
+      <Drawer.Screen name="timer" component={Timer} />
       <Drawer.Screen name="home" component={HomeContainer} />
       <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
       <Drawer.Screen name="autos" component={UsersCarsContainer} />

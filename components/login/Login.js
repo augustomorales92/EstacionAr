@@ -9,6 +9,8 @@ import { validateEmail, validatePassword } from "../../utils/validations"
 import {useDispatch } from 'react-redux'
 //importamos la funcion para guardar el newUser
 import {logUser} from "../../redux/reducer/userReducer"
+//importamos firebase
+import firebase from "../../back/db/firebase"
 
 
 

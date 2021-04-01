@@ -1,51 +1,33 @@
 import React, { useState } from "react";
 import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
 import { Button, Input, Card, Image } from "react-native-elements";
-
+import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./addCarStyle";
 
-//IMPORTAMOS FIREBASE
-import firebase from "../../back/db/firebase";
+//IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO DEL reducer
+import { addNewCar } from "../../redux/reducer/carReducer";
 
 const addcar = (props) => {
+  const dispatch = useDispatch();
+  let userInTheApp = useSelector((state) => state.userReducer);
+
   const [car, setCar] = useState({
+    owner: userInTheApp.user,
     marca: "",
     modelo: "",
     año: 0,
     patente: "",
   });
-  const [user, setUser] = useState({});
-
-  const usersRef = firebase.db.collection("users");
-
-  firebase.auth.onAuthStateChanged((loggedUser) => {
-    if (loggedUser) {
-      setUser(loggedUser);
-    }
-  });
 
   const handleChangeText = (name, value) => {
-    console.log(car);
     setCar({ ...car, [name]: value });
   };
 
   const setUserCar = () => {
-    const { marca, modelo, año, patente } = car;
-    usersRef
-      .doc(user.uid)
-      .update({
-        cars: firebase.firebase.firestore.FieldValue.arrayUnion({
-          marca,
-          modelo,
-          año,
-          patente,
-        }),
-      })
-      .then(() => {
-        Alert.alert("Auto agregado correctamente");
-        return props.navigation.navigate("autos");
-      })
-      .catch((error) => alert("AUTO NO AGREGADO", error.message));
+    const { owner, marca, modelo, año, patente } = car;
+    dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() =>
+      setTimeout(() => props.navigation.navigate("autos"), 2000)
+    );
   };
 
   return (

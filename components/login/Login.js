@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native'
 import { validateEmail, validatePassword } from "../../utils/validations"
 
 //importo useSelector y dispatch
-import {useDispatch, useSelector } from 'react-redux'
+import {useDispatch } from 'react-redux'
 //importamos la funcion para guardar el newUser
 import {logUser} from "../../redux/reducer/userReducer"
 //importamos firebase

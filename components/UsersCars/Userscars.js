@@ -56,18 +56,19 @@ const Userscars = (props) => {
       ))}
 
       <View style={styles.fixToText}>
-        <Button
-          title="Estacionar"
+        {!allUserCars.length>0 && (<Button
+          title="Agregar Vehiculo"
           buttonStyle={styles.button}
           icon={<Icon name="car" color="white" style={{ marginRight: 10 }} />}
           onPress={() => {
             /* Alert.alert("Auto estacionado")  */
             return setTimeout(
-              () => props.navigation.navigate("estacionar"),
+              () => props.navigation.navigate("agregar un auto"),
               1000
             );
           }}
         ></Button>
+)}
       </View>
     </ScrollView>
   );

@@ -1,166 +1,178 @@
-import React, {useState} from 'react';
-import { View, Alert, SafeAreaView, ActivityIndicator } from 'react-native';
-import { Button,  Input, Card, Image, Text } from 'react-native-elements'
-import { validateEmail, validatePassword } from "../../utils/validations"
+import React, { useState, useEffect } from "react";
+import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
+import { Button, Input, Card, Image, Text } from "react-native-elements";
+import { validateEmail, validatePassword } from "../../utils/validations";
+//importamos la funcion para saber si está o no registrado el email
+import { emailVerification } from "../../redux/reducer/userReducer";
+//importamos dispatch y useSelector
+import { useDispatch, useSelector } from "react-redux";
 
-import { styles } from './SignUpStyle'
-import firebase from '../../back/db/firebase'
+import { styles } from "./SignUpStyle";
+import firebase from "../../back/db/firebase";
 
 const SignUp = (props) => {
-  
   const [input, setInput] = useState({
-    name: '',
-    lastname: '',
-    email: '',
-    password: ''
-  })
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  // const dispatch = useDispatch();
+  // const { isAlreadyTaken } = useSelector((state) => state.userReducer);
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [errorPassword2, setErrorPassword2] = useState("");
-  const [isOkEmail, setIsOkEmail] = useState(false)
-  const [isOkPassword, setIsOkPassword] = useState(false)
-  const [isOkPassword2, setIsOkPassword2] = useState(false)
-  let isOk = false
+  const [isOkEmail, setIsOkEmail] = useState(false);
+  const [isOkPassword, setIsOkPassword] = useState(false);
+  const [isOkPassword2, setIsOkPassword2] = useState(false);
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setrepeatPassword] = useState("");
+  let everythingIsOk = false
 
+  // useEffect(() => {
+  //   console.log('------->',isAlreadyTaken);
+  // })
 
   const saveNewUser = () => {
-    const {name, lastname, email, password} = input
+    const { name, lastname, email, password } = input;
     firebase.auth
       .createUserWithEmailAndPassword(email, password)
-      .then(cred => {
-        console.log(cred)
-        return firebase.db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          name,
-          lastname,
-          email,
-          cars: []
-        })
-        .then((cred) => {
-          return Alert.alert("Usuario registrado exitosamente", cred);
-        })
-        .then(() => verifyEmail())
+      .then((cred) => {
+        return firebase.db
+          .collection("users")
+          .doc(cred.user.uid)
+          .set({
+            id: cred.user.uid,
+            name,
+            lastname,
+            email,
+            cars: [],
+          })
+          .then((cred) => {
+            return Alert.alert("Usuario registrado exitosamente", cred);
+          })
+          .then(() => verifyEmail());
       })
-      .catch(error => Alert.alert("Registro incorrecto", error.message));
+      .catch((error) => Alert.alert("Registro incorrecto", error.message));
 
-
-      const verifyEmail = () => {
-        const user = firebase.auth.currentUser;
-        user    
-          .sendEmailVerification()
-          .then(() => 'Envío de correo exitoso')
-          .catch(error => alert("Error con el envío de confirmación"))
-      };
+    const verifyEmail = () => {
+      const user = firebase.auth.currentUser;
+      user
+        .sendEmailVerification()
+        .then(() => "Envío de correo exitoso")
+        .catch((error) => alert("Error con el envío de confirmación"));
+    };
   };
 
-
   const handleChangeText = (name, value) => {
-    setInput({...input, [name]: value})
-  }
+    setInput({ ...input, [name]: value });
+    
+  };
 
-  const onBlurValidateEmail = (e)=>{
+  const onBlurValidateEmail = (e) => {
     if (validateEmail(e) !== false) {
-      setIsOkEmail(true)
-   } else {
-      setErrorEmail("ingresa un email valido")
-   }
-  }
-
-  const onBlurValidatePassword = (e)=>{
-    if (validatePassword(e) !== false) {
-       setIsOkPassword(true)
+      setIsOkEmail(true);
+      // dispatch(emailVerification(e))
     } else {
-      setErrorPassword("ingresa una contraseña de mas de 6 caracteres")
+      setErrorEmail("ingresa un email valido");
     }
-  }
+  };
 
-  const onBlurValidatePassword2 = (e)=>{
+  const onBlurValidatePassword = (e) => {
     if (validatePassword(e) !== false) {
-      setIsOkPassword2(true)
+      setIsOkPassword(true);
+      setPassword(e);
     } else {
-      setErrorPassword2("ingresa una contraseña de mas de 6 caracteres")
+      setErrorPassword("ingresa una contraseña de mas de 6 caracteres");
     }
-  }
+  };
 
+  const onBlurValidatePassword2 = (e) => {
+    if (validatePassword(e) !== false) {
+      setIsOkPassword2(true);
+      setrepeatPassword(e);
+    } else {
+      setErrorPassword2("ingresa una contraseña de mas de 6 caracteres");
+    }
+  };
+
+  
   const isOkFunction = () => {
-    if(isOkEmail && isOkPassword && isOkPassword2){
-      return isOk = true
-    }
-  }
-
-
+   return everythingIsOk = (isOkEmail && isOkPassword && isOkPassword2 && (password == repeatPassword) )
+  };
 
   return (
-
     <SafeAreaView style={styles.container}>
       <Card containerStyle={styles.input}>
         <Input
-          label='Nombre'
-          name='name'
-          placeholder='juan'
+          label="Nombre"
+          name="name"
+          placeholder="juan"
           inputStyle={styles.colorInput}
-          onChangeText={(value)=> handleChangeText('name', value)}
+          onChangeText={(value) => handleChangeText("name", value)}
         />
         <Input
-          label='Apellido'
-          name='lastname'
-          placeholder='rodriguez'
+          label="Apellido"
+          name="lastname"
+          placeholder="rodriguez"
           inputStyle={styles.colorInput}
-          onChangeText={(value)=> handleChangeText('lastname', value)}
-        />  
+          onChangeText={(value) => handleChangeText("lastname", value)}
+        />
         <Input
-          label='Email'
-          name='email'
-          type='email'
-          placeholder='juanrodriguez@adress.com'
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="juanrodriguez@adress.com"
           inputStyle={styles.colorInput}
-          onChangeText={(value)=> handleChangeText('email', value)}
-          onBlur={(e)=>{onBlurValidateEmail(e.nativeEvent.text)}}
+          onChangeText={(value) => handleChangeText("email", value)}
+          onBlur={(e) => {
+            onBlurValidateEmail(e.nativeEvent.text);
+          }}
           errorMessage={!isOkEmail && errorEmail}
         />
         <Input
-          label='Contraseña'
-          name='password'
+          label="Contraseña"
+          name="password"
           secureTextEntry={true}
-          placeholder='*********'
+          placeholder="*********"
           inputStyle={styles.colorInput}
-          onChangeText={(value)=> handleChangeText('password', value)}
-          onBlur={(e)=>{onBlurValidatePassword(e.nativeEvent.text)}}
+          onChangeText={(value) => handleChangeText("password", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword(e.nativeEvent.text);
+          }}
           errorMessage={!isOkPassword && errorPassword}
         />
         <Input
-          label='Repetir contraseña'
-          placeholder='*********'
+          label="Repetir contraseña"
+          placeholder="*********"
           secureTextEntry={true}
           inputStyle={styles.colorInput}
-          onChangeText={(value)=> handleChangeText('password2', value)}
-          onBlur={(e)=>{onBlurValidatePassword2(e.nativeEvent.text)}}
-          errorMessage={!isOkPassword2 && errorPassword2}
+          onChangeText={(value) => handleChangeText("password2", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword2(e.nativeEvent.text);
+          }}
+          errorMessage={!isOkPassword2 && errorPassword2 || password != repeatPassword && 'las contraseñas no coinciden'}
         />
       </Card>
       <View style={styles.fixToText}>
-
-      <Button
-              disabled={!isOkFunction()}
-              buttonStyle={styles.colores}
-              title='Iniciar sesion'
-              onPress={() => {
-                saveNewUser();
-                return setTimeout(() => props.navigation.popToTop(), 100)
-              }}
-             >
-             </Button>
-
+        <Button
+          disabled={!isOkFunction()}
+          buttonStyle={styles.colores}
+          title='registrarse'
+          onPress={() => {
+            saveNewUser();
+            return setTimeout(() => props.navigation.popToTop(), 100);
+          }}
+        ></Button>
       </View>
       <View style={styles.imagen}>
         <Image
           style={styles.stretch}
           source={{
-            uri: 'https://i.postimg.cc/mrWQN3x1/logo-final-8.png',
+            uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png",
           }}
         />
       </View>
-
     </SafeAreaView>
   );
 };

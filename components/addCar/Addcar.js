@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./addCarStyle";
 
 //IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO DEL reducer
-import { addNewCar } from "../../redux/reducer/carReducer";
+import { addNewCar, getAllCars } from "../../redux/reducer/carReducer";
 
 const addcar = (props) => {
   const dispatch = useDispatch();
@@ -25,9 +25,11 @@ const addcar = (props) => {
 
   const setUserCar = () => {
     const { owner, marca, modelo, año, patente } = car;
-    dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() =>
+    dispatch(addNewCar({ owner, marca, modelo, año, patente }))
+    .then(() =>{
+      getAllCars(dispatch,userInTheApp.user)
       setTimeout(() => props.navigation.navigate("autos"), 2000)
-    );
+     });
   };
 
   return (

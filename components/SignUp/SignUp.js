@@ -93,6 +93,7 @@ const SignUp = (props) => {
   return (
 
     <SafeAreaView style={styles.container}>
+      
       <Card containerStyle={styles.input}>
         <Input
           label='Nombre'
@@ -166,3 +167,6 @@ const SignUp = (props) => {
 };
 
 export default SignUp;
+
+
+

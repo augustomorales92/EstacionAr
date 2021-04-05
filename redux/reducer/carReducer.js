@@ -55,6 +55,4 @@ export const carReducer = createReducer(initialState, {
   [getUserCars]: (state, action) => {
     return { ...state, allUserCars: action.payload };
   },
-
-
 });

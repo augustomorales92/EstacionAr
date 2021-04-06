@@ -4,7 +4,9 @@ import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/EvilIcons";
 import { styles } from "./ParkingStyle";
 import Clock from "../clock/clock";
+import {useNavigation} from '@react-navigation/native'
 
+import Timer from "../timer/Timer"
 
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
@@ -137,23 +139,12 @@ const Parking = (props) => {
           ></Button>
         </View>
       </Card>
-      <Card>
-      <View style={styles.lastButton}>
-        <Button
-          buttonStyle={styles.buttons}
-          title="ir a estacionar"
-          onPress={() => {
-            setTime(0);
-          }}
-        ></Button>
-      </View>
-    </Card>
 
     <View style={styles.lastButton}>
       <Button
       buttonStyle={styles.buttons}
         title="ir a estacionar"
-        onPress={() => {timer > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+        onPress={() => {time > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
       ></Button>
     </View>
   </SafeAreaView>

@@ -6,7 +6,7 @@ import { ParkingContainer } from "./ParkingContainer";
 import { HomeContainer } from "./HomeContainer";
 import { AddCarContainer } from "./AddCarContainer";
 // import Login from "../components/login/Login";
-import { getUserLogged } from "../redux/reducer/userReducer";
+import { getUserLogged } from "../redux/reducer/userActions";
 import { useDispatch } from "react-redux";
 import CustomDrawerContent from './drawerContainer/Drawer';
 import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';

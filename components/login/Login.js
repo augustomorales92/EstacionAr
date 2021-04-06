@@ -1,11 +1,10 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, createRef } from "react";
 import {
   View,
   Alert,
   SafeAreaView,
   ActivityIndicator,
   Modal,
-  StyleSheet,
   Text,
   Pressable,
 } from "react-native";
@@ -17,7 +16,7 @@ import { validateEmail, validatePassword } from "../../utils/validations";
 //importamos dispatch
 import { useDispatch } from "react-redux";
 //importamos la funcion para guardar el newUser
-import { logUser } from "../../redux/reducer/userReducer";
+import { logUser } from "../../redux/reducer/userActions";
 //importamos firebase
 import firebase from "../../back/db/firebase";
 

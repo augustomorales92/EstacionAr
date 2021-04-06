@@ -8,9 +8,8 @@ import {useNavigation} from '@react-navigation/native'
 
 const Home = (props) => {
   const navigation = useNavigation()
-
-  const vehiculo= props.route.params
-
+  
+const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
 

@@ -20,7 +20,6 @@ const Userscars = (props) => {
   },[]);
 
     const deleteCars = () => {
-      console.log('--------->',patenteRef)
    return deleteOneCar(user,patenteRef,dispatch)
   }  
   return (

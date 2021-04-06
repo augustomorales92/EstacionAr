@@ -64,8 +64,6 @@ export const getAllCars = (dispatch, user) => {
 export const deleteCar = createAction("deleteCar");
 
 export const deleteOneCar = (user,patente,dispatch) => {
-console.log('user ---------------->',user)
-console.log('patente------------->',patente)
  firebase.db
   .collection("users")
   .doc(`${user}`)
@@ -80,6 +78,37 @@ console.log('patente------------->',patente)
 }
 
 
+export const updateCar = createAsyncThunk(
+  "updateCar",
+  ({ owner, marca, modelo, año, patente }) => {
+    return (
+      firebase.db
+        .collection("users")
+        .doc(`${owner}`)
+        .collection("CARS")
+        .doc(`${patente}`)
+        .update({
+          marca,
+          modelo,
+          año,
+          patente,
+        })
+        .then(() => {
+          console.log("----AUTO CREADO----");
+          return {
+            marca,
+            modelo,
+            año,
+            patente
+          }
+          
+        })
+        .catch((error) => alert("AUTO NO AGREGADO", error.message))
+    );
+  }
+);
+
+
 
 
 
@@ -91,9 +120,12 @@ export const carReducer = createReducer(initialState, {
     return { ...state, allUserCars: action.payload };
   },
   [deleteCar]: (state, action) => {
-    console.log('payload ------------------->',action.payload)
-    console.log('state ------------------->',{...state, allUserCars: state.allUserCars.filter(h => h)})
+    return {...state, allUserCars: state.allUserCars.filter(car => car.patente!=action.payload)}
     
+  },
+  [updateCar.fulfilled]: (state, action) => {
+    console.log(action.payload)
+    //return { ...state, allUserCars: [...state.allUserCars, action.payload] };
   },
  
   

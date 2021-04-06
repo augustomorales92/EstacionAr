@@ -30,6 +30,7 @@ const addcar = (props) => {
     .then(() =>{
       getAllCars(dispatch,userInTheApp.user)
       setTimeout(() => props.navigation.navigate("autos"), 2000)
+      
      });
   };
 

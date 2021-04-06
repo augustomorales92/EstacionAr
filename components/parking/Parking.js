@@ -7,7 +7,8 @@ import Clock from '../clock/clock'
 
 
 const Parking = (props) => {
-
+  const vehiculo= props.route
+console.log(vehiculo)
 let [time, setTime] = useState(0);
 const timer = ()=>{
   !time?

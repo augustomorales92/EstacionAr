@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
 import { Button, Input, Card, Image } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./EditCarStyle";
 
 //IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO Y TRAER A TODOS LOS AUTOS DEL reducer
-import { addNewCar, getAllCars } from "../../redux/reducer/carReducer";
+import { updateCar, getAllCars } from "../../redux/reducer/carReducer";
 
 
 const addcar = (props) => {
@@ -14,11 +14,14 @@ const addcar = (props) => {
   const vehiculo= props.route.params
   const [car, setCar] = useState({
     owner: userInTheApp.user,
-    marca: "",
-    modelo: "",
-    año: 0,
-    patente: "",
+    marca: vehiculo.marcaId,
+    modelo: vehiculo.modeloId,
+    año: vehiculo.añoId,
+    patente: vehiculo.patenteId
   });
+
+
+  
 
   const handleChangeText = (name, value) => {
     setCar({ ...car, [name]: value });
@@ -26,7 +29,7 @@ const addcar = (props) => {
 
   const setUserCar = () => {
     const { owner, marca, modelo, año, patente } = car;
-    dispatch(addNewCar({ owner, marca, modelo, año, patente }))
+    dispatch(updateCar({...car, owner, marca, modelo, año, patente }))
     .then(() =>{
       getAllCars(dispatch,userInTheApp.user)
       setTimeout(() => props.navigation.navigate("autos"), 2000)
@@ -35,35 +38,41 @@ const addcar = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Card containerStyle={styles.input}>
-        <Input
-          label="Marca"
-          value={vehiculo.marcaId}
-          placeholder="chevrolet"
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("marca", value)}
-        />
-        <Input
-          label="Modelo"
-          value={vehiculo.modeloId}
-          placeholder="corsa"
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("modelo", value)}
-        />
-        <Input
-          label="Año"
-          value={vehiculo.añoId}
-          placeholder="2021"
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("año", value)}
-        />
-        <Input
+      <Card containerStyle={styles.input} key={car.patente}>
+
+  <View>
+
+      <Input
           label="Patente"
-          value={vehiculo.patenteId}
+          value={car.patente}
+          disabled
           placeholder="AB 123 CD"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("patente", value)}
-        />
+          />
+        <Input
+          label="Marca"
+          value={car.marca}
+          placeholder="chevrolet"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("marca", value)}
+          />
+        <Input
+          label="Modelo"
+          value={car.modelo}
+          placeholder="corsa"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("modelo", value)}
+          />
+        <Input
+          label="Año"
+          value={car.año}
+          placeholder="2021"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("año", value)}
+          />
+       
+        </View>
       </Card>
       <View style={styles.fixToText}>
         <Button
@@ -77,8 +86,8 @@ const addcar = (props) => {
           title="Editar Vehiculo"
           buttonStyle={styles.colores}
           onPress={() => {
-            alert('editar')
-            /*setCar()*/
+            
+            setUserCar()
           }}
         ></Button>
       </View>

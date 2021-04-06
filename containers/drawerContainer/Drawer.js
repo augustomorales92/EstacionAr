@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { signOutUser } from "../../redux/reducer/userReducer";
+import { signOutUser } from "../../redux/reducer/userActions";
 
 import {
   StyleSheet,

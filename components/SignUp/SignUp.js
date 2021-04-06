@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
-import { Button, Input, Card, Image, Text } from "react-native-elements";
+import React, { useState } from "react";
+import { View, Alert, SafeAreaView } from "react-native";
+import { Button, Input, Card, Image } from "react-native-elements";
 import { validateEmail, validatePassword } from "../../utils/validations";
-//importamos la funcion para saber si está o no registrado el email
-import { emailVerification } from "../../redux/reducer/userReducer";
-//importamos dispatch y useSelector
-import { useDispatch, useSelector } from "react-redux";
-
 import { styles } from "./SignUpStyle";
 import firebase from "../../back/db/firebase";
 
@@ -17,8 +12,6 @@ const SignUp = (props) => {
     email: "",
     password: "",
   });
-  // const dispatch = useDispatch();
-  // const { isAlreadyTaken } = useSelector((state) => state.userReducer);
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [errorPassword2, setErrorPassword2] = useState("");
@@ -28,10 +21,6 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setrepeatPassword] = useState("");
   let everythingIsOk = false
-
-  // useEffect(() => {
-  //   console.log('------->',isAlreadyTaken);
-  // })
 
   const saveNewUser = () => {
     const { name, lastname, email, password } = input;
@@ -46,9 +35,8 @@ const SignUp = (props) => {
             name,
             lastname,
             email,
-            cars: [],
             money: 0,
-            parkingTime: [],
+            parkingTime: 0,
             parkingHistory: [],
           })
           .then((cred) => {

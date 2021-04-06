@@ -4,7 +4,7 @@ import { Button, Card, CheckBox } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./UsersCarsStyle";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars,deleteOneCar } from "../../redux/reducer/carReducer";
+import { getAllCars,deleteOneCar } from "../../redux/reducer/carActions";
 
 const Userscars = (props) => {
   const dispatch = useDispatch()

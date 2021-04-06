@@ -6,7 +6,7 @@ import { styles } from "./ParkingStyle";
 import Clock from "../clock/clock";
 
 //importamos la funcion para guardar el TIME del Users
-import { setUserTime, getUserTime } from "../../redux/reducer/userReducer";
+import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
 import { useDispatch, useSelector } from "react-redux";
 

@@ -12,10 +12,13 @@ export const carReducer = createReducer(initialState, {
     return { ...state, allUserCars: action.payload };
   },
   [deleteCar]: (state, action) => {
-    console.log("payload ------------------->", action.payload);
-    console.log("state ------------------->", {
-      ...state,
-      allUserCars: state.allUserCars.filter((h) => h),
-    });
+    return {...state, allUserCars: state.allUserCars.filter(car => car.patente!=action.payload)}
+    
   },
+  [updateCar.fulfilled]: (state, action) => {
+    console.log(action.payload)
+    //return { ...state, allUserCars: [...state.allUserCars, action.payload] };
+  },
+ 
+  
 });

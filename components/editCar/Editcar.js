@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./EditCarStyle";
 
 //IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO Y TRAER A TODOS LOS AUTOS DEL reducer
-import { updateCar, getAllCars } from "../../redux/reducer/carReducer";
+import { updateCar, getAllCars } from "../../redux/reducer/carActions";
 
 
 const addcar = (props) => {
@@ -32,24 +32,19 @@ const addcar = (props) => {
     dispatch(updateCar({...car, owner, marca, modelo, año, patente }))
     .then(() =>{
       getAllCars(dispatch,userInTheApp.user)
-      setTimeout(() => props.navigation.navigate("autos"), 2000)
+      props.navigation.navigate("autos")
      });
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Card containerStyle={styles.input} key={car.patente}>
-
+  <Card.Title style={styles.titulo}>{`PATENTE`}</Card.Title>
+  <Card.Title style={styles.titulo}>{` ${car.patente}`}</Card.Title>
+  <Card.Divider />
   <View>
 
-      <Input
-          label="Patente"
-          value={car.patente}
-          disabled
-          placeholder="AB 123 CD"
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("patente", value)}
-          />
+      
         <Input
           label="Marca"
           value={car.marca}

@@ -94,7 +94,7 @@ export const updateCar = createAsyncThunk(
           patente,
         })
         .then(() => {
-          console.log("----AUTO CREADO----");
+          console.log("----AUTO ACTUALIZADO----");
           return {
             marca,
             modelo,

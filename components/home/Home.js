@@ -3,13 +3,12 @@ import { styles } from "./HomeStyle";
 import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
- import MapView , { Marker }from 'react-native-maps';
+import MapView , { Marker }from 'react-native-maps';
 
 
 const Home = (props) => {
   const navigation = useNavigation()
-
-console.log('este es el id de la patente',props.route.params)
+  
 const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>

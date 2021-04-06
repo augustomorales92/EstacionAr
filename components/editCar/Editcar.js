@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
 import { Button, Input, Card, Image } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
-import { styles } from "./addCarStyle";
+import { styles } from "./EditCarStyle";
 
 //IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO Y TRAER A TODOS LOS AUTOS DEL reducer
 import { addNewCar, getAllCars } from "../../redux/reducer/carReducer";
@@ -11,7 +11,7 @@ import { addNewCar, getAllCars } from "../../redux/reducer/carReducer";
 const addcar = (props) => {
   const dispatch = useDispatch();
   let userInTheApp = useSelector((state) => state.userReducer);
-
+  const vehiculo= props.route.params
   const [car, setCar] = useState({
     owner: userInTheApp.user,
     marca: "",
@@ -38,24 +38,28 @@ const addcar = (props) => {
       <Card containerStyle={styles.input}>
         <Input
           label="Marca"
+          value={vehiculo.marcaId}
           placeholder="chevrolet"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("marca", value)}
         />
         <Input
           label="Modelo"
+          value={vehiculo.modeloId}
           placeholder="corsa"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("modelo", value)}
         />
         <Input
           label="Año"
+          value={vehiculo.añoId}
           placeholder="2021"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("año", value)}
         />
         <Input
           label="Patente"
+          value={vehiculo.patenteId}
           placeholder="AB 123 CD"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("patente", value)}
@@ -63,10 +67,18 @@ const addcar = (props) => {
       </Card>
       <View style={styles.fixToText}>
         <Button
-          title="Agregar vehiculo"
+          title="Volver"
           buttonStyle={styles.colores}
           onPress={() => {
-            setUserCar();
+            props.navigation.goBack()
+          }}
+        ></Button>
+        <Button
+          title="Editar Vehiculo"
+          buttonStyle={styles.colores}
+          onPress={() => {
+            alert('editar')
+            /*setCar()*/
           }}
         ></Button>
       </View>

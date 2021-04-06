@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import {addNewCar, getUserCars, deleteCar} from "./carActions"
+import {addNewCar, getUserCars, deleteCar, updateCar} from "./carActions"
 
 const initialState = {
   allUserCars: [],

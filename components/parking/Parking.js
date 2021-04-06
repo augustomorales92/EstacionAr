@@ -5,12 +5,17 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import { styles } from "./ParkingStyle";
 import Clock from "../clock/clock";
 
+
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
 import { useDispatch, useSelector } from "react-redux";
 
 const Parking = (props) => {
+  // const vehiculo = props.route.params
+  // console.log(vehiculo)
+
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
@@ -56,7 +61,9 @@ const Parking = (props) => {
         <Button
           buttonStyle={styles.button}
           onPress={() => {
-            Alert.alert("libre");
+            setTime(0)
+            // navigation.navigate('Timer')
+            // Alert.alert("libre");
             /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
           }}
           icon={<Icon name='sc-telegram' size={60} color="white" />}
@@ -130,7 +137,7 @@ const Parking = (props) => {
           ></Button>
         </View>
       </Card>
-
+      <Card>
       <View style={styles.lastButton}>
         <Button
           buttonStyle={styles.buttons}
@@ -140,8 +147,16 @@ const Parking = (props) => {
           }}
         ></Button>
       </View>
-    </SafeAreaView>
-  );
-};
+    </Card>
+
+    <View style={styles.lastButton}>
+      <Button
+      buttonStyle={styles.buttons}
+        title="ir a estacionar"
+        onPress={() => {timer > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+      ></Button>
+    </View>
+  </SafeAreaView>
+)};
 
 export default Parking;

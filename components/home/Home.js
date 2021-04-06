@@ -8,7 +8,7 @@ import MapView , { Marker }from 'react-native-maps';
 
 const Home = (props) => {
   const navigation = useNavigation()
-
+  
 const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>

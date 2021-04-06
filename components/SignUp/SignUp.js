@@ -47,6 +47,9 @@ const SignUp = (props) => {
             lastname,
             email,
             cars: [],
+            money: 0,
+            parkingTime: [],
+            parkingHistory: [],
           })
           .then((cred) => {
             return Alert.alert("Usuario registrado exitosamente", cred);

@@ -9,18 +9,17 @@ import firebase from "../../back/db/firebase";
 
 const initialState = {
   user: null,
-  recovery:null,
-  // isAlreadyTaken: null,
+  recovery: null,
+  time: 0,
 };
 
 export const setUserLogged = createAction("userLogged");
 
 export const getUserLogged = (dispatch) => {
   firebase.auth.onAuthStateChanged((loggedUser) => {
-    if (loggedUser && loggedUser.emailVerified ) {      
-      dispatch(setUserLogged(loggedUser.uid))
+    if (loggedUser && loggedUser.emailVerified) {
+      dispatch(setUserLogged(loggedUser.uid));
     }
-    
   });
 };
 
@@ -35,29 +34,55 @@ export const signOutUser = createAsyncThunk("signOut", () => {
     });
 });
 
-// export const emailVerification = createAsyncThunk("emailVerification", (email) => {
-//     var userRef = firebase.db.collection("users");
-//     return userRef
-//       .where("email", "==", `${email}`)
-//       .get()
-//       .then((querySnap) => {
-//         querySnap.forEach((doc) => {
-//           console.log("-----> USUARIO POR EMAIL: ", doc.data().email)
-//           return doc.data().email;
-//         });
-//       })
-//       .catch((err) => console.log(err));
-// });
-
-
 export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
   return firebase.auth
     .signInWithEmailAndPassword(email, password)
     .then((cred) => {
-      if(cred.user.emailVerified)
-      { return cred.user.uid }
-      else{ throw new Error ('Verifique su email') }})
-    .catch((error) => {throw new Error(error)});
+      if (cred.user.emailVerified) {
+        return cred.user.uid;
+      } else {
+        throw new Error("Verifique su email");
+      }
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+});
+
+export const setUserTime = createAsyncThunk("setUserTime", ({ totalTime, user }) => {
+  return firebase.db
+    .collection("users")
+    .doc(user)
+    .update({
+      parkingTime: totalTime,
+    })
+    .then(() => {
+      console.log("Document successfully updated!");
+      return totalTime
+    })
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+});
+export const getUserTime = createAsyncThunk("getUserTime", (user) => {
+  return firebase.db
+    .collection("users")
+    .doc(user)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+          console.log("Document data:", doc.data().parkingTime);
+          let time = doc.data().parkingTime
+          return time
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+  
 });
 
 
@@ -66,14 +91,16 @@ export const userReducer = createReducer(initialState, {
   [logUser.fulfilled]: (state, action) => {
     return { ...state, user: action.payload };
   },
-  // [emailVerification.fulfilled]: (state, action) => {
-  //   return { ...state, isAlreadyTaken: action.payload };
-  // },
   [signOutUser.fulfilled]: (state, action) => {
     return { ...state, user: action.payload };
   },
   [setUserLogged]: (state, action) => {
     return { ...state, user: action.payload };
   },
-  
+  [setUserTime.fulfilled]: (state, action) => {
+    return { ...state, time: action.payload};
+  },
+  [getUserTime.fulfilled]: (state, action) => {
+    return { ...state, time: action.payload};
+  },
 });

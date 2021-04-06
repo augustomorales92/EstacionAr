@@ -60,16 +60,7 @@ const Parking = (props) => {
       </View>
       <View style={styles.fixToText}>
         <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
-        <Button
-          buttonStyle={styles.button}
-          onPress={() => {
-            setTime(0)
-            // navigation.navigate('Timer')
-            // Alert.alert("libre");
-            /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
-          }}
-          icon={<Icon name='sc-telegram' size={60} color="white" />}
-        ></Button>
+       
       </View>
 
       <Card containerStyle={styles.input}>
@@ -96,7 +87,7 @@ const Parking = (props) => {
               Alert.alert("libre");
               /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
             }}
-            icon={<Icon name="play" size={60} color="white" />}
+            icon={<Icon name="sc-telegram" size={60} color="white" />}
           ></Button>
         </View>
       </Card>

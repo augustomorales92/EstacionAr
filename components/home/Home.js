@@ -3,13 +3,14 @@ import { styles } from "./HomeStyle";
 import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
-import MapView , { Marker }from 'react-native-maps';
+//import MapView , { Marker }from 'react-native-maps';
 
 
 const Home = (props) => {
   const navigation = useNavigation()
 
-const vehiculo= props.route.params
+  const vehiculo= props.route.params
+
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
 
@@ -64,7 +65,7 @@ const vehiculo= props.route.params
             <Button
               title="ESTACIONAR"
               buttonStyle={styles.button}
-              onPress={() => props.navigation.navigate('estacionar')}
+              onPress={() => props.navigation.navigate('estacionar', vehiculo)}
               >
             </Button>
             <Button
@@ -86,7 +87,7 @@ const vehiculo= props.route.params
 
        <Card containerStyle={styles.card}>
          
-       <MapView
+       {/* <MapView
       initialRegion={{
         latitude: -26.8248387,
         longitude: -65.2050432,
@@ -94,7 +95,7 @@ const vehiculo= props.route.params
         latitudeDelta: 0.05,
       }}  
       minZoomLevel={15}
-      style={styles.map} /> 
+      style={styles.map} />  */}
   </Card>
     </View>
     </SafeAreaView>

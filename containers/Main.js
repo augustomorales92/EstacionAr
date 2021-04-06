@@ -26,10 +26,11 @@ const Main = () => {
   return (
     // <NavigationContainer>
       <Drawer.Navigator
-      initialRouteName="home"
+      initialRouteName="home" // original "home"
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
       )}>
+        {/* <Drawer.Screen name="timer" component={Timer} />  */}
         <Drawer.Screen name="home" component={HomeContainer} />
         <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
         <Drawer.Screen name="autos" component={UsersCarsContainer} />

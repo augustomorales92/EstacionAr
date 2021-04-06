@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {View,Alert,SafeAreaView,Text} from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 import {Button,Card,Input} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {styles} from './ParkingStyle'
@@ -7,6 +8,10 @@ import Clock from '../clock/clock'
 
 
 const Parking = (props) => {
+  // const vehiculo = props.route.params
+  // console.log(vehiculo)
+
+  const navigation = useNavigation();
 
 let [time, setTime] = useState(0);
 const timer = ()=>{
@@ -62,7 +67,9 @@ return (
         <Button
           buttonStyle={styles.button}
           onPress={() => {
-            Alert.alert("libre");
+            setTime(0)
+            // navigation.navigate('Timer')
+            // Alert.alert("libre");
             /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
           }}
           icon={<Icon name="play" size={60} color="white" />}
@@ -113,9 +120,7 @@ return (
       <Button
       buttonStyle={styles.buttons}
         title="ir a estacionar"
-        onPress={() => {
-          setTime(0);
-        }}
+        onPress={() => {timer > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
       ></Button>
     </View>
   </SafeAreaView>

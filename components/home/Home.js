@@ -64,7 +64,7 @@ const vehiculo= props.route.params
             <Button
               title="ESTACIONAR"
               buttonStyle={styles.button}
-              onPress={() => props.navigation.navigate('estacionar')}
+              onPress={() => props.navigation.navigate('estacionar',{patentee:vehiculo.patenteId})}
               >
             </Button>
             <Button

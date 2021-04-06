@@ -35,6 +35,35 @@ import {
       );
     }
   );
+  export const updateCar = createAsyncThunk(
+    "updateCar",
+    ({ owner, marca, modelo, año, patente }) => {
+      return (
+        firebase.db
+          .collection("users")
+          .doc(`${owner}`)
+          .collection("CARS")
+          .doc(`${patente}`)
+          .update({
+            marca,
+            modelo,
+            año,
+            patente,
+          })
+          .then(() => {
+            console.log("----AUTO UPDATEADO----");
+            return {
+              marca,
+              modelo,
+              año,
+              patente
+            }
+            
+          })
+          .catch((error) => alert("AUTO NO UPDATEADO", error.message))
+      );
+    }
+  );
   
   
   export const getUserCars = createAction("getUserCars");

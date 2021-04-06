@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./EditCarStyle";
 
 //IMPORTAMOS LA FUNCION PARA AGREGAR UN AUTO Y TRAER A TODOS LOS AUTOS DEL reducer
-import { updateCar, getAllCars } from "../../redux/reducer/carReducer";
+import { updateCar, getAllCars } from "../../redux/reducer/carActions";
 
 
 const addcar = (props) => {

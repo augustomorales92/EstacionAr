@@ -116,7 +116,11 @@ const Timer = (props) => {
                     marginBottom: 5,
                   }}
                 >
-                  <Text>Tiempo:</Text> <Text>{finalTime}</Text>
+                  
+
+                  <Text>Tiempo:</Text>
+                   <Text>{finalTime}</Text>
+                  
                 </View>
                 <View
                   style={{
@@ -124,9 +128,10 @@ const Timer = (props) => {
                     justifyContent: "space-between",
                     marginBottom: 5,
                   }}
-                >
+                > 
                   <Text>Monto a pagar:</Text>
                   <Text>${price}</Text>
+                  
                 </View>
                 <View
                   style={{
@@ -137,6 +142,7 @@ const Timer = (props) => {
                 >
                   <Text>ID Transaccion:</Text>
                   <Text>d5g4s65fg4</Text>
+                  
                 </View>
               </View>
               <Button

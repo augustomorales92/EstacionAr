@@ -51,6 +51,12 @@ export const styles = StyleSheet.create({
       },
         colorInput:{
           color:'white'
-        }
+        },
+        titulo:{
+          fontSize:20,
+          textAlign:'center',
+          color:'white',
+          marginTop:10  
+      },
   });
   

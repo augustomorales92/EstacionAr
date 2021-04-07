@@ -38,8 +38,9 @@ export const userReducer = createReducer(initialState, {
   },
   
   [addNewParking.fulfilled]: (state, action) => {
-    if(action.payload !== undefined) return { ...state, parkingHistory: [...state.parkingHistory, action.payload] };
+    if(action.payload !== undefined) return { ...state, parkingHistory: [...state.parkingHistory, action.payload] }
   },
+
   [getUserInfo.fulfilled]: (state, action) => {
     return { ...state, info: action.payload }
   },

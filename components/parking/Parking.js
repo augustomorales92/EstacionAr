@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Native
 import { View, Alert, SafeAreaView, Text } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
-import Icon from "react-native-vector-icons/EvilIcons";
-//STYLE
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./ParkingStyle";
 //COMPONENTS
 import Clock from "../clock/clock";
@@ -64,16 +63,7 @@ const Parking = (props) => {
       </View>
       <View style={styles.fixToText}>
         <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
-        <Button
-          buttonStyle={styles.button}
-          onPress={() => {
-            setTime(0)
-            // navigation.navigate('Timer')
-            // Alert.alert("libre");
-            /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
-          }}
-          icon={<Icon name='sc-telegram' size={60} color="white" />}
-        ></Button>
+       
       </View>
 
       <Card containerStyle={styles.input}>
@@ -97,37 +87,14 @@ const Parking = (props) => {
           <Button
             buttonStyle={styles.button}
             onPress={() => {
-              Alert.alert("libre");
+              Alert.alert("algo");
               /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
             }}
-            icon={<Icon name="play" size={60} color="white" />}
+            icon={<Icon name="stopwatch" size={60} color="white" />}
           ></Button>
         </View>
       </Card>
 
-      {/* <View style={styles.fixToText}>
-        <Text style={styles.colores}>0.5hs</Text>
-        <Text style={styles.colores}>Libre</Text>
-        </View>
-        <View style={styles.fixToText}>
-        
-        <Button rounded dark
-        style={styles.button}
-        onPress={timer}>
-              <Icon name='clock' size={80} color="white"/>
-              
-              
-              </Button>
-              <Button rounded dark
-        style={styles.button}
-          onPress={() => {
-             Alert.alert("libre")  
-                return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)    }}
-          >
-              <Icon name='play' size={80} color="white"/>
-              
-              </Button>
-      </View> */}
       <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>

@@ -1,9 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { addNewCar, getUserCars, deleteCar, updateCar } from "./carActions";
+import {addNewCar, getUserCars, deleteCar, updateCar, addNewParking} from "./carActions"
 
 const initialState = {
   allUserCars: [],
 };
+
+
+
 export const carReducer = createReducer(initialState, {
   [addNewCar.fulfilled]: (state, action) => {
     return { ...state, allUserCars: [...state.allUserCars, action.payload] };
@@ -20,7 +23,8 @@ export const carReducer = createReducer(initialState, {
     };
   },
   [updateCar.fulfilled]: (state, action) => {
-    console.log(action.payload);
-    //return { ...state, allUserCars: [...state.allUserCars, action.payload] };
+    console.log(action.payload)
+    return { ...state, allUserCars: [...state.allUserCars.filter(car=> car.patente!=action.payload.patente),action.payload] };
   },
+  
 });

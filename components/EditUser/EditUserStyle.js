@@ -1,4 +1,5 @@
-import { StyleSheet,View,Alert,Image } from 'react-native';
+import { StyleSheet } from 'react-native';
+
 
 export const styles = StyleSheet.create({
     container: {
@@ -17,46 +18,45 @@ export const styles = StyleSheet.create({
       },
       fixToText: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         marginTop: 20,
-        marginRight:20,
-        marginLeft:10
+        marginRight:20
       },
       imagen:{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '40%'
+        height: '35%'
       },
-      
+      labelstyle:{
+        color:'black',
+        textAlign:'center'
+    },
+    formStyle:{
+        margin:20
+    },
+    itemStyle:{
+        marginTop: 30,
+        borderWidth: 1,
+        borderColor: 'black'
+    },
+    colores:{
+      fontSize:20,
+      backgroundColor:'black'
+      },
     input: {
       backgroundColor:'black',
       borderRadius:10,
       opacity:0.5,
       marginTop:30
       },
-    texto:{
-        fontSize: 30,
-        fontWeight: "bold",
-        color:'black',
-        flex:1,
-        marginTop:20,
-        height:'100%',
-        textAlign:'center'
-
-    },
-    colores:{
-      fontSize:20,
-      backgroundColor:'black'
+      colorInput:{
+        color:'white'
       },
-        colorInput:{
-          color:'white'
-        },
-        titulo:{
-          fontSize:20,
-          textAlign:'center',
-          color:'white',
-          marginTop:10  
+      signin: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20
       },
+   
   });
-  

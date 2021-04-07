@@ -9,11 +9,19 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import { styles } from "./ParkingStyle";
 //COMPONENTS
 import Clock from "../clock/clock";
+import {useNavigation} from '@react-navigation/native'
+
+import Time from "../timer/Timer"
+
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
 
 const Parking = (props) => {
+  // const vehiculo = props.route.params
+  // console.log(vehiculo)
+
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
@@ -59,7 +67,9 @@ const Parking = (props) => {
         <Button
           buttonStyle={styles.button}
           onPress={() => {
-            Alert.alert("libre");
+            setTime(0)
+            // navigation.navigate('Timer')
+            // Alert.alert("libre");
             /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
           }}
           icon={<Icon name='sc-telegram' size={60} color="white" />}
@@ -121,7 +131,7 @@ const Parking = (props) => {
       <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>
-            <Clock time={time} />
+            <Clock time={Time} />
           </Text>
 
           <Button
@@ -134,17 +144,14 @@ const Parking = (props) => {
         </View>
       </Card>
 
-      <View style={styles.lastButton}>
-        <Button
-          buttonStyle={styles.buttons}
-          title="ir a estacionar"
-          onPress={() => {
-            setTime(0);
-          }}
-        ></Button>
-      </View>
-    </SafeAreaView>
-  );
-};
+    <View style={styles.lastButton}>
+      <Button
+      buttonStyle={styles.buttons}
+        title="ir a estacionar"
+        onPress={() => {time > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+      ></Button>
+    </View>
+  </SafeAreaView>
+)};
 
 export default Parking;

@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from "react";
+//React
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+//Native
 import { View, Alert, SafeAreaView, Text } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/EvilIcons";
+//STYLE
 import { styles } from "./ParkingStyle";
+//COMPONENTS
 import Clock from "../clock/clock";
 import {useNavigation} from '@react-navigation/native'
 
-import Timer from "../timer/Timer"
+import Time from "../timer/Timer"
 
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
-import { useDispatch, useSelector } from "react-redux";
 
 const Parking = (props) => {
   // const vehiculo = props.route.params
@@ -127,7 +131,7 @@ const Parking = (props) => {
       <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>
-            <Clock time={time} />
+            <Clock time={Time} />
           </Text>
 
           <Button

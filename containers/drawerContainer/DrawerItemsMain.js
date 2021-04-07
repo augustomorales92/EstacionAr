@@ -19,5 +19,10 @@ export const drawerItemsMain = [
         title: 'Ir a Estacionar',
         route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
       },
+      {
+        key: 'mi perfil',
+        title: 'Mi perfil',
+        route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
+      },
   ];
   

@@ -4,6 +4,7 @@ import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import firebase from "../../back/db/firebase";
 
 export const setUserLogged = createAction("userLogged");
+
 export const getUserLogged = (dispatch) => {
   firebase.auth.onAuthStateChanged((loggedUser) => {
     if (loggedUser && loggedUser.emailVerified) {
@@ -76,3 +77,12 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
       console.log("Error getting document:", error);
     });
 });
+
+export const getUserInfo = createAsyncThunk("getUserInfo", (userId) => {
+  return firebase.db
+  .collection('users')
+  .doc(userId)
+  .get()
+  .then(querySnap =>querySnap.data())
+  .catch(() => console.log('Error en recibir info de user'))
+})

@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native'
 
 const Home = (props) => {
   const navigation = useNavigation()
-
+  
 const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
@@ -64,7 +64,7 @@ const vehiculo= props.route.params
             <Button
               title="ESTACIONAR"
               buttonStyle={styles.button}
-              onPress={() => props.navigation.navigate('estacionar')}
+              onPress={() => props.navigation.navigate('estacionar', vehiculo)}
               >
             </Button>
             <Button

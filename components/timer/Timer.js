@@ -1,11 +1,12 @@
 import React from "react";
 import { styles } from "./TimerStyle";
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import ClockTimer from "./ClockTimer";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationHelpersContext } from "@react-navigation/core";
+import { addNewParking } from "../../redux/reducer/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Timer = (props) => {
   const [isRunning, setRunning] = React.useState(false);
@@ -13,9 +14,17 @@ const Timer = (props) => {
   const [finalTime, setFinalTime] = React.useState(0);
   const [isFinished, setIsFinished] = React.useState(false);
   const [price, setPrice] = React.useState(0);
+  //const [modalVisible, setModalVisible] = React.useState(false);
 
   const vehiculo = props.route.params;
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  let { user } = useSelector((state) => state.userReducer);
+  let { allUserCars } = useSelector((state) => state.carReducer);
+  let patente = allUserCars[0].patente
+  let { parkingHistory } = useSelector((state) => state.userReducer);
+  console.log(parkingHistory)
 
   function runningOn() {
     setRunning(true);
@@ -26,18 +35,20 @@ const Timer = (props) => {
     setIsFinished(true);
     setFinalTime(format(time));
     calculateParkingPrice(time);
-    // setear el history parking
-    // pedir de redux: {userId, card.patente, price y finalTime} 
   }
 
   function calculateParkingPrice(time) {
     let priceHalfHour = 50;
     let splitTime = Math.round(time / 3000);
     setPrice(priceHalfHour * splitTime);
-    if(time<3000){
-      setPrice(priceHalfHour)
+    if (time < 3000) {
+      setPrice(priceHalfHour);
     }
   }
+
+  React.useEffect(() => {
+    isFinished && dispatch(addNewParking({user, patente, price, finalTime}))
+  }, [isRunning]);
 
   React.useEffect(
     function () {
@@ -70,7 +81,7 @@ const Timer = (props) => {
           >
             {!isFinished ? (
               <>
-              <Button
+                <Button
                   title="CANCELAR"
                   disabled={isRunning && true}
                   buttonStyle={styles.button}
@@ -86,7 +97,11 @@ const Timer = (props) => {
                   title="FINALIZAR"
                   disabled={false}
                   buttonStyle={styles.button}
-                  onPress={() => endParking()}
+                  onPress={() => {
+
+                    endParking()
+                    if(window.confirm("Realmente quiere finalizar?????")) dispatch(addNewParking({user, patente, price, finalTime}))
+                  }/* setModalVisible(!modalVisible) */}
                 />
               </>
             ) : (
@@ -98,8 +113,9 @@ const Timer = (props) => {
                 />
                 <Button
                   title="FINALIZAR"
-                  disabled={true}
+                  disabled={false}
                   buttonStyle={styles.button}
+                  onPress={() => endParking()/* setModalVisible(!modalVisible) */}
                 />
               </>
             )}
@@ -140,12 +156,54 @@ const Timer = (props) => {
                 </View>
               </View>
               <Button
-                title="PAGAR CON MERCADOPAGO"
+                title="CONFIRMAR"
                 buttonStyle={styles.button}
+                onPress={()=>navigation.navigate("drawer")}
               />
             </Card>
           </>
         )}
+        {/* vvvv------------------ MODAL ----------------vvvv*/}
+        {/* <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Esta seguro de finalizar?</Text>
+           
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => {
+                     endParking()  
+                   setModalVisible(!modalVisible)
+               } }
+                >
+                  <Text style={styles.textStyle}></Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose, { marginTop: 10 }]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Volver</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal> */}
+        {/*^^^^------------------ MODAL ----------------^^^^ */}
+
+
       </View>
     </SafeAreaView>
   );

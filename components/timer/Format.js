@@ -6,7 +6,7 @@
  */
 
  export const format = (time) => {
-    let mil = time % 100 | 0;
+    let mil = time % 60 | 0;
     if (mil / 10 < 1) mil = "0" + mil;
     let seg = (time / 100) % 60 | 0;
     if (seg / 10 < 1) seg = "0" + seg;

@@ -10,6 +10,7 @@ import firebase from "../../back/db/firebase";
 const initialState = {
   user: null,
   recovery:null,
+  info: null
   // isAlreadyTaken: null,
 };
 
@@ -60,6 +61,14 @@ export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
     .catch((error) => {throw new Error(error)});
 });
 
+export const getUserInfo = createAsyncThunk("getUserInfo", (userId) => {
+  return firebase.db
+  .collection('users')
+  .doc(userId)
+  .get()
+  .then(querySnap =>querySnap.data())
+  .catch(() => console.log('Error en recibir info de user'))
+})
 
 
 export const userReducer = createReducer(initialState, {
@@ -75,5 +84,9 @@ export const userReducer = createReducer(initialState, {
   [setUserLogged]: (state, action) => {
     return { ...state, user: action.payload };
   },
+
+  [getUserInfo.fulfilled]: (state, action) => {
+    return { ...state, info: action.payload }
+  }
   
 });

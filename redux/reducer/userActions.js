@@ -76,3 +76,24 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
       console.log("Error getting document:", error);
     });
 });
+
+export const addNewParking = createAsyncThunk(
+  "addNewParking",
+  ({ user, patente, price, finalTime }) => {
+    if(finalTime){
+      return (
+        firebase.db
+          .collection("users")
+          .doc(`${user}`)
+          .update({
+             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime})
+          })
+          .then(() => {
+            console.log("----PARKING HISTORY UPDATE----");
+            return {user, patente, price, finalTime}
+          })
+          .catch((error) => alert("HISTORIAL NO UPDATEADO", error.message))
+      );
+    }
+  }
+);

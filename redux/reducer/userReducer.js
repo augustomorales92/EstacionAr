@@ -7,12 +7,17 @@ import {
   setUserLogged,
   setUserTime,
   getUserTime,
+  addNewParking,
+  getUserInfo
 } from "./userActions";
 
 const initialState = {
   user: null,
+  recovery:null,
   recovery: null,
   time: 0,
+  parkingHistory: [],
+  info: null
 };
 
 export const userReducer = createReducer(initialState, {
@@ -30,5 +35,13 @@ export const userReducer = createReducer(initialState, {
   },
   [getUserTime.fulfilled]: (state, action) => {
     return { ...state, time: action.payload };
+  },
+  
+  [addNewParking.fulfilled]: (state, action) => {
+    if(action.payload !== undefined) return { ...state, parkingHistory: [...state.parkingHistory, action.payload] }
+  },
+
+  [getUserInfo.fulfilled]: (state, action) => {
+    return { ...state, info: action.payload }
   },
 });

@@ -12,7 +12,7 @@ import { Button, Input, Card, Image } from "react-native-elements";
 import { styles } from "./LoginStyle";
 import { useNavigation } from "@react-navigation/native";
 import { validateEmail, validatePassword } from "../../utils/validations";
-
+import Icon from "react-native-vector-icons/FontAwesome5";
 //importamos dispatch
 import { useDispatch } from "react-redux";
 //importamos la funcion para guardar el newUser
@@ -210,6 +210,28 @@ const Login = () => {
           onPress={() => navigation.navigate("Registrate")}
         ></Button>
       </View>
+      <View style={{marginTop:10,marginLeft:'15%',marginRight:'15%'}}>
+        <Button
+            buttonStyle={{marginBottom:10, backgroundColor:'#3b5998'}}
+          title="Continuar con Facebook"
+          icon={<Icon name='facebook' size={30} color='white' style={{marginRight:'5%'}}/>}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            /*  Alert.alert("forgot password button pressed") */
+          }}
+        ></Button>
+
+        <Button
+          icon={<Icon name='google' size={30} color='black' style={{marginRight:'5%'}}/>}
+          buttonStyle={{backgroundColor:'white'}}
+          titleStyle={styles.clearButton}
+          title="Continuar con Google"
+          onPress={() => {
+            loginUser();
+          }}
+        ></Button>
+        </View>
+
     </SafeAreaView>
   );
 };

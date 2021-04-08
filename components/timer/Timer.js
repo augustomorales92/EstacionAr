@@ -104,12 +104,12 @@ const Timer = (props) => {
               <>
                 <Button
                   title="INICIAR"
-                  disabled={false}
+                  disabled={true}
                   buttonStyle={styles.button}
                 />
                 <Button
                   title="FINALIZAR"
-                  disabled={false}
+                  disabled={true}
                   buttonStyle={styles.button}
                 />
               </>

@@ -119,7 +119,7 @@ const Parking = (props) => {
       <Button
       buttonStyle={styles.buttons}
         title="ir a estacionar"
-        onPress={() => {time > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+        onPress={() => {time > 0 ? navigation.navigate('Countdown',time) : navigation.navigate('Timer')}}
       ></Button>
     </View>
   </SafeAreaView>

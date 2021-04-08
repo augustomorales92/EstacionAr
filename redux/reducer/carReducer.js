@@ -15,8 +15,12 @@ export const carReducer = createReducer(initialState, {
     return { ...state, allUserCars: action.payload };
   },
   [deleteCar]: (state, action) => {
-    return {...state, allUserCars: state.allUserCars.filter(car => car.patente!=action.payload)}
-    
+    return {
+      ...state,
+      allUserCars: state.allUserCars.filter(
+        (car) => car.patente != action.payload
+      ),
+    };
   },
   [updateCar.fulfilled]: (state, action) => {
     console.log(action.payload)

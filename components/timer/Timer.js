@@ -100,7 +100,7 @@ const Timer = (props) => {
                   onPress={() => {
 
                     endParking()
-                    if(window.confirm("Realmente quiere finalizar?????")) dispatch(addNewParking({user, patente, price, finalTime}))
+                    dispatch(addNewParking({user, patente, price, finalTime}))
                   }/* setModalVisible(!modalVisible) */}
                 />
               </>

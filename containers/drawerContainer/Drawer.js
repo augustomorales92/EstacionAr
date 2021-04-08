@@ -70,9 +70,10 @@ console.log('user infooooooooo ',userInfo)
           />
         </View>
         <View style={styles.centered}>
+          {userInfo &&
           <Text style={styles.title}>
-             {`Bienvenido `}
-          </Text>
+             {`Bienvenido ${userInfo.name}`}
+          </Text> }
         </View>
         {renderMainDrawer()}
       </SafeAreaView>

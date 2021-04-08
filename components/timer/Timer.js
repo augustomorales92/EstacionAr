@@ -159,7 +159,10 @@ const Timer = (props) => {
               <Button
                 title="CONFIRMAR"
                 buttonStyle={styles.button}
-                onPress={()=>navigation.navigate("drawer")}
+                onPress={()=>{
+                  navigation.navigate("drawer")
+                  navigation.goBack()
+                }}
               />
             </Card>
           </>

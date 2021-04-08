@@ -109,3 +109,15 @@ export const getUserInfo = createAsyncThunk("getUserInfo", (userId) => {
   .catch(() => console.log('Error en recibir info de user'))
 })
 
+export const getParkingHistoryInfo = createAsyncThunk("getParkingHistoryInfo", (userId) => {
+  return firebase.db
+  .collection('users')
+  .doc(`${userId}`)
+  .get()
+  .then(x => {
+    console.log("DATAAAAA DEL HISTORY",x.data())
+    const allParkings = x.data().parkingHistory
+    return allParkings
+  })
+  .catch(() => console.log('Error en recibir historial de user'))
+})

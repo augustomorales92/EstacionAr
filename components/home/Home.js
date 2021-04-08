@@ -3,13 +3,16 @@ import { styles } from "./HomeStyle";
 import { View ,SafeAreaView} from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import {useNavigation} from '@react-navigation/native'
+import { useDispatch, useSelector } from "react-redux";
+
 //import MapView , { Marker }from 'react-native-maps';
 
 
 const Home = (props) => {
   const navigation = useNavigation()
-  
-const vehiculo= props.route.params
+  //let { user } = useSelector(state => state.userReducer)
+  //console.log("USERRRR HOME ", user)
+  const vehiculo= props.route.params
   return (
     <SafeAreaView style={{backgroundColor:'black',height:'100%'}}>
 

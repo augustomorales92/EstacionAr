@@ -43,24 +43,9 @@ const Countdown = (props) => {
 
   function calculateParkingPrice(time) {
     let priceHalfHour = 50;
-
-    // cuando inicia tiene que cobrar el tiempo de estacionamiento seleccionado.- y se presionamos +30 tiene que agregar $50.
-
     let splitTime = Math.round(time / 3000);
     setPrice(priceHalfHour * splitTime);
   }
-
-  const setInputValue = (e) => {
-    const newTime = e.target.value;
-    if (!isRunning) {
-      // valido si isRunning esta corriendo(o sea q su valor es true)
-      if (!isNaN(newTime)) {
-        // valido lo que me ingresaron es un numero
-        setValue(newTime); // si pasa las validaciones entonces setea el valor del input y
-        setTime(parseInt(newTime)); // setea el tiempo (convirtiendo el value en numero entero)
-      }
-    }
-  };
 
   useEffect(
     function () {
@@ -68,7 +53,7 @@ const Countdown = (props) => {
       if (isRunning) {
         intervalo = setInterval(() => {
           setTime((time) => time - 1);
-        }, 1);
+        }, 1000);
       }
       return () => {
         clearInterval(intervalo);
@@ -109,7 +94,7 @@ const Countdown = (props) => {
               buttonStyle={styles.buttontimer}
               onPress={() => {
                 calculateParkingPrice(timer + addTime);
-                endParking();
+                //endParking();
                 setModalAlert(!modalAlert);
               }}
               disabled={time === 0 ? true : false}

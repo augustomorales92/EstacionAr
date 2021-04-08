@@ -1,4 +1,6 @@
 import React, { useState, createRef } from "react";
+import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 import {
   View,
   Alert,
@@ -23,6 +25,7 @@ import { useDispatch } from "react-redux";
 import { logUser } from "../../redux/reducer/userActions";
 //importamos firebase
 import firebase from "../../back/db/firebase";
+import Firebase from 'firebase'
 
 const Login = () => {
   const pass = createRef();
@@ -42,7 +45,9 @@ const Login = () => {
   const [isOkEmail, setIsOkEmail] = useState(false);
   const [isOkPassword, setIsOkPassword] = useState(false);
   let isOk = false;
-
+  const iosClient = "493615545753-sekkfffcer2bra7f8mvddstbls2vhukf.apps.googleusercontent.com"
+  const androidClient = '493615545753-c10rjmiqcfmn9r494gslponltbn68tse.apps.googleusercontent.com'
+  const fbAppId = '281154416752453'
   const loginUser = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
@@ -56,6 +61,58 @@ const Login = () => {
       })
       .catch((error) => console.log("catch ----->", error));
   };
+
+  const loginGoogle = async()=>{
+    try {
+      //await GoogleSignIn.askForPlayServicesAsync();
+      const result = await Google.logInAsync({ //return an object with result token and user
+        iosClientId: iosClient, 
+        androidClientId: androidClient, 
+      });
+      if (result.type === 'success') {
+        //console.log(result);
+       // setIsLoading(true);
+        const credential = Firebase.auth.GoogleAuthProvider.credential( //Set the tokens to Firebase
+          result.idToken,
+          result.accessToken
+        );
+        firebase.auth
+          .signInWithCredential(credential) //Login to Firebase
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        //CANCEL
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  }
+
+  const loginFacebook = async()=>{
+    
+    Facebook.initializeAsync({appId:fbAppId})
+    const { type,
+      token,
+      expirationDate,
+      permissions,
+      declinedPermissions,} = await
+    Facebook.logInWithReadPermissionsAsync({permission: ["public_profile"]} );
+if (type == "success") {
+
+
+  const credential = Firebase.auth.FacebookAuthProvider.credential(token);
+      
+      firebase.auth
+      .signInWithCredential(credential)
+      .catch(error => {
+    console.log(error);
+          });
+}
+
+
+
+}
 
   const onBlurValidateEmail = (e) => {
     if (validateEmail(e) !== false) {
@@ -109,6 +166,7 @@ const Login = () => {
       style={styles.container}
       >
       <SafeAreaView style={styles.container}>
+        <View>
           <View style={styles.imagen}>
             <Image
               style={styles.stretch}
@@ -253,6 +311,44 @@ const Login = () => {
                 /*  Alert.alert("forgot password button pressed") */
               }}
             ></Button>
+        <Button
+          disabled={!isOkFunction()}
+          buttonStyle={styles.colores}
+          title="Iniciar sesion"
+          onPress={() => {
+            loginUser();
+          }}
+        ></Button>
+      </View>
+      <View style={styles.signin}>
+        <Button
+          type="clear"
+          title="¿No tenes cuenta? Registrate!"
+          titleStyle={styles.clearButton}
+          onPress={() => navigation.navigate("Registrate")}
+        ></Button>
+      </View>
+      <View style={{marginTop:10,marginLeft:'15%',marginRight:'15%'}}>
+        <Button
+            buttonStyle={{marginBottom:10, backgroundColor:'#3b5998'}}
+          title="Continuar con Facebook"
+          icon={<Icon name='facebook' size={30} color='white' style={{marginRight:'5%'}}/>}
+          onPress={() => {
+            loginFacebook();
+            /*  Alert.alert("forgot password button pressed") */
+          }}
+        ></Button>
+
+        <Button
+          icon={<Icon name='google' size={30} color='black' style={{marginRight:'5%'}}/>}
+          buttonStyle={{backgroundColor:'white'}}
+          titleStyle={styles.clearButton}
+          title="Continuar con Google"
+          onPress={() => {
+            loginGoogle()
+          }}
+        ></Button>
+        </View>
 
             <Button
               icon={

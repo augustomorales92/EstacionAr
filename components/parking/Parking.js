@@ -6,6 +6,7 @@ import { View, Alert, SafeAreaView, Text } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./ParkingStyle";
+import Camera from './Camera'
 //COMPONENTS
 import Clock from "../clock/clock";
 import {useNavigation} from '@react-navigation/native'
@@ -25,9 +26,13 @@ const Parking = (props) => {
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
 
+  console.log(time)
+
   useEffect(() => {
     dispatch(getUserTime(user));
   }, []);
+
+ console.log(time)
 
   const addTime = (num) => {
     let totalTime;
@@ -53,7 +58,8 @@ const Parking = (props) => {
             <Button
               buttonStyle={styles.button}
               onPress={() => {
-                Alert.alert("abrir camara");
+                
+              return <Camera />
                 /*    return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
               }}
               icon={<Icon name="camera" size={60} color="white" />}
@@ -98,7 +104,7 @@ const Parking = (props) => {
       <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>
-            <Clock time={Time} />
+            <Clock time={time} />
           </Text>
 
           <Button
@@ -115,7 +121,7 @@ const Parking = (props) => {
       <Button
       buttonStyle={styles.buttons}
         title="ir a estacionar"
-        onPress={() => {time > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+        onPress={() => {time > 0 ? navigation.navigate('Countdown',time) : navigation.navigate('Timer')}}
       ></Button>
     </View>
   </SafeAreaView>

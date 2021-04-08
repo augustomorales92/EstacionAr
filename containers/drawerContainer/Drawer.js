@@ -15,7 +15,7 @@ import {
 function CustomDrawerContent(props) {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userReducer.info);
-console.log('user infooooooooo ',userInfo)
+
   const logOut = () => {
     dispatch(signOutUser()).then(() =>
       props.navigation.navigate("home")
@@ -70,9 +70,10 @@ console.log('user infooooooooo ',userInfo)
           />
         </View>
         <View style={styles.centered}>
+          {userInfo &&
           <Text style={styles.title}>
-             {`Bienvenido `}
-          </Text>
+             {`Bienvenido ${userInfo.name}`}
+          </Text> }
         </View>
         {renderMainDrawer()}
       </SafeAreaView>

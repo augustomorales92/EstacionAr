@@ -14,7 +14,7 @@ const Timer = (props) => {
   const [finalTime, setFinalTime] = React.useState(0);
   const [isFinished, setIsFinished] = React.useState(false);
   const [price, setPrice] = React.useState(0);
-  //const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const vehiculo = props.route.params;
 
@@ -24,7 +24,7 @@ const Timer = (props) => {
   let { allUserCars } = useSelector((state) => state.carReducer);
   let patente = allUserCars[0].patente
   let { parkingHistory } = useSelector((state) => state.userReducer);
-  console.log(parkingHistory)
+
 
   function runningOn() {
     setRunning(true);
@@ -97,11 +97,7 @@ const Timer = (props) => {
                   title="FINALIZAR"
                   disabled={false}
                   buttonStyle={styles.button}
-                  onPress={() => {
-
-                    endParking()
-                    if(window.confirm("Realmente quiere finalizar?????")) dispatch(addNewParking({user, patente, price, finalTime}))
-                  }/* setModalVisible(!modalVisible) */}
+                  onPress={() => setModalVisible(!modalVisible)}
                 />
               </>
             ) : (
@@ -113,9 +109,8 @@ const Timer = (props) => {
                 />
                 <Button
                   title="FINALIZAR"
-                  disabled={false}
+                  disabled={true}
                   buttonStyle={styles.button}
-                  onPress={() => endParking()/* setModalVisible(!modalVisible) */}
                 />
               </>
             )}
@@ -164,13 +159,16 @@ const Timer = (props) => {
               <Button
                 title="CONFIRMAR"
                 buttonStyle={styles.button}
-                onPress={()=>navigation.navigate("drawer")}
+                onPress={()=>{
+                  navigation.navigate("drawer")
+                  navigation.goBack()
+                }}
               />
             </Card>
           </>
         )}
         {/* vvvv------------------ MODAL ----------------vvvv*/}
-        {/* <Modal
+        {<Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -181,32 +179,33 @@ const Timer = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Esta seguro de finalizar?</Text>
+            <Text style={styles.modalText}>Esta seguro de finalizar el estacionamiento?</Text>
            
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={[styles.button2, styles.buttonClose]}
                   onPress={() => {
                      endParking()  
-                   setModalVisible(!modalVisible)
+                     dispatch(addNewParking({user, patente, price, finalTime}))
+                     setModalVisible(!modalVisible)
                } }
                 >
-                  <Text style={styles.textStyle}></Text>
+                  <Text style={styles.textStyle}> SI </Text>
                 </Pressable>
                 <Pressable
-                  style={[styles.button, styles.buttonClose, { marginTop: 10 }]}
+                  style={[styles.button2, styles.buttonClose, { marginTop: 10 }]}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>Volver</Text>
+                  <Text style={styles.textStyle}>NO</Text>
                 </Pressable>
               </View>
             </View>
           </View>
         </View>
-      </Modal> */}
+      </Modal>}
         {/*^^^^------------------ MODAL ----------------^^^^ */}
 
 

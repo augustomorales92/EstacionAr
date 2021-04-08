@@ -22,6 +22,8 @@ const Parking = (props) => {
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
 
+  console.log(time)
+
   useEffect(() => {
     dispatch(getUserTime(user));
   }, []);

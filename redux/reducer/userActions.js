@@ -42,6 +42,7 @@ export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
 export const setUserTime = createAsyncThunk(
   "setUserTime",
   ({ totalTime, user }) => {
+    console.log(totalTime, user);
     return firebase.db
       .collection("users")
       .doc(user)

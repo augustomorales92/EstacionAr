@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     borderRadius: 10,
+    backgroundColor: "#353535",
   },
 
   buttonClose: {

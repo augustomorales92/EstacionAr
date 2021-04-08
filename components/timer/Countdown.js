@@ -19,6 +19,8 @@ const Countdown = (props) => {
   const dispatch = useDispatch();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalAlert, setModalAlert] = useState(false);
+
   const [message, setMessage] = useState("");
   const [isRunning, setRunning] = useState(false);
   const [time, setTime] = useState(timer);
@@ -29,13 +31,13 @@ const Countdown = (props) => {
 
   const startParking = () => {
     setRunning(!isRunning);
-    calculateParkingPrice(time + addTime);
+    calculateParkingPrice(timer + addTime);
   };
 
   const endParking = () => {
     let parkingTime = format(timer + addTime - time);
     setRunning(false);
-   // calculateParkingPrice(timer+addTime)
+   calculateParkingPrice(timer+addTime)
     console.log("ACA TENEMOS TOOODOOO", parkingTime, userId, patente, price);
   };
 
@@ -106,8 +108,9 @@ const Countdown = (props) => {
               title="Finalizar"
               buttonStyle={styles.buttontimer}
               onPress={() => {
-                
+                calculateParkingPrice(timer + addTime);
                 endParking();
+                setModalAlert(!modalAlert);
               }}
               disabled={time === 0 ? true : false}
             ></Button>
@@ -147,8 +150,7 @@ const Countdown = (props) => {
                     onPress={() => {
                       setTime(time + 3000);
                       setAddTime(addTime + 3000);
-                      calculateParkingPrice(time+addTime);
-
+                      calculateParkingPrice(timer + addTime);
                     }}
                   >
                     <Text style={styles.textStyle}>Agregar +30 min</Text>
@@ -170,6 +172,50 @@ const Countdown = (props) => {
         </Modal>
 
         {/*--------------------------MODAl--------------------*/}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalAlert}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalAlert(!modalAlert);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>¿Desea finalizar?</Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => {
+                      calculateParkingPrice(timer + addTime);
+                      endParking();
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Finalizar</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[
+                      styles.button,
+                      styles.buttonClose,
+                      { marginTop: 10 },
+                    ]}
+                    onPress={() => setModalAlert(!modalAlert)}
+                  >
+                    <Text style={styles.textStyle}>Volver</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );

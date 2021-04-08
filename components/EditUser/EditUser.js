@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, Alert, SafeAreaView, ActivityIndicator } from "react-native";
 import { Button, Input, Card, Image, Text } from "react-native-elements";
 import { validatePassword } from "../../utils/validations";
-import { getUserInfo } from "../../redux/reducer/userReducer";
+import { getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 import {validateEmail} from '../../utils/validations'
 

@@ -4,6 +4,7 @@ import Parking from "../components/parking/Parking";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Timer from "../components/timer/Timer"
+import Countdown from '../components/timer/Countdown';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,29 @@ export const ParkingContainer = (props) => {
           ),
         })}
       />
+      <Stack.Screen
+             name='Countdown' 
+             initialParams={vehiculo} 
+            component={Countdown}
+           options={({ navigation}) => ({
+                title: '',
+                headerStyle: {
+                    backgroundColor: 'orange',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
+                headerLeft: () => (
+                  <Button
+                  type='clear'
+                  icon={<Icon name='bars' color='white' style={{marginRight:10}} size={30}/>} 
+                   onPress={() => {
+                    navigation.toggleDrawer()}
+                      }/>
+                ),
+              })}/> 
+
 
       <Stack.Screen name="Timer" component={Timer} initialParams={vehiculo} options={({ navigation }) => ({
           title: "",
@@ -68,7 +92,9 @@ export const ParkingContainer = (props) => {
               }}
             />
           ),
-        })}/>
+        })}/> 
     </Stack.Navigator>
+
+    
   );
 };

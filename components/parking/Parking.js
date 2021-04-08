@@ -66,7 +66,8 @@ const Parking = (props) => {
             setTime(0)
             // navigation.navigate('Timer')
             // Alert.alert("libre");
-            /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
+            /* return setTimeout(()=>prop time } = useSelector((state) => state.userReducer);
+s.navigation.navigate('agregar un auto'),1000)  */
           }}
           icon={<Icon name='sc-telegram' size={60} color="white" />}
         ></Button>
@@ -112,7 +113,8 @@ const Parking = (props) => {
         onPress={timer}>
               <Icon name='clock' size={80} color="white"/>
               
-              
+               time } = useSelector((state) => state.userReducer);
+
               </Button>
               <Button rounded dark
         style={styles.button}
@@ -144,7 +146,7 @@ const Parking = (props) => {
       <Button
       buttonStyle={styles.buttons}
         title="ir a estacionar"
-        onPress={() => {time > 0 ? navigation.navigate('Countdown') : navigation.navigate('Timer')}}
+        onPress={() => {time > 0 ? navigation.navigate('Countdown',time) : navigation.navigate('Timer')}}
       ></Button>
     </View>
   </SafeAreaView>

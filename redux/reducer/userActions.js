@@ -42,6 +42,7 @@ export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
 export const setUserTime = createAsyncThunk(
   "setUserTime",
   ({ totalTime, user }) => {
+    console.log(totalTime, user);
     return firebase.db
       .collection("users")
       .doc(user)
@@ -82,6 +83,7 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
 export const addNewParking = createAsyncThunk(
   "addNewParking",
   ({ user, patente, price, finalTime }) => {
+    console.log('DENTRO DE DISPATCH', user, patente, price, finalTime)
     if(finalTime){
       return (
         firebase.db

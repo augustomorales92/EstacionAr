@@ -9,6 +9,10 @@ import {
   Modal,
   Text,
   Pressable,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  StyleSheet,
 } from "react-native";
 import { Button, Input, Card, Image } from "react-native-elements";
 import { styles } from "./LoginStyle";
@@ -157,99 +161,156 @@ if (type == "success") {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.imagen}>
-        <Image
-          style={styles.stretch}
-          source={{ uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png" }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-      </View>
-
-      <Card containerStyle={styles.input}>
-        <Input
-          ref={mails}
-          label="Email"
-          placeholder="email@adress.com"
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("email", value)}
-          onBlur={(e) => {
-            onBlurValidateEmail(e.nativeEvent.text);
-          }}
-          errorMessage={!isOkEmail && errorEmail}
-        />
-        <Input
-          ref={pass}
-          label="Contraseña"
-          placeholder="password"
-          secureTextEntry={true}
-          inputStyle={styles.colorInput}
-          onChangeText={(value) => handleChangeText("password", value)}
-          errorStyle={{ fontSize: 15 }}
-          onBlur={(e) => {
-            onBlurValidatePassword(e.nativeEvent.text);
-          }}
-          errorMessage={
-            (!isOkPassword && errorPassword) || (mistake && message)
-          }
-        />
-      </Card>
-      {/*--------------------------MODAl--------------------*/}
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Ingresa tu Email</Text>
-            <Input
-              label="Email"
-              placeholder="EstacionAr@estacionar.com"
-              errorMessage={message}
-              inputStyle={styles.colorInput}
-              onChangeText={(value) => handleChangeText("recoveryEmail", value)}
-            />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => emailRecovery()}
-                >
-                  <Text style={styles.textStyle}>Resetear Contraseña</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button, styles.buttonClose, { marginTop: 10 }]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Volver</Text>
-                </Pressable>
-              </View>
-            </View>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <View style={styles.imagen}>
+            <Image
+              style={styles.stretch}
+              source={{ uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png" }}
+              PlaceholderContent={<ActivityIndicator />}
+              />
           </View>
-        </View>
-      </Modal>
 
-      {/*--------------------------MODAl--------------------*/}
+          <Card containerStyle={styles.input}>
+            <Input
+              ref={mails}
+              label="Email"
+              placeholder="email@adress.com"
+              inputStyle={styles.colorInput}
+              onChangeText={(value) => handleChangeText("email", value)}
+              onBlur={(e) => {
+                onBlurValidateEmail(e.nativeEvent.text);
+              }}
+              errorMessage={!isOkEmail && errorEmail}
+            />
+            <Input
+              ref={pass}
+              label="Contraseña"
+              placeholder="password"
+              secureTextEntry={true}
+              inputStyle={styles.colorInput}
+              onChangeText={(value) => handleChangeText("password", value)}
+              errorStyle={{ fontSize: 15 }}
+              onBlur={(e) => {
+                onBlurValidatePassword(e.nativeEvent.text);
+              }}
+              errorMessage={
+                (!isOkPassword && errorPassword) || (mistake && message)
+              }
+              />
+          </Card>
+          {/*--------------------------MODAl--------------------*/}
 
-      <View style={styles.fixToText}>
-        <Button
-          title="¿Olvidaste tu contraseña?"
-          type="clear"
-          titleStyle={styles.clearButton}
-          onPress={() => {
-            setModalVisible(!modalVisible);
-            /*  Alert.alert("forgot password button pressed") */
-          }}
-        ></Button>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              style={styles.container}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>Ingresa tu Email</Text>
+                  <Input
+                    label="Email"
+                    placeholder="EstacionAr@estacionar.com"
+                    errorMessage={message}
+                    inputStyle={styles.colorInput}
+                    onChangeText={(value) =>
+                      handleChangeText("recoveryEmail", value)
+                    }
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => emailRecovery()}
+                      >
+                        <Text style={styles.textStyle}>
+                          Resetear Contraseña
+                        </Text>
+                      </Pressable>
+                      <Pressable
+                        style={[
+                          styles.button,
+                          styles.buttonClose,
+                          { marginTop: 10 },
+                        ]}
+                        onPress={() => setModalVisible(!modalVisible)}
+                      >
+                        <Text style={styles.textStyle}>Volver</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </KeyboardAvoidingView>
+          </Modal>
 
+          {/*--------------------------MODAl--------------------*/}
+
+          <View style={styles.fixToText}>
+            <Button
+              title="¿Olvidaste tu contraseña?"
+              type="clear"
+              titleStyle={styles.clearButton}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                /*  Alert.alert("forgot password button pressed") */
+              }}
+            ></Button>
+
+            <Button
+              disabled={!isOkFunction()}
+              buttonStyle={styles.colores}
+              title="Iniciar sesion"
+              onPress={() => {
+                loginUser();
+              }}
+            ></Button>
+          </View>
+          <View style={styles.signin}>
+            <Button
+              type="clear"
+              title="¿No tenes cuenta? Registrate!"
+              titleStyle={styles.clearButton}
+              onPress={() => navigation.navigate("Registrate")}
+            ></Button>
+          </View>
+          <View
+            style={{ marginTop: 10, marginLeft: "15%", marginRight: "15%" }}
+          >
+            <Button
+              buttonStyle={{ marginBottom: 10, backgroundColor: "#3b5998" }}
+              title="Continuar con Facebook"
+              icon={
+                <Icon
+                  name="facebook"
+                  size={30}
+                  color="white"
+                  style={{ marginRight: "5%" }}
+                />
+              }
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                /*  Alert.alert("forgot password button pressed") */
+              }}
+            ></Button>
         <Button
           disabled={!isOkFunction()}
           buttonStyle={styles.colores}
@@ -289,7 +350,25 @@ if (type == "success") {
         ></Button>
         </View>
 
-    </SafeAreaView>
+            <Button
+              icon={
+                <Icon
+                  name="google"
+                  size={30}
+                  color="black"
+                  style={{ marginRight: "5%" }}
+                />
+              }
+              buttonStyle={{ backgroundColor: "white" }}
+              titleStyle={styles.clearButton}
+              title="Continuar con Google"
+              onPress={() => {
+                loginUser();
+              }}
+            ></Button>
+          </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

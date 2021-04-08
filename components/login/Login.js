@@ -110,8 +110,10 @@ if (type == "success") {
 
 }
 
+
   const onBlurValidateEmail = (e) => {
-    if (validateEmail(e) !== false) {
+    console.log("valid email",validateEmail(e) )
+    if (validateEmail(e)) {
       setIsOkEmail(true);
       setErrorEmail("");
     } else {

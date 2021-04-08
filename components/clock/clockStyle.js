@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
       fontSize: 40,
-        backgroundColor: 'orange',
+        backgroundColor: '#F9B233',
       },
     clock:{
         margin: 0,

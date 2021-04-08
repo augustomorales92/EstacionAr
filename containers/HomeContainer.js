@@ -32,7 +32,9 @@ export const HomeContainer = () => {
             options={{
               title: "",
               headerStyle: {
-                backgroundColor: "orange",
+                backgroundColor: "#F9B233",
+                elevation: 0,
+            shadowColor: 'transparent',
               },
               headerTintColor: "#fff",
               headerTitleStyle: {
@@ -50,8 +52,8 @@ export const HomeContainer = () => {
             headerStyle: {
               backgroundColor: "black",
               // borderBottomWidth: 0,
-              // elevation: 0,
-              // shadowColor: 'transparent',
+               elevation: 0,
+               shadowColor: 'transparent',
               // shadowOffset: { height: 0, width: 0 },
               // headerHideShadow: true,
               // headerTransparent: true,

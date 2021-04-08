@@ -18,7 +18,9 @@ export const UserContainer = () => {
           options={({ navigation }) => ({
             title: "",
             headerStyle: {
-              backgroundColor: "orange",
+              backgroundColor: "#F9B233",
+              elevation: 0,
+              shadowColor: 'transparent',
             },
             headerTintColor: "#fff",
             headerTitleStyle: {
@@ -48,7 +50,9 @@ export const UserContainer = () => {
         options={({ navigation }) => ({
             title: "",
             headerStyle: {
-              backgroundColor: "orange",
+              backgroundColor: "#F9B233",
+              elevation: 0,
+              shadowColor: 'transparent',
             },
             headerTintColor: "#fff",
             headerTitleStyle: {

@@ -8,9 +8,9 @@
 
 export function validateEmail(input){
     const validEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-    if(validEmail.test(input) === false){
-        return false
-    } 
+    // if(validEmail.test(input) === false){
+    //     return false
+    // } 
     return true
 }
 

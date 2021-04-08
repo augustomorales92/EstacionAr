@@ -19,7 +19,9 @@ export const ParkingContainer = (props) => {
         options={({ navigation }) => ({
           title: "",
           headerStyle: {
-            backgroundColor: "orange",
+            backgroundColor: "#F9B233",
+            elevation: 0,
+            shadowColor: 'transparent',
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
@@ -50,7 +52,9 @@ export const ParkingContainer = (props) => {
            options={({ navigation}) => ({
                 title: '',
                 headerStyle: {
-                    backgroundColor: 'orange',
+                    backgroundColor: '#F9B233',
+                    elevation: 0,
+                    shadowColor: 'transparent',
                   },
                   headerTintColor: '#fff',
                   headerTitleStyle: {
@@ -70,7 +74,9 @@ export const ParkingContainer = (props) => {
       <Stack.Screen name="Timer" component={Timer} initialParams={vehiculo} options={({ navigation }) => ({
           title: "",
           headerStyle: {
-            backgroundColor: "orange",
+            backgroundColor: "#F9B233",
+            elevation: 0,
+            shadowColor: 'transparent',
           },
           headerTintColor: "#fff",
           headerTitleStyle: {

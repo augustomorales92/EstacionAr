@@ -93,15 +93,21 @@ const Countdown = (props) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
+             <Button
+                  title="Cancelar"
+                  disabled={isRunning && true}
+                  buttonStyle={styles.button}
+                  onPress={() => navigation.goBack()}
+                />
             <Button
               title="Iniciar"
-              buttonStyle={styles.buttontimer}
+              buttonStyle={styles.button}
               onPress={() => startParking()}
               disabled={isRunning && true}
             ></Button>
             <Button
               title="Finalizar"
-              buttonStyle={styles.buttontimer}
+              buttonStyle={styles.button}
               onPress={() => {
                 calculateParkingPrice(timer + addTime);
                 //endParking();
@@ -110,7 +116,7 @@ const Countdown = (props) => {
               disabled={time === 0 ? true : false}
             ></Button>
             <Button
-              buttonStyle={styles.buttontimer}
+              buttonStyle={styles.button}
               title="+30 min"
               onPress={() => {
                 setModalVisible(!modalVisible);
@@ -192,6 +198,7 @@ const Countdown = (props) => {
                       setTime(time + 3000);
                       setAddTime(addTime + 3000);
                       calculateParkingPrice(timer + addTime);
+                      setModalVisible(!modalVisible)
                     }}
                   >
                     <Text style={styles.textStyle}>Agregar +30 min</Text>
@@ -236,12 +243,13 @@ const Countdown = (props) => {
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
+                      setModalAlert(!modalAlert)
                       calculateParkingPrice(timer + addTime);
                       endParking();
                       dispatch(
                         addNewParking({ user, patente, price, finalTime })
                       );
-                      setModalVisible(!modalVisible);
+                      
                     }}
                   >
                     <Text style={styles.textStyle}>Finalizar</Text>

@@ -22,7 +22,7 @@ const Timer = (props) => {
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userReducer);
   let { allUserCars } = useSelector((state) => state.carReducer);
-  let patente = allUserCars[0].patente
+  let patente =  allUserCars[0].patente
   let { parkingHistory } = useSelector((state) => state.userReducer);
 
 
@@ -66,7 +66,7 @@ const Timer = (props) => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:'black',flex:1}}>
       <View>
         <Card containerStyle={styles.card}>
           <Text h4>Vehiculo a estacionar</Text>

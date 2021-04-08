@@ -12,7 +12,10 @@ export const styles = StyleSheet.create({
         display: "flex",
     },
     button: {
-        backgroundColor: "#353535",
+      padding: 10,
+      elevation: 2,
+      borderRadius: 10,
+      backgroundColor: "#353535",
     },
     centeredView: {
         flex: 1,

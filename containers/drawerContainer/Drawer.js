@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { signOutUser } from "../../redux/reducer/userActions";
 
 import {
@@ -14,7 +14,8 @@ import {
 
 function CustomDrawerContent(props) {
     const dispatch = useDispatch();
-
+    const userInfo = useSelector((state) => state.userReducer.info);
+console.log('user infooooooooo ',userInfo)
   const logOut = () => {
     dispatch(signOutUser()).then(() =>
       props.navigation.navigate("home")
@@ -23,6 +24,7 @@ function CustomDrawerContent(props) {
 
   function renderMainDrawer() {
     return (
+      
       <View>
         {props.drawerItems.map((parent) => (
           <View key={parent.key}>
@@ -56,6 +58,7 @@ function CustomDrawerContent(props) {
   }
 
   return (
+
     <ScrollView style={styles.drawerContainer}>
       <SafeAreaView
         style={styles.container}
@@ -65,6 +68,12 @@ function CustomDrawerContent(props) {
             source={{uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png"}}
             style={styles.logo}
           />
+        </View>
+        <View style={styles.centered}>
+          {userInfo &&
+          <Text style={styles.title}>
+             {`Bienvenido ${userInfo.name}`}
+          </Text> }
         </View>
         {renderMainDrawer()}
       </SafeAreaView>

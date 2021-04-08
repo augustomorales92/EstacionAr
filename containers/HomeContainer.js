@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 export const HomeContainer = () => {
   let userInTheApp = useSelector((state) => state.userReducer);
-    
+
   return (
     <Stack.Navigator>
       {!userInTheApp.user ? (
@@ -22,7 +22,7 @@ export const HomeContainer = () => {
             component={Login}
             options={{
               title: "",
-              headerTransparent: true
+              headerTransparent: true,
             }}
           />
 
@@ -49,8 +49,13 @@ export const HomeContainer = () => {
             title: "",
             headerStyle: {
               backgroundColor: "black",
+              // borderBottomWidth: 0,
+              // elevation: 0,
+              // shadowColor: 'transparent',
+              // shadowOffset: { height: 0, width: 0 },
+              // headerHideShadow: true,
+              // headerTransparent: true,
             },
-            
             headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",

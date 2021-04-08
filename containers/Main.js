@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import CustomDrawerContent from './drawerContainer/Drawer';
 import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';
 
-import Timer from "../components/timer/Timer"
+import { ParkingHistoryContainer } from "./ParkingHistoryContainer"
 
 const Drawer = createDrawerNavigator();
 
@@ -31,12 +31,12 @@ const Main = () => {
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
       )}>
-        {/* <Drawer.Screen name="timer" component={Timer} />  */}
         <Drawer.Screen name="home" component={HomeContainer} />
         <Drawer.Screen name="agregar un auto" component={AddCarContainer} />
         <Drawer.Screen name="autos" component={UsersCarsContainer} />
         <Drawer.Screen name="estacionar" component={ParkingContainer} />
         <Drawer.Screen name="mi perfil" component={UserContainer} />
+        <Drawer.Screen name="parking" component={ParkingHistoryContainer} />         
         
       </Drawer.Navigator>
     // </NavigationContainer>

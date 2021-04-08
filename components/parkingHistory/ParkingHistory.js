@@ -4,12 +4,20 @@ import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import { getParkingHistoryInfo } from "../../redux/reducer/userActions"
 
 const ParkingHistory = () => {
-    let { parkingHistory } = useSelector((state) => state.userReducer);
-    console.log("===========================================================", parkingHistory)
+    let { allParkingHistory } = useSelector((state) => state.userReducer);
+    let { user } = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch()
 
-    // traer del back todo el historial y mapearlo 
+    
+    console.log("===========================================================", allParkingHistory)
+
+    React.useEffect(()=>{
+        dispatch(getParkingHistoryInfo(user))
+        // console.log("==USER==", user)
+    },[])
 
     return (
         <SafeAreaView>
@@ -17,15 +25,16 @@ const ParkingHistory = () => {
                 <View style={styles.view}>
                     <Text h4>HISTORIAL</Text>
                 </View>
-                {/* aca iria el map */} 
-                <Card containerStyle={styles.card}>
+                {allParkingHistory.slice(allParkingHistory.length - 10, allParkingHistory.length).map(history=>(
+                    <Card containerStyle={styles.card}>
                     <Text h6>7/4/21  16:20:20</Text>
-                    <Text h4>datos del auto</Text>
+                    <Text h4>{history.patente}</Text>
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                        <Text h5>15:00:00</Text>
-                        <Text h5>$1500</Text>
+                        <Text h5>{history.finalTime}</Text>
+                        <Text h5>${history.price}</Text>
                     </View>
-                </Card>
+                    </Card>
+                ))} 
             </View>
         </SafeAreaView>
     );

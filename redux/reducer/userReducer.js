@@ -8,7 +8,8 @@ import {
   setUserTime,
   getUserTime,
   addNewParking,
-  getUserInfo
+  getUserInfo,
+  getParkingHistoryInfo,
 } from "./userActions";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   recovery: null,
   time: 0,
   parkingHistory: [],
-  info: null
+  info: null,
+  allParkingHistory: [],
 };
 
 export const userReducer = createReducer(initialState, {
@@ -41,5 +43,8 @@ export const userReducer = createReducer(initialState, {
   },
   [getUserInfo.fulfilled]: (state, action) => {
     return { ...state, info: action.payload }
+  },
+  [getParkingHistoryInfo.fulfilled]: (state, action) => {
+    return { ...state, allParkingHistory: action.payload }
   },
 });

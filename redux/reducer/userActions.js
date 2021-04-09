@@ -83,18 +83,21 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
 export const addNewParking = createAsyncThunk(
   "addNewParking",
   ({ user, patente, price, finalTime }) => {
-    console.log('DENTRO DE DISPATCH', user, patente, price, finalTime)
     if(finalTime){
       return (
         firebase.db
           .collection("users")
           .doc(`${user}`)
           .update({
-             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime})
+             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime}),
+             credit: firebase.firebase.firestore.FieldValue.increment(-price)
           })
           .then(() => {
             console.log("----PARKING HISTORY UPDATE----");
             return {user, patente, price, finalTime}
+          })
+          .then(() => {
+            
           })
           .catch((error) => alert("HISTORIAL NO UPDATEADO", error.message))
       );
@@ -123,3 +126,19 @@ export const getParkingHistoryInfo = createAsyncThunk("getParkingHistoryInfo", (
   })
   .catch(() => console.log('Error en recibir historial de user'))
 })
+
+export const setUserCredit = createAsyncThunk("setUserCredit", ({user, credit}) => {
+  console.log('LLEGANDO', user, credit)
+  return firebase.db
+    .collection("users")
+    .doc(user)
+    .update({
+      credit: firebase.firebase.firestore.FieldValue.increment(credit)
+    })
+    .then(() => {
+      console.log('Saldo cargado correctamente', credit);
+    })
+    .catch((error) => {
+      console.log("Error cargando saldo:", error);
+    });
+}); 

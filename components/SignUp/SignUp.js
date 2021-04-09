@@ -43,7 +43,7 @@ const SignUp = (props) => {
             name,
             lastname,
             email,
-            money: 0,
+            credit: 0,
             parkingTime: 0,
             parkingHistory: [],
           })
@@ -100,89 +100,79 @@ const SignUp = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-      keyboardVerticalOffset={80}
-    >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-             {/* <View style={styles.imagen}>
-              <Image
-                style={styles.stretch}
-                source={{
-                  uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png",
-                }}
-              />
-            </View> */}
-            <Card containerStyle={styles.input}>
-              <Input
-                label="Nombre"
-                name="name"
-                placeholder="juan"
-                inputStyle={styles.colorInput}
-                onChangeText={(value) => handleChangeText("name", value)}
-              />
-              <Input
-                label="Apellido"
-                name="lastname"
-                placeholder="rodriguez"
-                inputStyle={styles.colorInput}
-                onChangeText={(value) => handleChangeText("lastname", value)}
-              />
-              <Input
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="juanrodriguez@adress.com"
-                inputStyle={styles.colorInput}
-                onChangeText={(value) => handleChangeText("email", value)}
-                onBlur={(e) => {
-                  onBlurValidateEmail(e.nativeEvent.text);
-                }}
-                errorMessage={!isOkEmail && errorEmail}
-              />
-              <Input
-                label="Contraseña"
-                name="password"
-                secureTextEntry={true}
-                placeholder="*********"
-                inputStyle={styles.colorInput}
-                onChangeText={(value) => handleChangeText("password", value)}
-                onBlur={(e) => {
-                  onBlurValidatePassword(e.nativeEvent.text);
-                }}
-                errorMessage={!isOkPassword && errorPassword}
-              />
-              <Input
-                label="Repetir contraseña"
-                placeholder="*********"
-                secureTextEntry={true}
-                inputStyle={styles.colorInput}
-                onChangeText={(value) => handleChangeText("password2", value)}
-                onBlur={(e) => {
-                  onBlurValidatePassword2(e.nativeEvent.text);
-                }}
-                errorMessage={
-                  (!isOkPassword2 && errorPassword2) ||
-                  (password != repeatPassword && "las contraseñas no coinciden")
-                }
-              />
-            </Card>
-            <View >
-              <Button
-                disabled={!isOkFunction()}
-                buttonStyle={styles.colores}
-                title="registrarse"
-                onPress={() => {
-                  saveNewUser();
-                  return setTimeout(() => props.navigation.popToTop(), 100);
-                }}
-              ></Button>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <SafeAreaView style={styles.container}>
+      
+      <Card containerStyle={styles.input}>
+        <Input
+          label="Nombre"
+          name="name"
+          placeholder="juan"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("name", value)}
+        />
+        <Input
+          label="Apellido"
+          name="lastname"
+          placeholder="rodriguez"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("lastname", value)}
+        />
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="juanrodriguez@adress.com"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("email", value)}
+          onBlur={(e) => {
+            onBlurValidateEmail(e.nativeEvent.text);
+          }}
+          errorMessage={!isOkEmail && errorEmail}
+        />
+        <Input
+          label="Contraseña"
+          name="password"
+          secureTextEntry={true}
+          placeholder="*********"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("password", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword(e.nativeEvent.text);
+          }}
+          errorMessage={!isOkPassword && errorPassword}
+        />
+        <Input
+          label="Repetir contraseña"
+          placeholder="*********"
+          secureTextEntry={true}
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("password2", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword2(e.nativeEvent.text);
+          }}
+          errorMessage={!isOkPassword2 && errorPassword2 || password != repeatPassword && 'las contraseñas no coinciden'}
+        />
+      </Card>
+      <View style={styles.fixToText}>
+        <Button
+          disabled={!isOkFunction()}
+          buttonStyle={styles.colores}
+          title='registrarse'
+          onPress={() => {
+            saveNewUser();
+            return setTimeout(() => props.navigation.popToTop(), 100);
+          }}
+        ></Button>
+      </View>
+      <View style={styles.imagen}>
+        <Image
+          style={styles.stretch}
+          source={{
+            uri: "https://i.postimg.cc/mrWQN3x1/logo-final-8.png",
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

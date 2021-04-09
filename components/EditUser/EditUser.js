@@ -48,7 +48,7 @@ const EditUser = (props) => {
 
   return (
     <KeyboardAvoidingView
-      //behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <SafeAreaView style={styles.container}>

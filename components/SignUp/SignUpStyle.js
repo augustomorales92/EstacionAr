@@ -39,6 +39,11 @@ export const styles = StyleSheet.create({
   colores: {
     fontSize: 20,
     backgroundColor: "black",
+    marginLeft:'30%',
+    marginRight:'30%',
+    marginTop:'3%',
+    elevation: 2,
+    borderRadius: 3,
   },
   input: {
     backgroundColor: "black",

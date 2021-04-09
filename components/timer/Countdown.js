@@ -44,7 +44,6 @@ const Countdown = (props) => {
     setRunning(false);
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);
-    console.log("ACA TENEMOS TOOODOOO", user, patente, price, finalTime);
   };
 
   function calculateParkingPrice(time) {

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bff74d56-02fd-407e-b8d8-510bde8f810e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-    </list>
+    <list default="true" id="bff74d56-02fd-407e-b8d8-510bde8f810e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,10 +33,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="861" y="100" width="582" height="664" maximized="true" key="AVDManager" timestamp="1617636289683">
+    <state x="861" y="100" width="582" height="664" key="AVDManager" timestamp="1617920187736">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="861" y="100" width="582" height="664" maximized="true" key="AVDManager/0.0.1536.864/1920.0.1536.864@0.0.1536.864" timestamp="1617636289683" />
+    <state x="861" y="100" width="582" height="664" key="AVDManager/0.0.1536.864/1920.0.1536.864@0.0.1536.864" timestamp="1617920187736" />
     <state x="809" y="199" key="run.anything.popup" timestamp="1617634464618">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

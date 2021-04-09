@@ -20,9 +20,9 @@ const EditUser = (props) => {
   const userId = useSelector((state) => state.userReducer.user);
   const userInfo = useSelector((state) => state.userReducer.info);
 
-  useEffect(() => {
-    dispatch(getUserInfo(userId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUserInfo(userId));
+  // }, []);
 
   const [input, setInput] = useState({
     name: "",

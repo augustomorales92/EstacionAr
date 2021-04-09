@@ -270,15 +270,15 @@ if (type == "success") {
         ></Button>
       </View>
       <View style={{marginTop:10,marginLeft:'15%',marginRight:'15%'}}>
-        <Button
+       {/*  <Button
             buttonStyle={{marginBottom:10, backgroundColor:'#3b5998'}}
           title="Continuar con Facebook"
           icon={<Icon name='facebook' size={30} color='white' style={{marginRight:'5%'}}/>}
           onPress={() => {
             loginFacebook();
-            /*  Alert.alert("forgot password button pressed") */
+            // Alert.alert("forgot password button pressed") 
           }}
-        ></Button>
+        ></Button> */}
 
         <Button
           icon={<Icon name='google' size={30} color='black' style={{marginRight:'5%'}}/>}

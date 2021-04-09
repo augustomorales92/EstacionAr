@@ -52,6 +52,6 @@ export const styles = StyleSheet.create({
     marginTop: 0,
   },
   colorInput: {
-    color: "black",
+    color: "white",
   },
 });

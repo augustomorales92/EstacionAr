@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 
-export default function App() {
+const Camara = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -39,6 +39,8 @@ export default function App() {
     </View>
   );
 }
+
+export default Camara
 
 const styles = StyleSheet.create({
   container: {

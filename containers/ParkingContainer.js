@@ -14,6 +14,7 @@ export const ParkingContainer = (props) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
+      initialParams={vehiculo} 
         name="estacionar"
         component={Parking}
         options={({ navigation }) => ({

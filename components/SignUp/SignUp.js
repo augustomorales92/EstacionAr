@@ -48,7 +48,9 @@ const SignUp = (props) => {
             parkingHistory: [],
           })
           .then((cred) => {
-            return Alert.alert("Usuario registrado exitosamente", cred);
+             Alert.alert("Usuario registrado exitosamente", cred,[{text:'ok',onPress:()=>{props.navigation.popToTop()}}],{cancelable:false});
+            
+
           })
           .then(() => verifyEmail());
       })
@@ -188,7 +190,7 @@ console.log(input)
                 title="registrarse"
                 onPress={() => {
                   saveNewUser();
-                  return setTimeout(() => props.navigation.popToTop(), 100);
+                  //return setTimeout(() => props.navigation.popToTop(), 100);
                 }}
               ></Button>
             </View>

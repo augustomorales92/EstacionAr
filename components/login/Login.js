@@ -43,11 +43,11 @@ const Login = () => {
   const [isOkEmail, setIsOkEmail] = useState(false);
   const [isOkPassword, setIsOkPassword] = useState(false);
   let isOk = false;
-  const iosClient =
-    "493615545753-sekkfffcer2bra7f8mvddstbls2vhukf.apps.googleusercontent.com";
-  const androidClient =
-    "493615545753-c10rjmiqcfmn9r494gslponltbn68tse.apps.googleusercontent.com";
-  const fbAppId = "281154416752453";
+
+  const iosClient = "493615545753-sekkfffcer2bra7f8mvddstbls2vhukf.apps.googleusercontent.com"
+  const androidClient = '493615545753-c10rjmiqcfmn9r494gslponltbn68tse.apps.googleusercontent.com'
+  const fbAppId = '281154416752453'
+  
 
   const loginUser = () => {
     const { email, password } = input;
@@ -83,11 +83,45 @@ const Login = () => {
           result.idToken,
           result.accessToken
         );
-        firebase.auth
-          .signInWithCredential(credential) //Login to Firebase
-          .catch((error) => {
-            console.log(error);
-          });
+
+
+       //me logueo con esos datos
+       firebase.auth
+       .signInWithCredential(credential)
+        .then((res)=>{
+        
+          firebase.db
+          .collection('users')
+          .doc(`${res.user.uid}`)
+          .get()
+          .then((document)=>{if(!document.exists){
+            return  firebase.db
+          .collection("users")
+          .doc(`${res.user.uid}`)
+          .set({
+             name:res.additionalUserInfo.profile.given_name,
+             lastName:res.additionalUserInfo.profile.family_name,
+             email:res.additionalUserInfo.profile.email,
+             credit:0,
+             id:res.user.uid,
+             parkingHistory:[]
+
+          })
+          .then(() => {
+            console.log("---USER UPDATE----");
+            
+          })
+            }})
+          
+         
+        })
+       .catch((error) => {
+         console.log(error);
+       }); 
+
+
+     
+       
       } else {
         //CANCEL
       }

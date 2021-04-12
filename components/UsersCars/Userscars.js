@@ -4,7 +4,7 @@ import { Button, Card, CheckBox } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./UsersCarsStyle";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars,deleteOneCar } from "../../redux/reducer/carActions";
+import { getAllCars,deleteOneCar, selectedCar } from "../../redux/reducer/carActions";
 
 const Userscars = (props) => {
   const dispatch = useDispatch()
@@ -45,11 +45,12 @@ const Userscars = (props) => {
                 checkedColor="white"
                 checked={true}
                 onPress={()=> {
-                  props.navigation.navigate('drawer',{ 
+                  dispatch(selectedCar({
                     patenteId : car.patente,
                     marcaId: car.marca,
-                    modeloId:car.modelo
-                  })
+                    modeloId:car.modelo}))
+                        
+                  props.navigation.navigate('drawer') 
                   
                 }}
                 containerStyle={styles.cardButton}

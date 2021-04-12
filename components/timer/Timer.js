@@ -56,7 +56,7 @@ const Timer = (props) => {
       if (isRunning) {
         intervalo = setInterval(() => {
           setTime((time) => time + 1);
-        }, 10); // tiempo original es 1000
+        }, 1000); // tiempo original es 1000
       }
       return () => {
         clearInterval(intervalo);

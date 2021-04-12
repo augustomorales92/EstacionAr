@@ -38,12 +38,13 @@ export const styles = StyleSheet.create({
         fontSize: 10,
         fontFamily: 'Courier-Bold',
         height:40,
+        marginTop:'4%'
        },
     lastButton:{
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20,
-        marginRight:20,
+       
         
     },
         colores2:{
@@ -62,7 +63,8 @@ export const styles = StyleSheet.create({
             opacity:0.4
         },
         buttons:{
-            backgroundColor:'black'
+            backgroundColor:'black',
+            justifyContent:'center'
         }
         ,
         buttons2:{

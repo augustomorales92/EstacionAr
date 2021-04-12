@@ -29,13 +29,13 @@ const EditUser = (props) => {
     lastname: "",
   });
 
-  const editUser = () => {
+  const editUser = (props) => {
     const { name, lastname, email } = input;
     if (name === "" || lastname === "")
       return props.navigation.navigate("home");
-    firebase.db
+      firebase.db
       .collection("users")
-      .doc(userId)
+      .doc(`${userId}`)
       .update({ name, lastname })
       .then(() => console.log("Edit user successful"))
       .catch(() => console.log("Error en user edit"));
@@ -82,9 +82,6 @@ const EditUser = (props) => {
             buttonStyle={styles.colores}
             title="Actualizar cambios"
             onPress={() => {
-              if (
-                window.confirm("Está seguro que desea realizar estos cambios?")
-              )
                 editUser();
             }}
           ></Button>

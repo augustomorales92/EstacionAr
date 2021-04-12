@@ -12,6 +12,7 @@
     "@react-navigation/drawer": "^5.12.4",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
+    "babel-preset-react-native": "^4.0.1",
     "expo": "^40.0.1",
     "expo-camera": "^10.0.0",
     "expo-facebook": "^10.0.0",

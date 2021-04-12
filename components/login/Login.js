@@ -15,6 +15,8 @@ import { styles } from "./LoginStyle";
 import { useNavigation } from "@react-navigation/native";
 import { validateEmail, validatePassword } from "../../utils/validations";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { SocialIcon } from 'react-native-elements'
+
 //importamos dispatch
 import { useDispatch } from "react-redux";
 //importamos la funcion para guardar el newUser
@@ -279,6 +281,14 @@ if (type == "success") {
             // Alert.alert("forgot password button pressed") 
           }}
         ></Button> */}
+  {/*       <SocialIcon
+  title='Continuar con Google'
+  button
+  type='google'
+  light
+  
+  onPress={()=>{loginGoogle()}}
+/> */}
 
         <Button
           icon={<Icon name='google' size={30} color='black' style={{marginRight:'5%'}}/>}

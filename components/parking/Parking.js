@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //Native
-import { View, Alert, SafeAreaView, Text } from "react-native";
+import { View, Alert, SafeAreaView, Text,TextInput } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./ParkingStyle";
@@ -15,6 +15,7 @@ import Time from "../timer/Timer"
 
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
+import { add } from "react-native-reanimated";
 
 
 const Parking = (props) => {
@@ -74,7 +75,12 @@ const Parking = (props) => {
 
       <Card containerStyle={styles.input}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.colores}>0.5hs</Text>
+     
+
+        <Text style={styles.clock}>
+            <Clock time={time} />
+          </Text>
+      
 
           <Button
             buttonStyle={styles.button}
@@ -93,15 +99,14 @@ const Parking = (props) => {
           <Button
             buttonStyle={styles.button}
             onPress={() => {
-              Alert.alert("algo");
-              /* return setTimeout(()=>props.navigation.navigate('agregar un auto'),1000)  */
+              addTime(0);
             }}
             icon={<Icon name="stopwatch" size={60} color="white" />}
           ></Button>
         </View>
       </Card>
 
-      <Card containerStyle={styles.input2}>
+      {/* <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>
             <Clock time={time} />
@@ -115,7 +120,7 @@ const Parking = (props) => {
             }}
           ></Button>
         </View>
-      </Card>
+      </Card> */}
 
     <View style={styles.lastButton}>
       <Button
@@ -124,6 +129,8 @@ const Parking = (props) => {
         onPress={() => {time > 0 ? navigation.navigate('Countdown',time) : navigation.navigate('Timer')}}
       ></Button>
     </View>
+   
+ 
   </SafeAreaView>
 )};
 

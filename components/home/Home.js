@@ -4,7 +4,10 @@ import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
+import {setUserCredit, getUserInfo} from "../../redux/reducer/userActions"
+//import { MercadoPagoCheckout } from 'react-native-mercadopago-checkout';
+
+//import MapView , { Marker }from 'react-native-maps';
 
 import MapView , { Marker }from 'react-native-maps';
 

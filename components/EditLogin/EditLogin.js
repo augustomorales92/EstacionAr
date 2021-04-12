@@ -32,11 +32,12 @@ const EditLogin = (props) => {
     password2: "",
   });
 
-  const editUser = (props) => {
+  const editUser = () => {
     const {password } = input
     user.updatePassword(password).then(() => {
       console.log('Updateo de password correcto');
-      setTimeout(() => props.navigation.navigate('home'), 2000);
+      // setTimeout(() =>props.navigation.goBack();
+      // , 2000);
     })
     .catch((err) => console.log('Error en updateo de password', err))
   };
@@ -107,6 +108,7 @@ const EditLogin = (props) => {
           title="Guardar cambios"
           onPress={() => {
             editUser();
+            props.navigation.goBack();
           }}
         ></Button>
       </View>
@@ -115,7 +117,7 @@ const EditLogin = (props) => {
           buttonStyle={styles.colores}
           title="Go back"
           onPress={() => {
-            props.navigation.navigate('datos usuario');
+            props.navigation.goBack();
           }}
         ></Button>
       </View>

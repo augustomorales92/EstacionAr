@@ -61,12 +61,19 @@ const SignUp = (props) => {
         .then(() => "Envío de correo exitoso")
         .catch((error) => alert("Error con el envío de confirmación"));
     };
+    setInput({
+      name: "",
+      lastname: "",
+      email: "",
+      password: "",
+      password2: "",
+    })
   };
 
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
-
+console.log(input)
   const onBlurValidateEmail = (e) => {
     if (validateEmail(e) !== false) {
       setIsOkEmail(true);
@@ -101,7 +108,7 @@ const SignUp = (props) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
       keyboardVerticalOffset={80}
     >
@@ -122,6 +129,7 @@ const SignUp = (props) => {
                 placeholder="juan"
                 inputStyle={styles.colorInput}
                 onChangeText={(value) => handleChangeText("name", value)}
+                value={input.name}
               />
               <Input
                 label="Apellido"
@@ -129,6 +137,7 @@ const SignUp = (props) => {
                 placeholder="rodriguez"
                 inputStyle={styles.colorInput}
                 onChangeText={(value) => handleChangeText("lastname", value)}
+                value={input.lastname}
               />
               <Input
                 label="Email"
@@ -141,6 +150,7 @@ const SignUp = (props) => {
                   onBlurValidateEmail(e.nativeEvent.text);
                 }}
                 errorMessage={!isOkEmail && errorEmail}
+                value={input.email}
               />
               <Input
                 label="Contraseña"
@@ -153,6 +163,7 @@ const SignUp = (props) => {
                   onBlurValidatePassword(e.nativeEvent.text);
                 }}
                 errorMessage={!isOkPassword && errorPassword}
+                value={input.password}
               />
               <Input
                 label="Repetir contraseña"
@@ -167,6 +178,7 @@ const SignUp = (props) => {
                   (!isOkPassword2 && errorPassword2) ||
                   (password != repeatPassword && "las contraseñas no coinciden")
                 }
+                value={input.password2}
               />
             </Card>
             <View >

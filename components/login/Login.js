@@ -48,6 +48,7 @@ const Login = () => {
   const androidClient =
     "493615545753-c10rjmiqcfmn9r494gslponltbn68tse.apps.googleusercontent.com";
   const fbAppId = "281154416752453";
+
   const loginUser = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
@@ -60,6 +61,10 @@ const Login = () => {
         }
       })
       .catch((error) => console.log("catch ----->", error));
+      setInput({
+        email: "",
+        password: "",
+      })
   };
 
   const loginGoogle = async () => {
@@ -178,6 +183,7 @@ const Login = () => {
           onBlur={(e) => {
             onBlurValidateEmail(e.nativeEvent.text);
           }}
+          value={input.email}
           errorMessage={!isOkEmail && errorEmail}
         />
         <Input
@@ -191,6 +197,7 @@ const Login = () => {
           onBlur={(e) => {
             onBlurValidatePassword(e.nativeEvent.text);
           }}
+          value={input.password}
           errorMessage={
             (!isOkPassword && errorPassword) || (mistake && message)
           }

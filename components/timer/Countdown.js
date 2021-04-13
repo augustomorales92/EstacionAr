@@ -12,6 +12,7 @@ const Countdown = (props) => {
   const vehiculo = props.route.params;
 
   const timer = useSelector((state) => state.userReducer.time);
+  console.log('TIMEEER', timer)
   const user = useSelector((state) => state.userReducer.user);
   const patente = useSelector(
     (state) => state.carReducer.allUserCars[0].patente
@@ -25,6 +26,7 @@ const Countdown = (props) => {
   const [message, setMessage] = useState("");
   const [isRunning, setRunning] = useState(false);
   const [time, setTime] = useState(timer);
+  console.log('TIIIIME', time);
   const [value, setValue] = useState("");
   const [price, setPrice] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
@@ -88,7 +90,7 @@ const Countdown = (props) => {
           <Text h5>{vehiculo.marcaId}</Text>
         </Card>
         <Card containerStyle={styles.card}>
-          <ClockTimer time={time} />
+          <ClockTimer time={12000} />
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >

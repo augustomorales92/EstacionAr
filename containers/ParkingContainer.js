@@ -1,15 +1,21 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
+
 import Parking from "../components/parking/Parking";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Timer from "../components/timer/Timer"
 import Countdown from '../components/timer/Countdown';
 
+
+
 const Stack = createStackNavigator();
 
-export const ParkingContainer = (props) => {
-  const vehiculo = props.route.params
+export const ParkingContainer = () => {
+  const {selectCar} = useSelector(state => state.carReducer);
+//console.log('aaaauto seleccionadooo -----> ',selectCar)
+  const vehiculo = selectCar
 
   return (
     <Stack.Navigator>

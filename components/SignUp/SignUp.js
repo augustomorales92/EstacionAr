@@ -74,7 +74,7 @@ const SignUp = (props) => {
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
-console.log(input)
+
   const onBlurValidateEmail = (e) => {
     if (validateEmail(e) !== false) {
       setIsOkEmail(true);

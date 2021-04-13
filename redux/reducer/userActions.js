@@ -1,4 +1,5 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import {getDate} from "../../utils/date"
 
 //importamos Firebase
 import firebase from "../../back/db/firebase";
@@ -85,13 +86,15 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
 export const addNewParking = createAsyncThunk(
   "addNewParking",
   ({ user, patente, price, finalTime }) => {
+    const date = getDate()
+    console.log(date)
     if(finalTime){
       return (
         firebase.db
           .collection("users")
           .doc(`${user}`)
           .update({
-             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime}),
+             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime, date}),
              credit: firebase.firebase.firestore.FieldValue.increment(-price)
           })
           .then(() => {

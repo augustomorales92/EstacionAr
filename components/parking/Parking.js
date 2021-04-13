@@ -2,12 +2,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //Native
+
 import { View, Alert, SafeAreaView, Text,TouchableOpacity,} from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./ParkingStyle";
 import {Camera} from 'expo-camera'
 import { BarCodeScanner,BarCodeScannerResult } from 'expo-barcode-scanner';
+
 
 //COMPONENTS
 import Clock from "../timer/ClockTimer";
@@ -17,15 +19,14 @@ import {useNavigation} from '@react-navigation/native'
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
-
-
 const Parking = (props) => {
-  const vehiculo = props.route.params
+  const vehiculo = props.route.params;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
+
   const [scanned,setScanned] = React.useState(false)
   const [dato,setDato] = React.useState({})
   
@@ -40,8 +41,9 @@ const Parking = (props) => {
      /* setDato({data}) */
       
     } else {
-      Alert.alert('Access denied')
+      Alert.alert("Access denied");
     }
+
   }
   const scanner = ({type, data})=>{
     Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
@@ -53,8 +55,6 @@ const Parking = (props) => {
     dispatch(getUserTime(user));
   }, []);
 
- console.log(time)
-
   const addTime = (num) => {
     let totalTime;
     num == 0 ? (totalTime = 0) : (totalTime = time + num);
@@ -64,6 +64,7 @@ const Parking = (props) => {
  
   return (
     <SafeAreaView style={styles.container}>
+
       {!scanned?
       <>
       <Card containerStyle={styles.input}>
@@ -85,49 +86,44 @@ const Parking = (props) => {
               onPress={()=> setScanned(true)}
               icon={<Icon name="camera" size={60} color="white" />}
             ></Button>
+
           </View>
-          
-        </Card>
-      </View>
-      <View style={styles.fixToText}>
-        <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
-       
-      </View>
 
-      <Card containerStyle={styles.input}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-     
+          <Card containerStyle={styles.input}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.clock}>
+                <Clock time={time} />
+              </Text>
 
-        <Text style={styles.clock}>
-            <Clock time={time} />
-          </Text>
-      
+              <Button
+                buttonStyle={styles.button}
+                onPress={() => {
+                  addTime(3000);
+                }}
+                icon={<Icon name="clock" size={60} color="white" />}
+              ></Button>
+            </View>
+          </Card>
 
-          <Button
-            buttonStyle={styles.button}
-            onPress={() => {
-              addTime(1800);
-            }}
-            icon={<Icon name="clock" size={60} color="white" />}
-          ></Button>
-        </View>
-      </Card>
+          <Card containerStyle={styles.input}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.colores}> Libre</Text>
 
-      <Card containerStyle={styles.input}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.colores}> Libre</Text>
+              <Button
+                buttonStyle={styles.button}
+                onPress={() => {
+                  addTime(0);
+                }}
+                icon={<Icon name="stopwatch" size={60} color="white" />}
+              ></Button>
+            </View>
+          </Card>
 
-          <Button
-            buttonStyle={styles.button}
-            onPress={() => {
-              addTime(0);
-            }}
-            icon={<Icon name="stopwatch" size={60} color="white" />}
-          ></Button>
-        </View>
-      </Card>
-
-      {/* <Card containerStyle={styles.input2}>
+          {/* <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.clock}>
             <Clock time={time} />

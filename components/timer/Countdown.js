@@ -17,6 +17,7 @@ const Countdown = (props) => {
     (state) => state.carReducer.allUserCars[0].patente
   );
 
+  
   const dispatch = useDispatch();
 
   const [modalVisible, setModalVisible] = useState(false);

@@ -10,7 +10,7 @@ import {Camera} from 'expo-camera'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 //COMPONENTS
-import Clock from "../clock/clock";
+import Clock from "../timer/ClockTimer";
 import {useNavigation} from '@react-navigation/native'
 
 
@@ -95,7 +95,7 @@ const Parking = (props) => {
           <Button
             buttonStyle={styles.button}
             onPress={() => {
-              addTime(3000);
+              addTime(1800);
             }}
             icon={<Icon name="clock" size={60} color="white" />}
           ></Button>

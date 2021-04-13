@@ -11,7 +11,6 @@ import {setUserCredit, getUserInfo} from "../../redux/reducer/userActions"
 import MapView , { Marker }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
-
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [input, setInput] = useState({

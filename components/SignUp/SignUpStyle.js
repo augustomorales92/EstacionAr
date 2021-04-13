@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F9B233",
+    
     // height: "100%",
   },
 
@@ -50,8 +51,15 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     opacity: 0.5,
     marginTop: 0,
+
   },
   colorInput: {
     color: "white",
   },
+
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 36
+  }
 });

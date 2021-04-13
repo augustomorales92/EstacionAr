@@ -40,6 +40,10 @@ const EditLogin = (props) => {
       // , 2000);
     })
     .catch((err) => console.log('Error en updateo de password', err))
+    setInput({
+      password: "",
+      password2: "",
+    })
   };
 
   const handleChangeText = (name, value) => {
@@ -85,6 +89,7 @@ const EditLogin = (props) => {
             onBlurValidatePassword(e.nativeEvent.text);
           }}
           errorMessage={!isOkPassword && errorPassword}
+          value={input.password}
         />
         <Input
           label="Repetir contraseña"
@@ -99,6 +104,7 @@ const EditLogin = (props) => {
             (!isOkPassword2 && errorPassword2) ||
             (password != repeatPassword && "las contraseñas no coinciden")
           }
+          value={input.password2}
         />
       </Card>
       <View style={styles.fixToText}>

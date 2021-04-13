@@ -6,10 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import {setUserCredit, getUserInfo} from "../../redux/reducer/userActions"
 //import { MercadoPagoCheckout } from 'react-native-mercadopago-checkout';
-
 //import MapView , { Marker }from 'react-native-maps';
 
 import MapView , { Marker }from 'react-native-maps';
+import { selectedCar } from "../../redux/reducer/carActions";
+
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,7 +20,10 @@ const Home = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
   const info = useSelector((state) => state.userReducer.info);
+  const {selectCar,allUserCars} = useSelector(state => state.carReducer);
+  
   const navigation = useNavigation();
+
 
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
@@ -32,10 +36,14 @@ const Home = (props) => {
 
   useEffect(() => {
     !modalVisible && dispatch(getUserInfo(user));
+    
   }, []);
 
+  useEffect(()=>{
+    !allUserCars.length && dispatch(selectedCar({}))
+  },[allUserCars])
 
-  const vehiculo = props.route.params;
+
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
       <View style={{ marginHorizontal: 15, marginVertical: 10 }}>
@@ -69,7 +77,7 @@ const Home = (props) => {
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
             <>
-              {vehiculo == undefined ? (
+             {!selectCar.modeloId  ? (
                 <>
                   <View
                     style={{
@@ -88,7 +96,7 @@ const Home = (props) => {
                     ></Button>
                   </View>
                 </>
-              ) : (
+              ) : ( 
                 <>
                   <View
                     style={{
@@ -97,10 +105,10 @@ const Home = (props) => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Text h3>{vehiculo.modeloId} </Text>
+                    <Text h3>{selectCar.modeloId} </Text>
                     <Card.Divider style={{ color: "black" }} />
-                    <Text h4>{vehiculo.patenteId}</Text>
-                    <Text h4>{vehiculo.marcaId}</Text>
+                    <Text h4>{selectCar.patenteId}</Text>
+                    <Text h4>{selectCar.marcaId}</Text>
                   </View>
                   <View
                     style={{
@@ -113,7 +121,7 @@ const Home = (props) => {
                       title="ESTACIONAR"
                       buttonStyle={styles.button}
                       onPress={() =>
-                        props.navigation.navigate("estacionar", vehiculo)
+                        navigation.navigate("estacionar", selectedCar)
                       }
                     ></Button>
                     <Button
@@ -123,13 +131,13 @@ const Home = (props) => {
                     ></Button>
                   </View>
                 </>
-              )}
+               )} 
             </>
           </View>
         </Card>
       </View>
       <View style={{ marginHorizontal: 15 }}>
-        <Card containerStyle={styles.card}>
+        {/* <Card containerStyle={styles.card}>
           <MapView
       initialRegion={{
         latitude: -26.8248387,
@@ -139,7 +147,7 @@ const Home = (props) => {
       }}  
       minZoomLevel={15}
       style={styles.map} /> 
-        </Card>
+        </Card> */}
 
         {/*--------------------------MODAl--------------------*/}
 

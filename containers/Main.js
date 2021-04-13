@@ -8,19 +8,34 @@ import { AddCarContainer } from "./AddCarContainer";
 import { UserContainer } from "./UserContainer";
 // import Login from "../components/login/Login";
 import { getUserLogged } from "../redux/reducer/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import CustomDrawerContent from './drawerContainer/Drawer';
 import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';
-
+import {getAllCars, selectedCar} from '../redux/reducer/carActions'
 import { ParkingHistoryContainer } from "./ParkingHistoryContainer"
 
 const Drawer = createDrawerNavigator();
 
 const Main = () => {
   const dispatch = useDispatch();
-
+  const {selectCar} = useSelector(state => state.carReducer);
+  
   useEffect(() => {
     getUserLogged(dispatch)
+    .then((userid)=> getAllCars(dispatch, userid))
+    .then((dato)=>{
+      if(dato.length){
+    const {modelo,marca,patente} = dato[0]
+      const car ={
+        modeloId:modelo,
+        marcaId:marca,
+        patenteId:patente
+      }
+    !selectCar.marcaId && dispatch(selectedCar(car))
+  }
+    
+  })
+  .catch((error)=>{console.log(error)})
     
   }, []);
 

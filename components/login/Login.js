@@ -1,6 +1,6 @@
 import React, { useState, createRef } from "react";
-import * as Google from 'expo-google-app-auth';
-import * as Facebook from 'expo-facebook';
+import * as Google from "expo-google-app-auth";
+import * as Facebook from "expo-facebook";
 import {
   View,
   Alert,
@@ -15,7 +15,7 @@ import { styles } from "./LoginStyle";
 import { useNavigation } from "@react-navigation/native";
 import { validateEmail, validatePassword } from "../../utils/validations";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { SocialIcon } from 'react-native-elements'
+import { SocialIcon } from "react-native-elements";
 
 //importamos dispatch
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import { logUser } from "../../redux/reducer/userActions";
 //importamos firebase
 import firebase from "../../back/db/firebase";
-import Firebase from 'firebase'
+import Firebase from "firebase";
 
 const Login = () => {
   const pass = createRef();
@@ -43,9 +43,12 @@ const Login = () => {
   const [isOkEmail, setIsOkEmail] = useState(false);
   const [isOkPassword, setIsOkPassword] = useState(false);
   let isOk = false;
+
   const iosClient = "493615545753-sekkfffcer2bra7f8mvddstbls2vhukf.apps.googleusercontent.com"
   const androidClient = '493615545753-c10rjmiqcfmn9r494gslponltbn68tse.apps.googleusercontent.com'
   const fbAppId = '281154416752453'
+  
+
   const loginUser = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
@@ -58,63 +61,97 @@ const Login = () => {
         }
       })
       .catch((error) => console.log("catch ----->", error));
+      setInput({
+        email: "",
+        password: "",
+      })
   };
 
-  const loginGoogle = async()=>{
+  const loginGoogle = async () => {
     try {
       //await GoogleSignIn.askForPlayServicesAsync();
-      const result = await Google.logInAsync({ //return an object with result token and user
-        iosClientId: iosClient, 
-        androidClientId: androidClient, 
+      const result = await Google.logInAsync({
+        //return an object with result token and user
+        iosClientId: iosClient,
+        androidClientId: androidClient,
       });
-      if (result.type === 'success') {
+      if (result.type === "success") {
         //console.log(result);
-       // setIsLoading(true);
-        const credential = Firebase.auth.GoogleAuthProvider.credential( //Set the tokens to Firebase
+        // setIsLoading(true);
+        const credential = Firebase.auth.GoogleAuthProvider.credential(
+          //Set the tokens to Firebase
           result.idToken,
           result.accessToken
         );
-        firebase.auth
-          .signInWithCredential(credential) //Login to Firebase
-          .catch((error) => {
-            console.log(error);
-          });
+
+
+       //me logueo con esos datos
+       firebase.auth
+       .signInWithCredential(credential)
+        .then((res)=>{
+        
+          firebase.db
+          .collection('users')
+          .doc(`${res.user.uid}`)
+          .get()
+          .then((document)=>{if(!document.exists){
+            return  firebase.db
+          .collection("users")
+          .doc(`${res.user.uid}`)
+          .set({
+             name:res.additionalUserInfo.profile.given_name,
+             lastName:res.additionalUserInfo.profile.family_name,
+             email:res.additionalUserInfo.profile.email,
+             credit:0,
+             id:res.user.uid,
+             parkingHistory:[]
+
+          })
+          .then(() => {
+            console.log("---USER UPDATE----");
+            
+          })
+            }})
+          
+         
+        })
+       .catch((error) => {
+         console.log(error);
+       }); 
+
+
+     
+       
       } else {
         //CANCEL
       }
     } catch ({ message }) {
-      alert('login: Error:' + message);
+      alert("login: Error:" + message);
     }
-  }
+  };
 
-  const loginFacebook = async()=>{
-    
-    Facebook.initializeAsync({appId:fbAppId})
-    const { type,
+  const loginFacebook = async () => {
+    Facebook.initializeAsync({ appId: fbAppId });
+    const {
+      type,
       token,
       expirationDate,
       permissions,
-      declinedPermissions,} = await
-    Facebook.logInWithReadPermissionsAsync({permission: ["public_profile"]} );
-if (type == "success") {
+      declinedPermissions,
+    } = await Facebook.logInWithReadPermissionsAsync({
+      permission: ["public_profile"],
+    });
+    if (type == "success") {
+      const credential = Firebase.auth.FacebookAuthProvider.credential(token);
 
-
-  const credential = Firebase.auth.FacebookAuthProvider.credential(token);
-      
-      firebase.auth
-      .signInWithCredential(credential)
-      .catch(error => {
-    console.log(error);
-          });
-}
-
-
-
-}
-
+      firebase.auth.signInWithCredential(credential).catch((error) => {
+        console.log(error);
+      });
+    }
+  };
 
   const onBlurValidateEmail = (e) => {
-    console.log("valid email",validateEmail(e) )
+    console.log("valid email", validateEmail(e));
     if (validateEmail(e)) {
       setIsOkEmail(true);
       setErrorEmail("");
@@ -180,6 +217,7 @@ if (type == "success") {
           onBlur={(e) => {
             onBlurValidateEmail(e.nativeEvent.text);
           }}
+          value={input.email}
           errorMessage={!isOkEmail && errorEmail}
         />
         <Input
@@ -193,6 +231,7 @@ if (type == "success") {
           onBlur={(e) => {
             onBlurValidatePassword(e.nativeEvent.text);
           }}
+          value={input.password}
           errorMessage={
             (!isOkPassword && errorPassword) || (mistake && message)
           }
@@ -271,8 +310,8 @@ if (type == "success") {
           onPress={() => navigation.navigate("Registrate")}
         ></Button>
       </View>
-      <View style={{marginTop:10,marginLeft:'15%',marginRight:'15%'}}>
-       {/*  <Button
+      <View style={{ marginTop: 10, marginLeft: "15%", marginRight: "15%" }}>
+        {/*  <Button
             buttonStyle={{marginBottom:10, backgroundColor:'#3b5998'}}
           title="Continuar con Facebook"
           icon={<Icon name='facebook' size={30} color='white' style={{marginRight:'5%'}}/>}
@@ -281,7 +320,7 @@ if (type == "success") {
             // Alert.alert("forgot password button pressed") 
           }}
         ></Button> */}
-  {/*       <SocialIcon
+        {/*       <SocialIcon
   title='Continuar con Google'
   button
   type='google'
@@ -291,16 +330,22 @@ if (type == "success") {
 /> */}
 
         <Button
-          icon={<Icon name='google' size={30} color='black' style={{marginRight:'5%'}}/>}
-          buttonStyle={{backgroundColor:'white'}}
+          icon={
+            <Icon
+              name="google"
+              size={30}
+              color="black"
+              style={{ marginRight: "5%" }}
+            />
+          }
+          buttonStyle={{ backgroundColor: "white" }}
           titleStyle={styles.clearButton}
           title="Continuar con Google"
           onPress={() => {
-            loginGoogle()
+            loginGoogle();
           }}
         ></Button>
-        </View>
-
+      </View>
     </SafeAreaView>
   );
 };

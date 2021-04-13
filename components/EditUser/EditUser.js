@@ -28,7 +28,7 @@ const EditUser = (props) => {
     name: "",
     lastname: "",
   });
-
+  console.log(input)
   const editUser = (props) => {
     const { name, lastname, email } = input;
     if (name === "" || lastname === "")
@@ -40,6 +40,10 @@ const EditUser = (props) => {
       .then(() => console.log("Edit user successful"))
       .catch(() => console.log("Error en user edit"));
     setTimeout(() => props.navigation.navigate("home"), 100);
+    setInput({
+      name: "",
+      lastname: "",
+    })
   };
 
   const handleChangeText = (name, value) => {
@@ -59,6 +63,7 @@ const EditUser = (props) => {
             placeholder={userInfo ? userInfo.name : ""}
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("name", value)}
+            value={input.name}
           />
           <Input
             label="Apellido"
@@ -66,6 +71,7 @@ const EditUser = (props) => {
             placeholder={userInfo ? userInfo.lastname : ""}
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("lastname", value)}
+            value={input.lastname}
           />
           <Input
             label="Email"

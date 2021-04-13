@@ -6,11 +6,13 @@ import firebase from "../../back/db/firebase";
 export const setUserLogged = createAction("userLogged");
 
 export const getUserLogged = (dispatch) => {
-  firebase.auth.onAuthStateChanged((loggedUser) => {
+ return new Promise((resolve,reject)=>firebase.auth.onAuthStateChanged((loggedUser) => {
     if (loggedUser && loggedUser.emailVerified) {
       dispatch(setUserLogged(loggedUser.uid));
+     return resolve(loggedUser.uid)
     }
-  });
+    reject()
+  }));
 };
 
 export const signOutUser = createAsyncThunk("signOut", () => {

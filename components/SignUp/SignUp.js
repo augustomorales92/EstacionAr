@@ -47,7 +47,9 @@ const SignUp = (props) => {
             parkingHistory: [],
           })
           .then((cred) => {
-            return Alert.alert("Usuario registrado exitosamente", cred);
+             Alert.alert("Usuario registrado exitosamente", cred,[{text:'ok',onPress:()=>{props.navigation.popToTop()}}],{cancelable:false});
+            
+
           })
           .then(() => verifyEmail());
       })
@@ -60,12 +62,19 @@ const SignUp = (props) => {
         .then(() => "Envío de correo exitoso")
         .catch((error) => alert("Error con el envío de confirmación"));
     };
+    setInput({
+      name: "",
+      lastname: "",
+      email: "",
+      password: "",
+      password2: "",
+    })
   };
 
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
-
+console.log(input)
   const onBlurValidateEmail = (e) => {
     if (validateEmail(e) !== false) {
       setIsOkEmail(true);

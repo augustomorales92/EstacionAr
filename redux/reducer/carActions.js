@@ -5,6 +5,7 @@ import {
   
   //importamos Firebase
   import firebase from "../../back/db/firebase";
+import { DatePickerIOS } from "react-native";
   
   export const addNewCar = createAsyncThunk(
     "addNewCar",
@@ -69,7 +70,7 @@ import {
   export const getUserCars = createAction("getUserCars");
   
   export const getAllCars = (dispatch, user) => {
-    firebase.db
+    return new Promise((resolve,reject)=> firebase.db
       .collection("users")
       .doc(`${user}`)
       .collection('CARS')
@@ -81,15 +82,17 @@ import {
           return userCars
           });
         dispatch(getUserCars(userCars))
+        resolve(userCars)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+      reject()}
+      ))
   };
   
   export const deleteCar = createAction("deleteCar");
   
   export const deleteOneCar = (user,patente,dispatch) => {
-  console.log('user ---------------->',user)
-  console.log('patente------------->',patente)
    firebase.db
     .collection("users")
     .doc(`${user}`)
@@ -102,6 +105,10 @@ import {
       })
       .catch((err) => console.log(err));
   }
+
+
+  export const selectedCar = createAction('selectCar')
   
+
   
   

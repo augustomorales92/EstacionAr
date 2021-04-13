@@ -2,12 +2,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //Native
-import { View, Alert, SafeAreaView, Text,TouchableOpacity} from "react-native";
+import { View, Alert, SafeAreaView, Text,TouchableOpacity,} from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./ParkingStyle";
 import {Camera} from 'expo-camera'
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { BarCodeScanner,BarCodeScannerResult } from 'expo-barcode-scanner';
 
 //COMPONENTS
 import Clock from "../timer/ClockTimer";
@@ -27,17 +27,27 @@ const Parking = (props) => {
   let { user } = useSelector((state) => state.userReducer);
   let { time } = useSelector((state) => state.userReducer);
   const [scanned,setScanned] = React.useState(false)
+  const [dato,setDato] = React.useState({})
   
-  const handleBarCodeScanned = async () => {
+  
+  
+  const handleBarCodeScanned = async (/* {type, data} */) => {
     const {status} = await BarCodeScanner.requestPermissionsAsync()
     if (status === 'granted') {
-      // start the camera
-      setScanned(true)
+      
+      setScanned(true) 
+      //Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+     /* setDato({data}) */
+      
     } else {
       Alert.alert('Access denied')
     }
   }
- 
+  const scanner = ({type, data})=>{
+    Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+    setScanned(false)
+  }
+
 
   useEffect(() => {
     dispatch(getUserTime(user));
@@ -51,6 +61,7 @@ const Parking = (props) => {
     dispatch(setUserTime({ totalTime, user }));
   };
 
+ 
   return (
     <SafeAreaView style={styles.container}>
       {!scanned?
@@ -71,7 +82,7 @@ const Parking = (props) => {
             <Text style={styles.colores}>Escanear QR</Text>
             <Button
               buttonStyle={styles.button}
-              onPress={handleBarCodeScanned}
+              onPress={()=> setScanned(true)}
               icon={<Icon name="camera" size={60} color="white" />}
             ></Button>
           </View>
@@ -146,21 +157,23 @@ const Parking = (props) => {
     </View>
     </>
    :
-   <>
+   <View style={{flex: 1,width:"100%",backgroundColor:'black'}}>
    <BarCodeScanner
-   style={{flex: 1,width:"100%"}}
-   onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+   style={{flex: 1,height:'50%',justifyContent:'center',flexDirection:'column',marginTop:'40%',marginBottom:'40%',marginLeft:'5%',marginRight:'5%'}}
+   onBarCodeScanned={scanned ? scanner : handleBarCodeScanned }
+   barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
  >
+  
 
 
  </BarCodeScanner>
  {scanned && <Button 
- title={'Tap to Scan Again'}
+ title={'Salir'}
  type="outline"
  buttonStyle={{backgroundColor:'white'}} 
- titleStyle={{color:'orange',fontWeight:'bold'}}
+ titleStyle={{color:'black',fontWeight:'bold'}}
  onPress={() => setScanned(false)} />}
- </>
+ </View>
    }
  
   </SafeAreaView>

@@ -16,8 +16,9 @@ import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 //COMPONENTS
-import Clock from "../clock/clock";
-import { useNavigation } from "@react-navigation/native";
+import Clock from "../timer/ClockTimer";
+import {useNavigation} from '@react-navigation/native'
+
 
 //importamos la funcion para guardar el TIME del Users
 import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
@@ -44,8 +45,6 @@ const Parking = (props) => {
   useEffect(() => {
     dispatch(getUserTime(user));
   }, []);
-
-
 
   const addTime = (num) => {
     let totalTime;

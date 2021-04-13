@@ -28,7 +28,7 @@ const ParkingHistory = () => {
                 </View>
                 {allParkingHistory.slice(allParkingHistory.length - 10, allParkingHistory.length).map(history=>(
                     <Card containerStyle={styles.card} key={history.finalTime}>
-                    <Text h6>7/4/21  16:20:20</Text>
+                    <Text h6>{history.date}</Text>
                     <Text h4>{history.patente}</Text>
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <Text h5>{history.finalTime}</Text>

@@ -92,12 +92,12 @@ const Countdown = (props) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-             <Button
-                  title="Cancelar"
-                  disabled={isRunning && true}
-                  buttonStyle={styles.button}
-                  onPress={() => navigation.goBack()}
-                />
+            <Button
+              title="Cancelar"
+              disabled={isRunning && true}
+              buttonStyle={styles.button}
+              onPress={() => navigation.goBack()}
+            />
             <Button
               title="Iniciar"
               buttonStyle={styles.button}
@@ -164,7 +164,7 @@ const Countdown = (props) => {
                 onPress={() => {
                   navigation.navigate("drawer");
                   navigation.goBack();
-                }} 
+                }}
               />
             </Card>
           </>
@@ -197,7 +197,7 @@ const Countdown = (props) => {
                       setTime(time + 3000);
                       setAddTime(addTime + 3000);
                       calculateParkingPrice(timer + addTime);
-                      setModalVisible(!modalVisible)
+                      setModalVisible(!modalVisible);
                     }}
                   >
                     <Text style={styles.textStyle}>Agregar +30 min</Text>
@@ -242,13 +242,12 @@ const Countdown = (props) => {
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
-                      setModalAlert(!modalAlert)
+                      setModalAlert(!modalAlert);
                       calculateParkingPrice(timer + addTime);
                       endParking();
                       dispatch(
                         addNewParking({ user, patente, price, finalTime })
                       );
-                      
                     }}
                   >
                     <Text style={styles.textStyle}>Finalizar</Text>

@@ -20,8 +20,7 @@ const initialState = {
   time: 0,
   credit: 0,
   parkingHistory: [],
-  info: null,
-  allParkingHistory: [],
+  // allParkingHistory: [],
 };
 
 export const userReducer = createReducer(initialState, {
@@ -44,12 +43,10 @@ export const userReducer = createReducer(initialState, {
     if(action.payload !== undefined) return { ...state, parkingHistory: [...state.parkingHistory, action.payload] }
   },
   [getUserInfo.fulfilled]: (state, action) => {
-    return { ...state, info: action.payload }
+    const {credit, parkingHistory, time, id, allParkingHistory} = action.payload;
+    return {...state, credit, parkingHistory, time, user: id, allParkingHistory}
   },
-  [getParkingHistoryInfo.fulfilled]: (state, action) => {
-    return { ...state, allParkingHistory: action.payload }
-  },
-  [setUserCredit.fulfilled]: (state, action) => {
-    return { ...state, credit: action.payload }
-  },
+  // [getParkingHistoryInfo.fulfilled]: (state, action) => {
+  //   return { ...state, allParkingHistory: action.payload }
+  // },
 });

@@ -88,12 +88,10 @@ import {
   export const deleteCar = createAction("deleteCar");
   
   export const deleteOneCar = (user,patente,dispatch) => {
-  console.log('user ---------------->',user)
-  console.log('patente------------->',patente)
-   firebase.db
+  return firebase.db
     .collection("users")
     .doc(`${user}`)
-     .collection('CARS')
+    .collection('CARS')
     .doc(`${patente}`) 
     .delete()
       .then(() => {

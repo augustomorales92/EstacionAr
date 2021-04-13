@@ -119,7 +119,7 @@ const Home = (props) => {
                       title="ESTACIONAR"
                       buttonStyle={styles.button}
                       onPress={() =>
-                        navigation.navigate("estacionar", selectedCar)
+                        navigation.navigate("estacionar")
                       }
                     ></Button>
                     <Button

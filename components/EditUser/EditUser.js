@@ -29,17 +29,17 @@ const EditUser = (props) => {
     lastname: "",
   });
   console.log(input)
-  const editUser = (props) => {
+  const editUser = () => {
     const { name, lastname, email } = input;
     if (name === "" || lastname === "")
-      return props.navigation.navigate("home");
+      return props.navigation.navigate("drawer");
       firebase.db
       .collection("users")
       .doc(`${userId}`)
       .update({ name, lastname })
       .then(() => console.log("Edit user successful"))
       .catch(() => console.log("Error en user edit"));
-    setTimeout(() => props.navigation.navigate("home"), 100);
+    setTimeout(() => props.navigation.navigate("drawer"), 100);
     setInput({
       name: "",
       lastname: "",

@@ -28,6 +28,12 @@ const addcar = (props) => {
     dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() => {
       getAllCars(dispatch, userInTheApp.user);
       setTimeout(() => props.navigation.navigate("autos"), 500);
+      setCar({
+        marca: "",
+        modelo: "",
+        año: 0,
+        patente: "",
+      })
     });
   };
 
@@ -43,24 +49,28 @@ const addcar = (props) => {
             placeholder="chevrolet"
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("marca", value)}
+            value={car.marca}
           />
           <Input
             label="Modelo"
             placeholder="corsa"
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("modelo", value)}
+            value={car.modelo}
           />
           <Input
             label="Año"
             placeholder="2021"
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("año", value)}
+            value={car.año}
           />
           <Input
             label="Patente"
             placeholder="AB 123 CD"
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("patente", value)}
+            value={car.patente}
           />
         </Card>
         <View style={styles.fixToText}>

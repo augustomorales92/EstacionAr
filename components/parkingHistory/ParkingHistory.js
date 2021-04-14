@@ -22,34 +22,25 @@ const ParkingHistory = () => {
     getParkingHistory(user)
   }, []);
 
-  return (
-    <ScrollView style={{ backgroundColor: "black" }}>
-      <View>
-        <View style={styles.view}>
-          <Text h4 style={{ fontWeight: "bold" }}>
-            HISTORIAL
-          </Text>
-        </View>
-        {allParkingHistory
-          .slice(allParkingHistory.length - 10, allParkingHistory.length)
-          .map((history) => (
-            <Card containerStyle={styles.card} key={history.finalTime}>
-              <Text h6>7/4/21 16:20:20</Text>
-              <Text h4>{history.patente}</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text h5>{history.finalTime}</Text>
-                <Text h5>${history.price}</Text>
-              </View>
-            </Card>
-          ))}
-      </View>
-    </ScrollView>
-  );
+    return (
+        <ScrollView style={{backgroundColor:'black'}}>
+            <View>
+                <View style={styles.view}>
+                    <Text h4 style={{fontWeight:'bold'}}>HISTORIAL</Text>
+                </View>
+                {allParkingHistory.slice(allParkingHistory.length - 10, allParkingHistory.length).map(history=>(
+                    <Card containerStyle={styles.card} key={history.finalTime}>
+                    <Text h6>{history.date}</Text>
+                    <Text h4>{history.patente}</Text>
+                    <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                        <Text h5>{history.finalTime}</Text>
+                        <Text h5>${history.price}</Text>
+                    </View>
+                    </Card>
+                ))} 
+            </View>
+        </ScrollView>
+    );
 };
 
 export default ParkingHistory;

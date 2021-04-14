@@ -1,4 +1,5 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import {getDate} from "../../utils/date"
 
 //importamos Firebase
 import firebase from "../../back/db/firebase";
@@ -6,11 +7,13 @@ import firebase from "../../back/db/firebase";
 export const setUserLogged = createAction("userLogged");
 
 export const getUserLogged = (dispatch) => {
-  firebase.auth.onAuthStateChanged((loggedUser) => {
+ return new Promise((resolve,reject)=>firebase.auth.onAuthStateChanged((loggedUser) => {
     if (loggedUser && loggedUser.emailVerified) {
       dispatch(setUserLogged(loggedUser.uid));
+     return resolve(loggedUser.uid)
     }
-  });
+    reject()
+  }));
 };
 
 export const signOutUser = createAsyncThunk("signOut", () => {
@@ -83,13 +86,15 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
 export const addNewParking = createAsyncThunk(
   "addNewParking",
   ({ user, patente, price, finalTime }) => {
+    const date = getDate()
+    console.log(date)
     if(finalTime){
       return (
         firebase.db
           .collection("users")
           .doc(`${user}`)
           .update({
-             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime}),
+             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime, date}),
              credit: firebase.firebase.firestore.FieldValue.increment(-price)
           })
           .then(() => {

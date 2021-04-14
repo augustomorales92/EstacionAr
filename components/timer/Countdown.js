@@ -21,15 +21,13 @@ const Countdown = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalAlert, setModalAlert] = useState(false);
-
   const [message, setMessage] = useState("");
   const [isRunning, setRunning] = useState(false);
   const [time, setTime] = useState(timer);
   const [value, setValue] = useState("");
   const [price, setPrice] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
-  const [isFinished, setIsFinished] = React.useState(false);
-
+  const [isFinished, setIsFinished] = useState(false);
   const [addTime, setAddTime] = useState(0);
   const navigation = useNavigation();
 

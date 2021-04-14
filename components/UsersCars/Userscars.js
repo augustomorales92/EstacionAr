@@ -64,12 +64,14 @@ const Userscars = (props) => {
                 title="Seleccionar"
                 checkedColor="white"
                 checked={true}
-                onPress={() => {
-                  props.navigation.navigate("drawer", {
-                    patenteId: car.patente,
+                onPress={()=> {
+                  dispatch(selectedCar({
+                    patenteId : car.patente,
                     marcaId: car.marca,
-                    modeloId: car.modelo,
-                  });
+                    modeloId:car.modelo}))
+                        
+                  props.navigation.navigate('drawer') 
+                  
                 }}
                 containerStyle={styles.cardButton}
                 textStyle={styles.colorText}

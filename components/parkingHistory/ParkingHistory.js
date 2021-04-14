@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from "react";
 import { styles } from "./ParkingHistoryStyles";
-import { View, SafeAreaView, Modal, Pressable,ScrollView } from "react-native";
-import { Button, Card, Text } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
-import { getParkingHistoryInfo } from "../../redux/reducer/userActions"
-
+import { View, ScrollView } from "react-native";
+import { Card, Text } from "react-native-elements";
+import { useSelector } from "react-redux";
+import firebase from "../../back/db/firebase";
 
 const ParkingHistory = () => {
-    let { allParkingHistory } = useSelector((state) => state.userReducer);
-    let { user } = useSelector((state) => state.userReducer);
-    const dispatch = useDispatch()
+  const [allParkingHistory, setAllParkingHistory] = useState([]);
+  let { user } = useSelector((state) => state.userReducer);
 
-    
-    console.log("===========================================================", allParkingHistory)
+  const getParkingHistory = (userId) => {
+    firebase.db
+      .collection("users")
+      .doc(`${userId}`)
+      .onSnapshot((querySnap) => {
+         return setAllParkingHistory(querySnap.data().parkingHistory)
+      });
+  };
 
-    React.useEffect(()=>{
-        dispatch(getParkingHistoryInfo(user))
-        // console.log("==USER==", user)
-    },[])
+  useEffect(() => {
+    getParkingHistory(user)
+  }, []);
 
     return (
         <ScrollView style={{backgroundColor:'black'}}>

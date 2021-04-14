@@ -27,7 +27,7 @@ const addcar = (props) => {
     const { owner, marca, modelo, año, patente } = car;
     dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() => {
       getAllCars(dispatch, userInTheApp.user);
-      setTimeout(() => props.navigation.navigate("autos"), 2000);
+      setTimeout(() => props.navigation.navigate("autos"), 500);
       setCar({
         marca: "",
         modelo: "",
@@ -38,10 +38,10 @@ const addcar = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
+    // <KeyboardAvoidingView
+    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+    //   style={styles.container}
+    // >
       <SafeAreaView style={styles.container}>
         <Card containerStyle={styles.input}>
           <Input
@@ -91,7 +91,7 @@ const addcar = (props) => {
           />
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    // </KeyboardAvoidingView>
   );
 };
 export default addcar;

@@ -4,20 +4,21 @@ import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import {setUserCredit, getUserInfo} from "../../redux/reducer/userActions"
-//import { MercadoPagoCheckout } from 'react-native-mercadopago-checkout';
+import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
+import firebase from "../../back/db/firebase";
 
 // import MapView , { Marker }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [userInfoNow, setUserInfoNow] = useState("");
   const [input, setInput] = useState({
     credit: "",
   });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
-  const info = useSelector((state) => state.userReducer.info);
+  // const info = useSelector((state) => state.userReducer.info);
   const {selectCar,allUserCars} = useSelector(state => state.carReducer);
   
   const navigation = useNavigation();
@@ -32,11 +33,22 @@ const Home = (props) => {
     dispatch(setUserCredit({ user, credit }));
   };
 
+  const getUserInfoNow = (userId) => {
+    firebase.db
+      .collection("users")
+      .doc(`${userId}`)
+      .onSnapshot((querySnap) => {
+        return setUserInfoNow(querySnap.data());
+      });
+  };
+
   useEffect(() => {
-    !modalVisible && dispatch(getUserInfo(user));
-    
+    !modalVisible && getUserInfoNow(user) /*dispatch(getUserInfo(user))*/;
   }, []);
 
+  const vehiculo = props.route.params;
+
+  
   useEffect(()=>{
     !allUserCars.length && dispatch(selectedCar({}))
   },[allUserCars])
@@ -54,7 +66,7 @@ const Home = (props) => {
             }}
           >
             <Text h4>Saldo disponible:</Text>
-            <Text h4>{info && info.credit}</Text>
+            <Text h4>{userInfoNow && userInfoNow.credit}</Text>
           </View>
           <View style={{ marginHorizontal: 17, marginBottom: 7 }}>
             <Button

@@ -113,7 +113,7 @@ export const addNewParking = createAsyncThunk(
 export const getUserInfo = createAsyncThunk("getUserInfo", (userId) => {
   return firebase.db
   .collection('users')
-  .doc(userId)
+  .doc(`${userId}`)
   .get()
   .then(querySnap =>querySnap.data())
   .catch(() => console.log('Error en recibir info de user'))
@@ -123,13 +123,11 @@ export const getParkingHistoryInfo = createAsyncThunk("getParkingHistoryInfo", (
   return firebase.db
   .collection('users')
   .doc(`${userId}`)
-  .get()
-  .then(x => {
-    console.log("DATAAAAA DEL HISTORY",x.data())
-    const allParkings = x.data().parkingHistory
-    return allParkings
+  .onSnapshot(querySnap => {
+    console.log("DATAAAAA DEL HISTORY",querySnap.data().parkingHistory)
+     return querySnap.data().parkingHistory
   })
-  .catch(() => console.log('Error en recibir historial de user'))
+  // .catch(() => console.log('Error en recibir historial de user'))
 })
 
 export const setUserCredit = createAsyncThunk("setUserCredit", ({user, credit}) => {

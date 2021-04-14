@@ -93,10 +93,10 @@ import { DatePickerIOS } from "react-native";
   export const deleteCar = createAction("deleteCar");
   
   export const deleteOneCar = (user,patente,dispatch) => {
-   firebase.db
+  return firebase.db
     .collection("users")
     .doc(`${user}`)
-     .collection('CARS')
+    .collection('CARS')
     .doc(`${patente}`) 
     .delete()
       .then(() => {

@@ -186,7 +186,7 @@ const SignUp = (props) => {
               title="registrarse"
               onPress={() => {
                 saveNewUser();
-                return setTimeout(() => props.navigation.popToTop(), 100);
+               // return setTimeout(() => props.navigation.popToTop(), 100);
               }}
             ></Button>
           </View>

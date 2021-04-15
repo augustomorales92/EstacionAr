@@ -4,11 +4,7 @@ import { Button, Card, CheckBox } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./UsersCarsStyle";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteOneCar,
-  getAllCars,
-  selectedCar,
-} from "../../redux/reducer/carActions";
+import { deleteOneCar, getAllCars,selectedCar} from "../../redux/reducer/carActions";
 import firebase from "../../back/db/firebase";
 
 const Userscars = (props) => {

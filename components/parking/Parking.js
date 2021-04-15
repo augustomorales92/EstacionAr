@@ -106,7 +106,7 @@ const Parking = (props) => {
           <Button
             buttonStyle={styles.button}
             onPress={() => {
-              addTime(1800);
+              addTime(180000);
             }}
             icon={<Icon name="clock" size={60} color="white" />}
           ></Button>
@@ -148,7 +148,7 @@ const Parking = (props) => {
       buttonStyle={styles.buttons}
         title="ir a estacionar"
         onPress={() => {
-          if(vehiculo){
+          if(vehiculo.patenteId){
           time > 0 ? navigation.navigate('Countdown',time) : navigation.navigate('Timer')}
         else{
           Alert.alert('No tiene un vehiculo','Seleccion un vehiculo',[{text:'ok',onPress:()=>{navigation.navigate('autos')}}],{cancelable:false})

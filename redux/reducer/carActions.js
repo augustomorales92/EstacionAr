@@ -108,6 +108,8 @@ import { DatePickerIOS } from "react-native";
 
 
   export const selectedCar = createAction('selectCar')
+
+  export const logOutUser = createAction('logOutUser')
   
 
   

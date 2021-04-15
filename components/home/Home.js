@@ -4,7 +4,7 @@ import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
+import { setUserCredit, getUserInfo, } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 
 // import MapView , { Marker }from 'react-native-maps';
@@ -44,6 +44,7 @@ const Home = (props) => {
 
   useEffect(() => {
     !modalVisible && getUserInfoNow(user) /*dispatch(getUserInfo(user))*/;
+    console.log('ESTE ES EL USER---->',user);
   }, []);
 
   const vehiculo = props.route.params;
@@ -66,7 +67,7 @@ const Home = (props) => {
             }}
           >
             <Text h4>Saldo disponible:</Text>
-            <Text h4>{userInfoNow && userInfoNow.credit}</Text>
+            <Text h4>{`$${userInfoNow && userInfoNow.credit}`}</Text>
           </View>
           <View style={{ marginHorizontal: 17, marginBottom: 7 }}>
             <Button

@@ -29,7 +29,7 @@ const ParkingHistory = () => {
                     <Text h4 style={{fontWeight:'bold'}}>HISTORIAL</Text>
                 </View>
                 {allParkingHistory.slice(allParkingHistory.length - 10, allParkingHistory.length).map(history=>(
-                    <Card containerStyle={styles.card} key={history.finalTime}>
+                    <Card containerStyle={styles.card} key={history.date}>
                     <Text h6>{history.date}</Text>
                     <Text h4>{history.patente}</Text>
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>

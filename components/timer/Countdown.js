@@ -197,8 +197,8 @@ const Countdown = (props) => {
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
-                      setTime(time + 3000);
-                      setAddTime(addTime + 3000);
+                      setTime(time + 180000);
+                      setAddTime(addTime + 180000);
                       calculateParkingPrice(timer + addTime);
                       setModalVisible(!modalVisible);
                     }}

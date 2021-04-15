@@ -22,8 +22,10 @@ const Timer = (props) => {
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.userReducer);
   let { allUserCars } = useSelector((state) => state.carReducer);
-  let patente =  allUserCars[0].patente
   let { parkingHistory } = useSelector((state) => state.userReducer);
+  const patente = useSelector(
+    (state) => state.carReducer.selectCar.patenteId
+  );
 
 
   function runningOn() {

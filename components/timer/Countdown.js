@@ -10,15 +10,13 @@ import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
-  console.log(vehiculo);
-  //const {zone} = props.route.params
+  const {zone} = vehiculo
 
   const timer = useSelector((state) => state.userReducer.time);
   const user = useSelector((state) => state.userReducer.user);
   const patente = useSelector(
-    (state) => state.carReducer.allUserCars[0].patente
+    (state) => state.carReducer.selectCar.patenteId
   );
-  const { zone } = vehiculo;
 
   const dispatch = useDispatch();
 
@@ -32,6 +30,8 @@ const Countdown = (props) => {
   const [finalTime, setFinalTime] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [addTime, setAddTime] = useState(0);
+  const [button, setButton] = useState(true);
+
   const navigation = useNavigation();
 
   const startParking = () => {
@@ -45,11 +45,12 @@ const Countdown = (props) => {
     setRunning(false);
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);
+    setButton(!button)
   };
 
   function calculateParkingPrice(time) {
     let priceHalfHour = 50;
-    let splitTime = Math.round(time / 3000);
+    let splitTime = Math.round(time / 180000);
     setPrice(priceHalfHour * splitTime);
   }
 
@@ -58,7 +59,7 @@ const Countdown = (props) => {
       let intervalo;
       if (isRunning) {
         intervalo = setInterval(() => {
-          setTime((time) => time - 1);
+          setTime((time) => time - 100);
         }, 1000);
       }
       return () => {
@@ -87,7 +88,7 @@ const Countdown = (props) => {
           <Text h5>Patente: {vehiculo.patenteId}</Text>
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
-          <Text h5>Código de manzana: {vehiculo.zone}</Text>
+          <Text h5>Código de manzana: {zone}</Text>
         </Card>
         <Card containerStyle={styles.card}>
           <ClockTimer time={time} />
@@ -96,7 +97,7 @@ const Countdown = (props) => {
           >
             <Button
               title="Cancelar"
-              disabled={isRunning && true}
+              disabled={isRunning && true || !button && true}
               buttonStyle={styles.button}
               onPress={() => navigation.goBack()}
             />
@@ -104,7 +105,7 @@ const Countdown = (props) => {
               title="Iniciar"
               buttonStyle={styles.button}
               onPress={() => startParking()}
-              disabled={isRunning && true}
+              disabled={isRunning && true || !button && true}
             ></Button>
             <Button
               title="Finalizar"
@@ -114,7 +115,7 @@ const Countdown = (props) => {
                 //endParking();
                 setModalAlert(!modalAlert);
               }}
-              disabled={time === 0 ? true : false}
+              disabled={time === 0 ? true : false || !button && true}
             ></Button>
             <Button
               buttonStyle={styles.button}
@@ -122,6 +123,7 @@ const Countdown = (props) => {
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
+              disabled={!button && true}
             ></Button>
           </View>
         </Card>
@@ -196,8 +198,8 @@ const Countdown = (props) => {
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
-                      setTime(time + 3000);
-                      setAddTime(addTime + 3000);
+                      setTime(time + 180000);
+                      setAddTime(addTime + 180000);
                       calculateParkingPrice(timer + addTime);
                       setModalVisible(!modalVisible);
                     }}

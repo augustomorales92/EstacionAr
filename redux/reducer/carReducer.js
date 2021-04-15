@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import {addNewCar, getUserCars, deleteCar, updateCar, addNewParking,selectedCar} from "./carActions"
+import {addNewCar, getUserCars, deleteCar, updateCar, addNewParking,selectedCar, logOutUser} from "./carActions"
 
 const initialState = {
   allUserCars: [],
@@ -28,6 +28,8 @@ export const carReducer = createReducer(initialState, {
   },
   [selectedCar]:(state,action)=>{
     return {...state,selectCar: action.payload}
-  }
-  
+  },
+  [logOutUser]:(state,action)=>{
+    return {...state,selectCar: {} , allUserCars:[]}
+  },
 });

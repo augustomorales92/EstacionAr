@@ -24,7 +24,8 @@ import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 import { setUserZone } from "../../redux/reducer/userActions";
 
 const Parking = (props) => {
-  const vehiculo = props.route.params;
+  const vehiculo = props.route.params
+  //console.log('ZONE DE PARKING', vehiculo)
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Parking = (props) => {
   const [isOkZone, setIsOkZone] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [input, setInput] = React.useState({
-    zone: '',
+    zone: "",
   });
 
   const handleBarCodeScanned = async (/* {type, data} */) => {
@@ -58,6 +59,7 @@ const Parking = (props) => {
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
+  
 
   const onBlurValidateZone = (e) => {
     if (e) {
@@ -67,11 +69,6 @@ const Parking = (props) => {
       setErrorMessage("Debe ingresar un código de manzana");
     }
   };
-
-  const saveZone = (zone) => {
-    console.log(zone, user)
-    dispatch(setUserZone(zone))
-  }
 
   useEffect(() => {
     dispatch(getUserTime(user));
@@ -90,7 +87,7 @@ const Parking = (props) => {
           <Card containerStyle={styles.input}>
             <Input
               type="number"
-              label="Ingresar código de zona"
+              label="Ingresar código de manzana"
               placeholder="182"
               value={input.zone}
               inputStyle={styles.colorInput}
@@ -132,7 +129,7 @@ const Parking = (props) => {
               <Button
                 buttonStyle={styles.button}
                 onPress={() => {
-                  addTime(1800);
+                  addTime(180000);
                 }}
                 icon={<Icon name="clock" size={60} color="white" />}
               ></Button>
@@ -154,6 +151,8 @@ const Parking = (props) => {
               ></Button>
             </View>
           </Card>
+
+       
 
           {/* <Card containerStyle={styles.input2}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -178,10 +177,9 @@ const Parking = (props) => {
               title="ir a estacionar"
               onPress={() => {
                 if (vehiculo) {
-                  saveZone(input.zone)
                   time > 0
-                    ? navigation.navigate("Countdown", time)
-                    : navigation.navigate("Timer");
+                    ? navigation.navigate("Countdown", {zone: input.zone})
+                    : navigation.navigate("Timer", {zone: input.zone});
                 } else {
                   Alert.alert(
                     "No tiene un vehiculo",
@@ -190,6 +188,7 @@ const Parking = (props) => {
                       {
                         text: "ok",
                         onPress: () => {
+                          saveZone()
                           navigation.navigate("autos");
                         },
                       },

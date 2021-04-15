@@ -14,13 +14,7 @@ const Stack = createStackNavigator();
 
 export const ParkingContainer = () => {
   const {selectCar} = useSelector(state => state.carReducer);
-  
-  // Agarro zone del estado para pasarle por props
-  const {zone} = useSelector(state => state.userReducer)
-  console.log('Zona de del estado', zone)
-
-  // Le agrego la zone a selectCar
-  const vehiculo = {...selectCar, zone: zone}
+  const vehiculo = selectCar
 
   return (
     <Stack.Navigator>

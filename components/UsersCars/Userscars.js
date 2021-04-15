@@ -4,7 +4,7 @@ import { Button, Card, CheckBox } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./UsersCarsStyle";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteOneCar, getAllCars} from "../../redux/reducer/carActions";
+import { deleteOneCar, getAllCars,selectedCar} from "../../redux/reducer/carActions";
 import firebase from "../../back/db/firebase";
 
 const Userscars = (props) => {
@@ -20,18 +20,18 @@ const Userscars = (props) => {
       .doc(`${userId}`)
       .collection("CARS")
       .onSnapshot((querySnap) => {
-        let autos = []
+        let autos = [];
         querySnap.forEach((doc) => {
           autos.push(doc.data());
         });
-        return setUserCarsNow(autos)
+        return setUserCarsNow(autos);
       });
   };
 
   useEffect(() => {
     getUserCarsNow(user);
     getAllCars(dispatch, user);
-  }, []);
+  }, [user]);
 
   const deleteCars = () => {
     return deleteOneCar(user, patenteRef, dispatch);
@@ -64,14 +64,16 @@ const Userscars = (props) => {
                 title="Seleccionar"
                 checkedColor="white"
                 checked={true}
-                onPress={()=> {
-                  dispatch(selectedCar({
-                    patenteId : car.patente,
-                    marcaId: car.marca,
-                    modeloId:car.modelo}))
-                        
-                  props.navigation.navigate('drawer') 
-                  
+                onPress={() => {
+                  dispatch(
+                    selectedCar({
+                      patenteId: car.patente,
+                      marcaId: car.marca,
+                      modeloId: car.modelo,
+                    })
+                  );
+
+                  props.navigation.navigate("drawer");
                 }}
                 containerStyle={styles.cardButton}
                 textStyle={styles.colorText}

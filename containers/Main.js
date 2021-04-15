@@ -19,6 +19,7 @@ const Drawer = createDrawerNavigator();
 const Main = () => {
   const dispatch = useDispatch();
   const {selectCar} = useSelector(state => state.carReducer);
+  const {user} = useSelector(state => state.userReducer);
   
   useEffect(() => {
     getUserLogged(dispatch)
@@ -37,7 +38,7 @@ const Main = () => {
   })
   .catch((error)=>{console.log(error)})
     
-  }, []);
+  }, [user]);
 
   return (
     // <NavigationContainer>

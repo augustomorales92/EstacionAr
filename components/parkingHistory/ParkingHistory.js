@@ -20,10 +20,6 @@ const ParkingHistory = () => {
         return setAllParkingHistory(querySnap.data().parkingHistory);
       });
   };
-  useEffect(() => {
-      console.log('entre en este useeffect');
-    getParkingHistoryInfo(user);
-  }, []);
 
 
   useEffect(() => {

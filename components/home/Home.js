@@ -5,6 +5,7 @@ import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserCredit, getUserInfo, } from "../../redux/reducer/userActions";
+
 import firebase from "../../back/db/firebase";
 
 // import MapView , { Marker }from 'react-native-maps';
@@ -45,6 +46,7 @@ const Home = (props) => {
   useEffect(() => {
     !modalVisible && getUserInfoNow(user) /*dispatch(getUserInfo(user))*/;
   }, []);
+
 
   const vehiculo = props.route.params;
 

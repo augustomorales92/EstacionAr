@@ -21,7 +21,6 @@ import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 
 const Parking = (props) => {
   const vehiculo = props.route.params
-  console.log('el vehiculoooo ---->',vehiculo)
 
   const navigation = useNavigation();
   const dispatch = useDispatch();

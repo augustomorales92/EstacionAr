@@ -46,6 +46,7 @@ export const userReducer = createReducer(initialState, {
     const {credit, parkingHistory, time, id, allParkingHistory} = action.payload;
     return {...state, credit, parkingHistory, time, user: id, allParkingHistory}
   },
+  
   // [getParkingHistoryInfo.fulfilled]: (state, action) => {
   //   return { ...state, allParkingHistory: action.payload }
   // },

@@ -7,6 +7,7 @@ import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking } from "../../redux/reducer/userActions";
+import { ScreenStackHeaderBackButtonImage } from "react-native-screens";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
@@ -29,6 +30,8 @@ const Countdown = (props) => {
   const [finalTime, setFinalTime] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [addTime, setAddTime] = useState(0);
+  const [button, setButton] = useState(true);
+
   const navigation = useNavigation();
 
   const startParking = () => {
@@ -42,11 +45,12 @@ const Countdown = (props) => {
     setRunning(false);
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);
+    setButton(!button)
   };
 
   function calculateParkingPrice(time) {
     let priceHalfHour = 50;
-    let splitTime = Math.round(time / 3000);
+    let splitTime = Math.round(time / 180000);
     setPrice(priceHalfHour * splitTime);
   }
 
@@ -55,7 +59,7 @@ const Countdown = (props) => {
       let intervalo;
       if (isRunning) {
         intervalo = setInterval(() => {
-          setTime((time) => time - 1);
+          setTime((time) => time - 100);
         }, 1000);
       }
       return () => {
@@ -118,6 +122,7 @@ const Countdown = (props) => {
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
+              disabled={!button && true}
             ></Button>
           </View>
         </Card>

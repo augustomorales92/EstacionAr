@@ -39,7 +39,7 @@ const Timer = (props) => {
 
   function calculateParkingPrice(time) {
     let priceHalfHour = 50;
-    let splitTime = Math.round(time / 3000);
+    let splitTime = Math.round(time / 180000);
     setPrice(priceHalfHour * splitTime);
     if (time < 3000) {
       setPrice(priceHalfHour);
@@ -55,8 +55,8 @@ const Timer = (props) => {
       let intervalo;
       if (isRunning) {
         intervalo = setInterval(() => {
-          setTime((time) => time + 1);
-        }, 1); // tiempo original es 1000
+          setTime((time) => time + 100);
+        }, 1000); // tiempo original es 1000
       }
       return () => {
         clearInterval(intervalo);

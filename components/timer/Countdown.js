@@ -7,7 +7,6 @@ import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking } from "../../redux/reducer/userActions";
-import { ScreenStackHeaderBackButtonImage } from "react-native-screens";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
@@ -15,7 +14,7 @@ const Countdown = (props) => {
   const timer = useSelector((state) => state.userReducer.time);
   const user = useSelector((state) => state.userReducer.user);
   const patente = useSelector(
-    (state) => state.carReducer.allUserCars[0].patente
+    (state) => state.carReducer.selectCar.patenteId
   );
 
   const dispatch = useDispatch();

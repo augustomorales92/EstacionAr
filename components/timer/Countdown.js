@@ -95,7 +95,7 @@ const Countdown = (props) => {
           >
             <Button
               title="Cancelar"
-              disabled={isRunning && true}
+              disabled={isRunning && true || !button && true}
               buttonStyle={styles.button}
               onPress={() => navigation.goBack()}
             />
@@ -103,7 +103,7 @@ const Countdown = (props) => {
               title="Iniciar"
               buttonStyle={styles.button}
               onPress={() => startParking()}
-              disabled={isRunning && true}
+              disabled={isRunning && true || !button && true}
             ></Button>
             <Button
               title="Finalizar"
@@ -113,7 +113,7 @@ const Countdown = (props) => {
                 //endParking();
                 setModalAlert(!modalAlert);
               }}
-              disabled={time === 0 ? true : false}
+              disabled={time === 0 ? true : false || !button && true}
             ></Button>
             <Button
               buttonStyle={styles.button}
@@ -196,8 +196,8 @@ const Countdown = (props) => {
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
-                      setTime(time + 3000);
-                      setAddTime(addTime + 3000);
+                      setTime(time + 180000);
+                      setAddTime(addTime + 180000);
                       calculateParkingPrice(timer + addTime);
                       setModalVisible(!modalVisible);
                     }}

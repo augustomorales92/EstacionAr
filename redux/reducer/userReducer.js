@@ -10,7 +10,8 @@ import {
   addNewParking,
   getUserInfo,
   getParkingHistoryInfo,
-  setUserCredit
+  setUserCredit,
+  setUserZone
 } from "./userActions";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   recovery: null,
   time: 0,
   credit: 0,
+  zone: 0,
   parkingHistory: [],
   // allParkingHistory: [],
 };
@@ -46,6 +48,9 @@ export const userReducer = createReducer(initialState, {
     const {credit, parkingHistory, time, id, allParkingHistory} = action.payload;
     return {...state, credit, parkingHistory, time, user: id, allParkingHistory}
   },
+  [setUserZone.fulfilled] : (state,action) => {
+    return {...state, zone: action.payload}
+  }
   // [getParkingHistoryInfo.fulfilled]: (state, action) => {
   //   return { ...state, allParkingHistory: action.payload }
   // },

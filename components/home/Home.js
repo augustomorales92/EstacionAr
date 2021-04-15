@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 
-import MapView , { Marker }from 'react-native-maps';
+//import MapView , { Marker }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
 const Home = (props) => {
@@ -148,7 +148,7 @@ const Home = (props) => {
       </View>
       <View style={{ marginHorizontal: 15 }}>
         <Card containerStyle={styles.card}>
-          <MapView
+          {/* <MapView
       initialRegion={{
         latitude: -26.8248387,
         longitude: -65.2050432,
@@ -156,7 +156,7 @@ const Home = (props) => {
         latitudeDelta: 0.05,
       }}  
       minZoomLevel={15}
-      style={styles.map} /> 
+      style={styles.map} />  */}
         </Card>
 
         {/*--------------------------MODAl--------------------*/}

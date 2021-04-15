@@ -9,6 +9,10 @@ import { addNewParking } from "../../redux/reducer/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Timer = (props) => {
+  const vehiculo = props.route.params;
+  const { zone } = vehiculo;
+  console.log(zone)
+
   const [isRunning, setRunning] = React.useState(false);
   const [time, setTime] = React.useState(0);
   const [finalTime, setFinalTime] = React.useState(0);
@@ -16,7 +20,6 @@ const Timer = (props) => {
   const [price, setPrice] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
 
-  const vehiculo = props.route.params;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -49,7 +52,7 @@ const Timer = (props) => {
   }
 
   React.useEffect(() => {
-    isFinished && dispatch(addNewParking({user, patente, price, finalTime}))
+    isFinished && dispatch(addNewParking({user, patente, price, finalTime, zone}))
   }, [isRunning]);
 
   React.useEffect(
@@ -70,11 +73,12 @@ const Timer = (props) => {
   return (
     <SafeAreaView style={{backgroundColor:'black',flex:1}}>
       <View>
-        <Card containerStyle={styles.card}>
+      <Card containerStyle={styles.card}>
           <Text h4>Vehiculo a estacionar</Text>
-          <Text h5>{vehiculo.patenteId}</Text>
-          <Text h5>{vehiculo.modeloId}</Text>
-          <Text h5>{vehiculo.marcaId}</Text>
+          <Text h5>Patente: {vehiculo.patenteId}</Text>
+          <Text h5>Modelo: {vehiculo.modeloId}</Text>
+          <Text h5>Marca: {vehiculo.marcaId}</Text>
+          <Text h5>Código de manzana: {zone}</Text>
         </Card>
         <Card containerStyle={styles.card}>
           <ClockTimer time={time} />
@@ -191,7 +195,7 @@ const Timer = (props) => {
                   style={[styles.button2, styles.buttonClose]}
                   onPress={() => {
                      endParking()  
-                     dispatch(addNewParking({user, patente, price, finalTime}))
+                     dispatch(addNewParking({user, patente, price, finalTime, zone}))
                      setModalVisible(!modalVisible)
                } }
                 >

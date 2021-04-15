@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserCredit, getUserInfo, } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 
-// import MapView , { Marker }from 'react-native-maps';
+//import MapView , { Marker }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userInfoNow, setUserInfoNow] = useState("");
   const [input, setInput] = useState({
-    credit: "",
+    credit: "",     
   });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
@@ -178,7 +178,7 @@ const Home = (props) => {
               <Input
                 //label="Email"
                 placeholder="$"
-                //errorMessage={message}
+                // errorMessage={message}
                 inputStyle={styles.colorInput}
                 onChangeText={(value) => handleChangeText("credit", value)}
               />

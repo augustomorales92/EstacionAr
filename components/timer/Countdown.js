@@ -6,10 +6,11 @@ import ClockTimer from "./ClockTimer";
 import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
-import { addNewParking } from "../../redux/reducer/userActions";
+import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
+  const {zone} = vehiculo
 
   const timer = useSelector((state) => state.userReducer.time);
   const user = useSelector((state) => state.userReducer.user);
@@ -76,7 +77,7 @@ const Countdown = (props) => {
   }, [time]);
 
   useEffect(() => {
-    isFinished && dispatch(addNewParking({ user, patente, price, finalTime }));
+    isFinished && dispatch(addNewParking({ user, patente, price, finalTime, zone }));
   }, [isRunning]);
 
   return (
@@ -84,9 +85,10 @@ const Countdown = (props) => {
       <View>
         <Card containerStyle={styles.card}>
           <Text h4>Vehiculo a estacionar</Text>
-          <Text h5>{vehiculo.patenteId}</Text>
-          <Text h5>{vehiculo.modeloId}</Text>
-          <Text h5>{vehiculo.marcaId}</Text>
+          <Text h5>Patente: {vehiculo.patenteId}</Text>
+          <Text h5>Modelo: {vehiculo.modeloId}</Text>
+          <Text h5>Marca: {vehiculo.marcaId}</Text>
+          <Text h5>Código de manzana: {zone}</Text>
         </Card>
         <Card containerStyle={styles.card}>
           <ClockTimer time={time} />
@@ -248,7 +250,7 @@ const Countdown = (props) => {
                       calculateParkingPrice(timer + addTime);
                       endParking();
                       dispatch(
-                        addNewParking({ user, patente, price, finalTime })
+                        addNewParking({ user, patente, price, finalTime, zone })
                       );
                     }}
                   >

@@ -14,7 +14,6 @@ const Stack = createStackNavigator();
 
 export const ParkingContainer = () => {
   const {selectCar} = useSelector(state => state.carReducer);
-//console.log('aaaauto seleccionadooo -----> ',selectCar)
   const vehiculo = selectCar
 
   return (

@@ -44,7 +44,6 @@ const Home = (props) => {
 
   useEffect(() => {
     !modalVisible && getUserInfoNow(user) /*dispatch(getUserInfo(user))*/;
-    console.log('ESTE ES EL USER---->',user);
   }, []);
 
   const vehiculo = props.route.params;

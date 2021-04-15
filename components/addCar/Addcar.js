@@ -15,8 +15,8 @@ const addcar = (props) => {
     owner: userInTheApp.user,
     marca: "",
     modelo: "",
-    año: 0,
-    patente: "",
+    año: '',
+    patente: '',
   });
 
   const handleChangeText = (name, value) => {
@@ -27,13 +27,17 @@ const addcar = (props) => {
     const { owner, marca, modelo, año, patente } = car;
     dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() => {
       getAllCars(dispatch, userInTheApp.user);
-      setTimeout(() => props.navigation.navigate("autos"), 500);
-      setCar({
-        marca: "",
-        modelo: "",
-        año: 0,
-        patente: "",
-      })
+      setTimeout(() => props.navigation.navigate("autos"), 500)
+      
+
+          setCar({
+            marca: "",
+            modelo: "",
+            año: '',
+            patente: '',
+          })
+      
+      
     });
   };
 

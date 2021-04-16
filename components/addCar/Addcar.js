@@ -37,7 +37,7 @@ const addcar = (props) => {
         setCar({
           marca: "",
           modelo: "",
-          año: 0,
+          año: "",
           patente: "",
         });
         return props.navigation.navigate("autos");

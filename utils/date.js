@@ -4,9 +4,9 @@ export function getDate () {
     let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
     let year = date_ob.getFullYear();
     let hours = date_ob.getHours();
-    let minutes = date_ob.getMinutes() < 10 ? '0' : '' + date_ob.getMinutes();
+    let minutes = date_ob.getMinutes() < 10 ? '0' + date_ob.getMinutes() : '' + date_ob.getMinutes();
 
-    let seconds = date_ob.getSeconds();
+    let seconds = date_ob.getSeconds() < 10 ? '0' + date_ob.getSeconds() : '' + date_ob.getSeconds();
     let finalDate = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
 
     return finalDate

@@ -21,7 +21,7 @@ const addcar = (props) => {
     owner: userInTheApp.user,
     marca: "",
     modelo: "",
-    año: "",
+    año: 0,
     patente: "",
   });
 

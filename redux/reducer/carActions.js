@@ -10,6 +10,7 @@ import { DatePickerIOS } from "react-native";
   export const addNewCar = createAsyncThunk(
     "addNewCar",
     ({ owner, marca, modelo, año, patente }) => {
+      console.log(owner)
       return (
         firebase.db
           .collection("users")

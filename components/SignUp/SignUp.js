@@ -108,12 +108,6 @@ const SignUp = (props) => {
   };
 
   return (
-    // QUITADO Y CAMBIADO POR KeyboardAwareScrollView
-    // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   style={styles.container}
-    //   keyboardVerticalOffset={80}
-    // >
     <KeyboardAwareScrollView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView style={styles.inner}>

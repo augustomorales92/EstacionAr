@@ -62,8 +62,7 @@ const Home = (props) => {
     credit: "",     
   });
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
-  // const info = useSelector((state) => state.userReducer.info);
+  const {user} = useSelector((state) => state.userReducer);
   const {selectCar,allUserCars} = useSelector(state => state.carReducer);
   
   const navigation = useNavigation();
@@ -88,16 +87,12 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    !modalVisible && getUserInfoNow(user) /*dispatch(getUserInfo(user))*/;
+    !modalVisible && getUserInfoNow(user); // && dispatch(getUserInfo(user))
   }, []);
 
-
-
-  
   useEffect(()=>{
     !allUserCars.length && dispatch(selectedCar({}))
   },[allUserCars])
-
 
   return (
     <ScrollView style={{ backgroundColor: "black", height: "100%" }}>

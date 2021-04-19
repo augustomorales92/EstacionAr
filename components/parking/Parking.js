@@ -50,13 +50,13 @@ const Parking = (props) => {
     }
   };
   const scanner = ({ type, data }) => {
-    Alert.alert(
-      `Bar code with type ${type} and data ${data} has been scanned!`
-    );
+    setInput({zone: data})
+    setIsOkZone(true)
     setScanned(false);
   };
 
   const handleChangeText = (name, value) => {
+    setIsOkZone(true)
     setInput({ ...input, [name]: value });
   };
   
@@ -88,12 +88,12 @@ const Parking = (props) => {
             <Input
               type="number"
               label="Ingresar código de manzana"
-              placeholder="182"
+              placeholder="112"
               value={input.zone}
               inputStyle={styles.colorInput}
               keyboardType="numeric"
               onChangeText={(value) => handleChangeText("zone", value)}
-              onBlur={(e) => onBlurValidateZone(e.nativeEvent.text)}
+              onFocus={(e) => onBlurValidateZone(e.nativeEvent.text)}
               errorMessage={!isOkZone && errorMessage}
             />
           </Card>
@@ -176,6 +176,7 @@ const Parking = (props) => {
               disabled={!isOkZone}
               title="ir a estacionar"
               onPress={() => {
+                setInput({zone:''})
                 if (vehiculo) {
                   time > 0
                     ? navigation.navigate("Countdown", {zone: input.zone})

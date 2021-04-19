@@ -8,12 +8,12 @@ import {
   
   export const addNewCar = createAsyncThunk(
     "addNewCar",
-    ({ owner, marca, modelo, año, patente }) => {
-      console.log('la infooooo --->',owner,marca,modelo,año,patente)
+    ({ user, marca, modelo, año, patente }) => {
+      console.log('la infooooo --->',user,marca,modelo,año,patente)
       return (
         firebase.db
           .collection("users")
-          .doc(owner)
+          .doc(user)
           .collection("CARS")
           .doc(patente)
           .set({

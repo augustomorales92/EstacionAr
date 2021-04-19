@@ -18,10 +18,9 @@ const addcar = (props) => {
   let {user} = useSelector((state) => state.userReducer);
 
   const [car, setCar] = useState({
-    owner: user,
     marca: "",
     modelo: "",
-    año: "",
+    año: '',
     patente: "",
   });
 
@@ -30,8 +29,8 @@ const addcar = (props) => {
   };
 
   const setUserCar = () => {
-    const { owner, marca, modelo, año, patente } = car;
-    dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() => {
+    const { marca, modelo, año, patente } = car;
+    dispatch(addNewCar({ user, marca, modelo, año, patente })).then(() => {
       getAllCars(dispatch,user);
       setTimeout(() => {
         setCar({

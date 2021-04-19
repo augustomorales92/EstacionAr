@@ -2,6 +2,8 @@ import {
     createAsyncThunk,
     createAction,
   } from "@reduxjs/toolkit";
+
+  import {getDate} from "../../utils/date"
   
   //importamos Firebase
   import firebase from "../../back/db/firebase";
@@ -111,6 +113,39 @@ import {
 
   export const logOutUser = createAction('logOutUser')
   
-
+  export const addParkingDocument = createAsyncThunk(
+    "addParkingCollection",
+    ( {user, time, zone, patente, mode} ) => {
+      mode === 'countdown' ? time = time/6000 : time
+      const date = getDate()
+      console.log('la infooooo llegando --->', user, time, zone, patente, date, mode)
+      return (
+        firebase.db
+          .collection("parkings")
+          .doc(patente)
+          .set({
+            user,
+            time,
+            zone,
+            patente,
+            date,
+            mode
+          })
+          .then(() => {
+            console.log("----PARKING ACTIVO----");
+          })
+          .catch((error) => alert("PARKING NO AGREGADO", error.message))
+      );
+    }
+  );
   
-  
+  export const deleteParkingDocument = (patente) => {
+  return firebase.db
+    .collection("parkings")
+    .doc(`${patente}`) 
+    .delete()
+      .then(() => {
+        console.log('se borro el documento parking')
+      })
+      .catch((err) => console.log(err));
+  }

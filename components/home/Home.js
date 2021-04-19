@@ -1,72 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "./HomeStyle";
-import { View, SafeAreaView, Modal, Pressable,ScrollView } from "react-native";
+import { View, SafeAreaView, Modal, Pressable, ScrollView } from "react-native";
 import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserCredit, getUserInfo, } from "../../redux/reducer/userActions";
+import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 
 //import MapView , { Marker,PROVIDER_GOOGLE,Polyline,Polygon,Callout }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
 const coord = [
-{
-  latitude:-26.820214,
-  longitude:-65.194147
-},
-{
-  latitude:-26.816051,
-  longitude: -65.215484
-}, 
- {
-  latitude:-26.840433,
-  longitude: -65.221531
-}, 
-{
-  latitude:-26.844661,
-  longitude:-65.200250
-},
-{
-  latitude:-26.820214,
-  longitude:-65.194147
-},
-]
+  {
+    latitude: -26.820214,
+    longitude: -65.194147,
+  },
+  {
+    latitude: -26.816051,
+    longitude: -65.215484,
+  },
+  {
+    latitude: -26.840433,
+    longitude: -65.221531,
+  },
+  {
+    latitude: -26.844661,
+    longitude: -65.20025,
+  },
+  {
+    latitude: -26.820214,
+    longitude: -65.194147,
+  },
+];
 const coord1 = [
   {
-    latitude:-26.822330,
-    longitude:-65.198042
+    latitude: -26.82233,
+    longitude: -65.198042,
   },
   {
-    latitude:-26.822056,
-    longitude: -65.199482
-  }, 
-   {
-    latitude:-26.823411,
-    longitude: -65.199813
-  }, 
-  {
-    latitude:-26.823670,
-    longitude: -65.198375
+    latitude: -26.822056,
+    longitude: -65.199482,
   },
   {
-    latitude:-26.822330,
-    longitude:-65.198042
+    latitude: -26.823411,
+    longitude: -65.199813,
   },
-  ]
+  {
+    latitude: -26.82367,
+    longitude: -65.198375,
+  },
+  {
+    latitude: -26.82233,
+    longitude: -65.198042,
+  },
+];
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userInfoNow, setUserInfoNow] = useState("");
   const [input, setInput] = useState({
-    credit: "",     
+    credit: "",
   });
   const dispatch = useDispatch();
-  const {user} = useSelector((state) => state.userReducer);
-  const {selectCar,allUserCars} = useSelector(state => state.carReducer);
-  
-  const navigation = useNavigation();
+  const { user } = useSelector((state) => state.userReducer);
+  const { selectCar, allUserCars } = useSelector((state) => state.carReducer);
 
+  const navigation = useNavigation();
 
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
@@ -86,13 +85,16 @@ const Home = (props) => {
       });
   };
 
+
   useEffect(() => {
-    !modalVisible && getUserInfoNow(user); // && dispatch(getUserInfo(user))
+    !modalVisible && getUserInfoNow(user);
   }, []);
 
-  useEffect(()=>{
-    !allUserCars.length && dispatch(selectedCar({}))
-  },[allUserCars])
+
+
+  useEffect(() => {
+    !allUserCars.length && dispatch(selectedCar({}));
+  }, [allUserCars]);
 
   return (
     <ScrollView style={{ backgroundColor: "black", height: "100%" }}>
@@ -127,7 +129,7 @@ const Home = (props) => {
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
             <>
-             {!selectCar.modeloId  ? (
+              {!selectCar.modeloId ? (
                 <>
                   <View
                     style={{
@@ -146,7 +148,7 @@ const Home = (props) => {
                     ></Button>
                   </View>
                 </>
-              ) : ( 
+              ) : (
                 <>
                   <View
                     style={{
@@ -168,11 +170,10 @@ const Home = (props) => {
                     }}
                   >
                     <Button
-                      title="ESTACIONAR"
+                      title={userInfoNow.credit <= 0 ? "CARGUE SALDO" : "ESTACIONAR"}
                       buttonStyle={styles.button}
-                      onPress={() =>
-                        navigation.navigate("estacionar")
-                      }
+                      onPress={() => navigation.navigate("estacionar")}
+                      disabled={userInfoNow.credit <= 0 && true}
                     ></Button>
                     <Button
                       title="CAMBIAR VEHICULO"
@@ -181,7 +182,7 @@ const Home = (props) => {
                     ></Button>
                   </View>
                 </>
-               )} 
+              )}
             </>
           </View>
         </Card>

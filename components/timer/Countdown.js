@@ -7,6 +7,7 @@ import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
+import {addParkingDocument, deleteParkingDocument} from "../../redux/reducer/carActions"
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
@@ -35,6 +36,9 @@ const Countdown = (props) => {
   const navigation = useNavigation();
 
   const startParking = () => {
+    const mode = 'countdown'
+  
+    dispatch(addParkingDocument({user, time, zone, patente, mode}))
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
   };
@@ -46,6 +50,7 @@ const Countdown = (props) => {
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);
     setButton(!button)
+    deleteParkingDocument(patente)
   };
 
   function calculateParkingPrice(time) {

@@ -38,7 +38,7 @@ export const logUser = createAsyncThunk("logUser", ({ email, password }) => {
       }
     })
     .catch((error) => {
-      throw new Error(error);
+      throw new Error("El formato del email no es válido");
     });
 });
 
@@ -62,6 +62,7 @@ export const setUserTime = createAsyncThunk(
       });
   }
 );
+
 export const getUserTime = createAsyncThunk("getUserTime", (user) => {
   return firebase.db
     .collection("users")
@@ -85,21 +86,20 @@ export const getUserTime = createAsyncThunk("getUserTime", (user) => {
 
 export const addNewParking = createAsyncThunk(
   "addNewParking",
-  ({ user, patente, price, finalTime }) => {
+  ({ user, patente, price, finalTime, zone }) => {
     const date = getDate()
-    console.log(date)
     if(finalTime){
       return (
         firebase.db
           .collection("users")
           .doc(`${user}`)
           .update({
-             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime, date}),
+             parkingHistory: firebase.firebase.firestore.FieldValue.arrayUnion({user, patente, price, finalTime, date, zone}),
              credit: firebase.firebase.firestore.FieldValue.increment(-price)
           })
           .then(() => {
             console.log("----PARKING HISTORY UPDATE----");
-            return {user, patente, price, finalTime}
+            return {user, patente, price, finalTime, zone}
           })
           .then(() => {
             
@@ -131,7 +131,6 @@ export const getParkingHistoryInfo = createAsyncThunk("getParkingHistoryInfo", (
 })
 
 export const setUserCredit = createAsyncThunk("setUserCredit", ({user, credit}) => {
-  console.log('LLEGANDO', user, credit)
   return firebase.db
     .collection("users")
     .doc(user)
@@ -145,4 +144,3 @@ export const setUserCredit = createAsyncThunk("setUserCredit", ({user, credit}) 
       console.log("Error cargando saldo:", error);
     });
 }); 
-

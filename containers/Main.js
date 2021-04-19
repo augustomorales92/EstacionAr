@@ -20,6 +20,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const {selectCar} = useSelector(state => state.carReducer);
   const {user} = useSelector(state => state.userReducer);
+  console.log(user)
   
   useEffect(() => {
     getUserLogged(dispatch)

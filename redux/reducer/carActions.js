@@ -5,17 +5,17 @@ import {
   
   //importamos Firebase
   import firebase from "../../back/db/firebase";
-import { DatePickerIOS } from "react-native";
   
   export const addNewCar = createAsyncThunk(
     "addNewCar",
     ({ owner, marca, modelo, año, patente }) => {
+      console.log('la infooooo --->',owner,marca,modelo,año,patente)
       return (
         firebase.db
           .collection("users")
-          .doc(`${owner}`)
+          .doc(owner)
           .collection("CARS")
-          .doc(`${patente}`)
+          .doc(patente)
           .set({
             marca,
             modelo,

@@ -1,66 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  View,
-  Alert,
-  SafeAreaView,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-} from "react-native";
+import { useSelector } from "react-redux";
+import { View, SafeAreaView } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { Button, Input, Card, Image, Text } from "react-native-elements";
-import { validatePassword } from "../../utils/validations";
-import { getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
-import { validateEmail } from "../../utils/validations";
-
 import { styles } from "./EditUserStyle";
 
 const EditUser = (props) => {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userReducer.user);
-  const userInfo = useSelector((state) => state.userReducer.info);
-
-  // useEffect(() => {
-  //   dispatch(getUserInfo(userId));
-  // }, []);
+  const [userInfoNow, setUserInfoNow] = useState("");
+  const { user } = useSelector((state) => state.userReducer);
 
   const [input, setInput] = useState({
     name: "",
     lastname: "",
   });
-  console.log(input)
-  const editUser = () => {
+
+  const getUserInfoNow = (userId) => {
+    firebase.db
+      .collection("users")
+      .doc(`${userId}`)
+      .onSnapshot((querySnap) => {
+        console.log("CON ESTA INFO ESTAMOS", querySnap.data());
+        return setUserInfoNow(querySnap.data());
+      });
+  };
+
+  const editUser = (userId) => {
     const { name, lastname, email } = input;
-    if (name === "" || lastname === "")
-      return props.navigation.navigate("drawer");
-      firebase.db
+    firebase.db
       .collection("users")
       .doc(`${userId}`)
       .update({ name, lastname })
       .then(() => console.log("Edit user successful"))
       .catch(() => console.log("Error en user edit"));
-    setTimeout(() => props.navigation.navigate("drawer"), 100);
+    props.navigation.navigate("drawer");
     setInput({
       name: "",
       lastname: "",
-    })
+    });
   };
 
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
 
+  useEffect(() => {
+    getUserInfoNow(user);
+  }, []);
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
+    <KeyboardAwareScrollView style={styles.container}>
       <SafeAreaView style={styles.container}>
         <Card containerStyle={styles.input}>
           <Input
             label="Nombre"
             name="name"
-            placeholder={userInfo ? userInfo.name : ""}
+            placeholder={userInfoNow.name}
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("name", value)}
             value={input.name}
@@ -68,7 +63,7 @@ const EditUser = (props) => {
           <Input
             label="Apellido"
             name="lastname"
-            placeholder={userInfo ? userInfo.lastname : ""}
+            placeholder={userInfoNow.lastname}
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("lastname", value)}
             value={input.lastname}
@@ -77,7 +72,7 @@ const EditUser = (props) => {
             label="Email"
             name="email"
             type="email"
-            value={userInfo ? userInfo.email : ""}
+            value={userInfoNow.email}
             disabled={true}
             inputStyle={styles.colorInput}
             onChangeText={(value) => handleChangeText("email", value)}
@@ -88,7 +83,7 @@ const EditUser = (props) => {
             buttonStyle={styles.colores}
             title="Actualizar cambios"
             onPress={() => {
-                editUser();
+              editUser(user);
             }}
           ></Button>
         </View>
@@ -112,7 +107,7 @@ const EditUser = (props) => {
           />
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 

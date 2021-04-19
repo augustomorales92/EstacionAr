@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
 
@@ -8,6 +8,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Timer from "../components/timer/Timer"
 import Countdown from '../components/timer/Countdown';
 
+// PROBANDO VALIDACION DE CREDITO
+
+import firebase from "../back/db/firebase";
 
 
 const Stack = createStackNavigator();
@@ -15,6 +18,25 @@ const Stack = createStackNavigator();
 export const ParkingContainer = () => {
   const {selectCar} = useSelector(state => state.carReducer);
   const vehiculo = selectCar
+
+  // VALIDACION DE CREDITO
+  const {user} = useSelector(state => state.userReducer)
+  const [userInfoNow, setUserInfoNow] = useState('')
+
+  const getUserInfoNow = (userId) => {
+    firebase.db
+      .collection("users")
+      .doc(`${userId}`)
+      .onSnapshot((querySnap) => {
+        return setUserInfoNow(querySnap.data().credit / 100 * 6000);
+      });
+  };
+
+  React.useEffect(()=> {
+    getUserInfoNow(user)
+  }, [])
+
+  console.log(userInfoNow)
 
   return (
     <Stack.Navigator>

@@ -2,36 +2,47 @@ import React from "react";
 import { styles } from "./TimerStyle";
 import { View, SafeAreaView, Modal, Pressable } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
+import firebase from "../../back/db/firebase";
 import ClockTimer from "./ClockTimer";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking } from "../../redux/reducer/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import {addParkingDocument, deleteParkingDocument} from "../../redux/reducer/carActions";
 
 const Timer = (props) => {
+  const dispatch = useDispatch();
   const vehiculo = props.route.params;
-  const { zone } = vehiculo;
-  console.log(zone)
 
   const [isRunning, setRunning] = React.useState(false);
   const [time, setTime] = React.useState(0);
   const [finalTime, setFinalTime] = React.useState(0);
   const [isFinished, setIsFinished] = React.useState(false);
   const [price, setPrice] = React.useState(0);
+  const [credit, setCredit] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
 
 
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  let { user } = useSelector((state) => state.userReducer);
-  let { allUserCars } = useSelector((state) => state.carReducer);
-  let { parkingHistory } = useSelector((state) => state.userReducer);
+  const { user } = useSelector((state) => state.userReducer);
   const patente = useSelector(
     (state) => state.carReducer.selectCar.patenteId
   );
+  const { zone } = vehiculo;
 
+  const getUserCreditNow = (userId) => {
+    firebase.db
+      .collection("users")
+      .doc(`${userId}`)
+      .onSnapshot((querySnap) => {
+        return setCredit(querySnap.data().credit);
+      });
+  };
 
   function runningOn() {
+    const time = credit / 100
+    const mode = 'free'
+    dispatch(addParkingDocument({user, time, zone, patente, mode}))
     setRunning(true);
   }
 
@@ -40,6 +51,7 @@ const Timer = (props) => {
     setIsFinished(true);
     setFinalTime(format(time));
     calculateParkingPrice(time);
+    deleteParkingDocument(patente)
   }
 
   function calculateParkingPrice(time) {
@@ -50,6 +62,11 @@ const Timer = (props) => {
       setPrice(priceHalfHour);
     }
   }
+
+  React.useEffect (() => {
+    getUserCreditNow(user)
+    console.log(credit)
+  }, [credit])
 
   React.useEffect(() => {
     isFinished && dispatch(addNewParking({user, patente, price, finalTime, zone}))
@@ -79,6 +96,7 @@ const Timer = (props) => {
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
           <Text h5>Código de manzana: {zone}</Text>
+          <Text h5>Tiempo disponible: {credit / 100} hs</Text>
         </Card>
         <Card containerStyle={styles.card}>
           <ClockTimer time={time} />

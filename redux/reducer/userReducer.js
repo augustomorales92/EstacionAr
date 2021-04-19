@@ -16,12 +16,10 @@ import {
 const initialState = {
   user: null,
   recovery:null,
-  recovery: null,
   time: 0,
   credit: 0,
   zone: 0,
   parkingHistory: [],
-  // allParkingHistory: [],
 };
 
 export const userReducer = createReducer(initialState, {
@@ -43,12 +41,14 @@ export const userReducer = createReducer(initialState, {
   [addNewParking.fulfilled]: (state, action) => {
     if(action.payload !== undefined) return { ...state, parkingHistory: [...state.parkingHistory, action.payload] }
   },
-  [getUserInfo.fulfilled]: (state, action) => {
-    const {credit, parkingHistory, time, id, allParkingHistory} = action.payload;
-    return {...state, credit, parkingHistory, time, user: id, allParkingHistory}
-  },
   
   [getParkingHistoryInfo.fulfilled]: (state, action) => {
     return { ...state, allParkingHistory: action.payload }
   },
+
+  // [getUserInfo.fulfilled]: (state, action) => {
+  //   const {name, lastname, email} = action.payload;
+  //   return {...state, name, lastname, email}
+  // },
+
 });

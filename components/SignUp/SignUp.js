@@ -45,6 +45,7 @@ const SignUp = (props) => {
             credit: 0,
             parkingTime: 0,
             parkingHistory: [],
+            isAdmin: false
           })
           .then((cred) => {
              Alert.alert("Usuario registrado exitosamente", cred,[{text:'ok',onPress:()=>{props.navigation.popToTop()}}],{cancelable:false});
@@ -108,12 +109,6 @@ const SignUp = (props) => {
   };
 
   return (
-    // QUITADO Y CAMBIADO POR KeyboardAwareScrollView
-    // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   style={styles.container}
-    //   keyboardVerticalOffset={80}
-    // >
     <KeyboardAwareScrollView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView style={styles.inner}>

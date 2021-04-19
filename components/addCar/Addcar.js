@@ -20,7 +20,7 @@ const addcar = (props) => {
   const [car, setCar] = useState({
     marca: "",
     modelo: "",
-    año: '',
+    año: "",
     patente: "",
   });
 

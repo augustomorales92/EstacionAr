@@ -45,6 +45,7 @@ const SignUp = (props) => {
             credit: 0,
             parkingTime: 0,
             parkingHistory: [],
+            isAdmin: false
           })
           .then((cred) => {
              Alert.alert("Usuario registrado exitosamente", cred,[{text:'ok',onPress:()=>{props.navigation.popToTop()}}],{cancelable:false});

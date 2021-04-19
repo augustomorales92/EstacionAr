@@ -24,13 +24,21 @@
         "facebookAppId":"281154416752453",
         "facebookDisplayName":"EstacionAr",
         "facebookAutoInitEnabled": true
-      }
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyDYtRmnwRqTZ8PY7wC5vCB-apZyA3vKKyM"
+    }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "config": {
+        "googleMaps": {
+            "apiKey": "AIzaSyDYtRmnwRqTZ8PY7wC5vCB-apZyA3vKKyM"
+        }
+    }
     },
     "web": {
       "favicon": "./assets/favicon.png"

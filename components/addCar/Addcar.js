@@ -15,10 +15,10 @@ import { addNewCar, getAllCars, selectedCar } from "../../redux/reducer/carActio
 
 const addcar = (props) => {
   const dispatch = useDispatch();
-  let userInTheApp = useSelector((state) => state.userReducer);
+  let {user} = useSelector((state) => state.userReducer);
 
   const [car, setCar] = useState({
-    owner: userInTheApp.user,
+    owner: user,
     marca: "",
     modelo: "",
     año: "",
@@ -32,12 +32,12 @@ const addcar = (props) => {
   const setUserCar = () => {
     const { owner, marca, modelo, año, patente } = car;
     dispatch(addNewCar({ owner, marca, modelo, año, patente })).then(() => {
-      getAllCars(dispatch, userInTheApp.user);
+      getAllCars(dispatch,user);
       setTimeout(() => {
         setCar({
           marca: "",
           modelo: "",
-          año: 0,
+          año: "",
           patente: "",
         });
         return props.navigation.navigate("autos");

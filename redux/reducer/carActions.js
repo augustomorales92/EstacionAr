@@ -115,10 +115,10 @@ import {
   
   export const addParkingDocument = createAsyncThunk(
     "addParkingCollection",
-    ( {user, time, zone, patente, mode} ) => {
-      mode === 'countdown' ? time = time/6000 : time
+    ( {user, time, zone, mode, patente, modelo, marca} ) => {
+      mode === 'fraccionado' ? time = time/6000 : time
       const date = getDate()
-      console.log('la infooooo llegando --->', user, time, zone, patente, date, mode)
+      console.log('la infooooo llegando --->', user, time, zone, patente, date, mode, patente, modelo, marca)
       return (
         firebase.db
           .collection("parkings")
@@ -127,9 +127,11 @@ import {
             user,
             time,
             zone,
+            mode,
             patente,
-            date,
-            mode
+            modelo,
+            marca,
+            date
           })
           .then(() => {
             console.log("----PARKING ACTIVO----");

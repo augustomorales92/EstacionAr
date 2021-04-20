@@ -25,10 +25,12 @@ const Timer = (props) => {
 
   const navigation = useNavigation();
   const { user } = useSelector((state) => state.userReducer);
-  const patente = useSelector(
-    (state) => state.carReducer.selectCar.patenteId
-  );
+  const patente = useSelector(state => state.carReducer.selectCar.patenteId);
+  const marca = useSelector(state => state.carReducer.selectCar.marcaId)
+  const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
   const { zone } = vehiculo;
+
+  console.log(patente);
 
   const getUserCreditNow = (userId) => {
     firebase.db
@@ -41,8 +43,8 @@ const Timer = (props) => {
 
   function runningOn() {
     const time = credit / 100
-    const mode = 'free'
-    dispatch(addParkingDocument({user, time, zone, patente, mode}))
+    const mode = 'libre'
+    dispatch(addParkingDocument({user, time, zone, mode, patente, marca, modelo}))
     setRunning(true);
   }
 

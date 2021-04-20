@@ -13,11 +13,11 @@ const Countdown = (props) => {
   const vehiculo = props.route.params;
   const {zone} = vehiculo
 
-  const timer = useSelector((state) => state.userReducer.time);
-  const user = useSelector((state) => state.userReducer.user);
-  const patente = useSelector(
-    (state) => state.carReducer.selectCar.patenteId
-  );
+  const timer = useSelector(state => state.userReducer.time);
+  const user = useSelector(state => state.userReducer.user);
+  const patente = useSelector(state => state.carReducer.selectCar.patenteId);
+  const marca = useSelector(state => state.carReducer.selectCar.marcaId)
+  const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
 
   const dispatch = useDispatch();
 
@@ -36,9 +36,9 @@ const Countdown = (props) => {
   const navigation = useNavigation();
 
   const startParking = () => {
-    const mode = 'countdown'
+    const mode = 'fraccionado'
   
-    dispatch(addParkingDocument({user, time, zone, patente, mode}))
+    dispatch(addParkingDocument({user, time, zone, patente, mode, marca, modelo}))
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
   };

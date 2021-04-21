@@ -7,17 +7,17 @@ import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
-import {addParkingDocument, deleteParkingDocument} from "../../redux/reducer/carActions"
+import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions"
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
   const {zone} = vehiculo
 
-  const timer = useSelector((state) => state.userReducer.time);
-  const user = useSelector((state) => state.userReducer.user);
-  const patente = useSelector(
-    (state) => state.carReducer.selectCar.patenteId
-  );
+  const timer = useSelector(state => state.userReducer.time);
+  const user = useSelector(state => state.userReducer.user);
+  const patente = useSelector(state => state.carReducer.selectCar.patenteId);
+  const marca = useSelector(state => state.carReducer.selectCar.marcaId)
+  const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
 
   const dispatch = useDispatch();
 
@@ -32,13 +32,12 @@ const Countdown = (props) => {
   const [isFinished, setIsFinished] = useState(false);
   const [addTime, setAddTime] = useState(0);
   const [button, setButton] = useState(true);
+  const [mode, setMode] = useState('fraccionado')
 
   const navigation = useNavigation();
 
   const startParking = () => {
-    const mode = 'countdown'
-  
-    dispatch(addParkingDocument({user, time, zone, patente, mode}))
+    dispatch(addParkingDocument({user, time, zone, patente, mode, marca, modelo}))
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
   };
@@ -51,6 +50,7 @@ const Countdown = (props) => {
     calculateParkingPrice(timer + addTime);
     setButton(!button)
     deleteParkingDocument(patente)
+    dispatch(addZoneDocument ({user, time, zone, patente, mode, marca, modelo}))
   };
 
   function calculateParkingPrice(time) {

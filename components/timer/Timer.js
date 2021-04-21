@@ -8,7 +8,7 @@ import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking } from "../../redux/reducer/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import {addParkingDocument, deleteParkingDocument} from "../../redux/reducer/carActions";
+import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions";
 
 const Timer = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Timer = (props) => {
   const [price, setPrice] = React.useState(0);
   const [credit, setCredit] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [mode, setMode] = React.useState('libre')
 
   const navigation = useNavigation();
   const { user } = useSelector((state) => state.userReducer);
@@ -29,8 +29,6 @@ const Timer = (props) => {
   const marca = useSelector(state => state.carReducer.selectCar.marcaId)
   const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
   const { zone } = vehiculo;
-
-  console.log(patente);
 
   const getUserCreditNow = (userId) => {
     firebase.db
@@ -43,7 +41,6 @@ const Timer = (props) => {
 
   function runningOn() {
     const time = credit / 100
-    const mode = 'libre'
     dispatch(addParkingDocument({user, time, zone, mode, patente, marca, modelo}))
     setRunning(true);
   }
@@ -54,6 +51,7 @@ const Timer = (props) => {
     setFinalTime(format(time));
     calculateParkingPrice(time);
     deleteParkingDocument(patente)
+    dispatch(addZoneDocument ({user, time, zone, patente, mode, marca, modelo}))
   }
 
   function calculateParkingPrice(time) {

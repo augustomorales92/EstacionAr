@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logotipo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F9B233"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,13 +23,19 @@
         "facebookScheme":"fb281154416752453",
         "facebookAppId":"281154416752453",
         "facebookDisplayName":"EstacionAr",
-        "facebookAutoInitEnabled": true
+        "facebookAutoInitEnabled": true,
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
       },
       "config": {
         "googleMapsApiKey": "AIzaSyDYtRmnwRqTZ8PY7wC5vCB-apZyA3vKKyM"
     }
     },
     "android": {
+      "package": "com.EstacionAr.EstacionAr",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

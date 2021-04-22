@@ -20,7 +20,6 @@ const EditUser = (props) => {
       .collection("users")
       .doc(`${userId}`)
       .onSnapshot((querySnap) => {
-        console.log("CON ESTA INFO ESTAMOS", querySnap.data());
         return setUserInfoNow(querySnap.data());
       });
   };

@@ -37,8 +37,6 @@ const EditLogin = (props) => {
       .updatePassword(password)
       .then(() => {
         console.log("Updateo de password correcto");
-        // setTimeout(() =>props.navigation.goBack();
-        // , 2000);
       })
       .catch((err) => console.log("Error en updateo de password", err));
     setInput({
@@ -76,58 +74,50 @@ const EditLogin = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <Card containerStyle={styles.input}>
-          <Input
-            label="Contraseña"
-            name="password"
-            secureTextEntry={true}
-            placeholder="*********"
-            inputStyle={styles.colorInput}
-            onChangeText={(value) => handleChangeText("password", value)}
-            onBlur={(e) => {
-              onBlurValidatePassword(input.password);
-            }}
-            errorStyle={{ fontSize: 15 }}
-            errorMessage={!isOkPassword && errorPassword}
-            value={input.password}
-          />
-          <Input
-            label="Repetir contraseña"
-            placeholder="*********"
-            secureTextEntry={true}
-            inputStyle={styles.colorInput}
-            onChangeText={(value) => handleChangeText("password2", value)}
-            onBlur={(e) => {
-              onBlurValidatePassword2(input.password2);
-            }}
-            errorStyle={{ fontSize: 15 }}
-            errorMessage={
-              (!isOkPassword2 && errorPassword2) ||
-              (input.password != input.password2 && "las contraseñas no coinciden")
-            }
-            value={input.password2}
-          />
-        </Card>
-        <View style={styles.fixToText}>
-          <Button
-            disabled={!isOkFunction()}
-            buttonStyle={styles.colores}
-            title="Guardar cambios"
-            onPress={() => {
-              editUser();
-              props.navigation.goBack();
-            }}
-          ></Button>
-        </View>
-        {/* <View style={styles.fixToText}>
+      <Card containerStyle={styles.input}>
+        <Input
+          label="Contraseña"
+          name="password"
+          secureTextEntry={true}
+          placeholder="*********"
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("password", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword(input.password);
+          }}
+          errorStyle={{ fontSize: 15 }}
+          errorMessage={!isOkPassword && errorPassword}
+          value={input.password}
+        />
+        <Input
+          label="Repetir contraseña"
+          placeholder="*********"
+          secureTextEntry={true}
+          inputStyle={styles.colorInput}
+          onChangeText={(value) => handleChangeText("password2", value)}
+          onBlur={(e) => {
+            onBlurValidatePassword2(input.password2);
+          }}
+          errorStyle={{ fontSize: 15 }}
+          errorMessage={
+            (!isOkPassword2 && errorPassword2) ||
+            (input.password != input.password2 &&
+              "las contraseñas no coinciden")
+          }
+          value={input.password2}
+        />
+      </Card>
+      <View style={styles.fixToText}>
         <Button
+          disabled={!isOkFunction()}
           buttonStyle={styles.colores}
-          title="Go back"
+          title="Guardar cambios"
           onPress={() => {
+            editUser();
             props.navigation.goBack();
           }}
         ></Button>
-      </View> */}
+      </View>
       <View style={styles.imagen}>
         <Image
           style={styles.stretch}

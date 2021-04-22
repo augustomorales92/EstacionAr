@@ -25,8 +25,6 @@ const Home = (props) => {
   const { selectCar, allUserCars } = useSelector((state) => state.carReducer);
   const [location, setLocation] = useState({});
   const navigation = useNavigation();
-
-console.log('aca esta la locacion',location.coords)
   
   
 const _getLocation = async ()=>{
@@ -38,8 +36,6 @@ const _getLocation = async ()=>{
   const userLocation = await Location.getCurrentPositionAsync({});
   setLocation(userLocation)
 }
-
- 
   
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });

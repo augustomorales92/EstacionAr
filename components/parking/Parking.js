@@ -26,7 +26,6 @@ import { setUserZone } from "../../redux/reducer/userActions";
 
 const Parking = (props) => {
   const vehiculo = props.route.params;
-  //console.log('ZONE DE PARKING', vehiculo)
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -40,12 +39,11 @@ const Parking = (props) => {
     zone: "",
   });
 
-  const handleBarCodeScanned = async (/* {type, data} */) => {
+  const handleBarCodeScanned = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
     if (status === "granted") {
       setScanned(true);
-      //Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
-      /* setDato({data}) */
+     
     } else {
       Alert.alert("Access denied");
     }
@@ -158,22 +156,6 @@ const Parking = (props) => {
                 ></Button>
               </View>
             </Card>
-
-            {/* <Card containerStyle={styles.input2}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.clock}>
-            <Clock time={time} />
-          </Text>
-
-          <Button
-            buttonStyle={styles.buttons2}
-            title="reset"
-            onPress={() => {
-              addTime(0);
-            }}
-          ></Button>
-        </View>
-      </Card> */}
 
             <View style={styles.lastButton}>
               <Button

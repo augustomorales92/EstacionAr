@@ -44,7 +44,7 @@ const Countdown = (props) => {
 
   const startParking = () => {
     let arranqueH = new Date().getHours();
-    let arranqueM = new Date().getMinutes();
+    let arranqueM = (new Date().getMinutes()<10?'0':'') + new Date().getMinutes();
     let arranque = `${arranqueH}:${arranqueM}`;
     setInicio(arranque);
     dispatch(
@@ -56,10 +56,9 @@ const Countdown = (props) => {
 
   const endParking = () => {
     let finalH = new Date().getHours();
-    let finalM = new Date().getMinutes();
+    let finalM = (new Date().getMinutes()<10?'0':'') + new Date().getMinutes();
     let final = `${finalH}:${finalM}`;
     setFinalTime(format(timer + addTime - time));
-    //setTimeParking(parkingTime)
     setRunning(false);
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);

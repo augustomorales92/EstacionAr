@@ -24,13 +24,14 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20,
-        marginRight:20
+        marginRight:20, 
       },
       input: {
         backgroundColor:'black',
         borderRadius:10,
-        opacity:0.5,
-        marginTop:30
+        opacity:0.8,
+        marginTop:30,
+        borderColor:"black",
         },
         colorText:{
           color:'white'

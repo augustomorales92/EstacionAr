@@ -18,10 +18,7 @@ const addcar = (props) => {
     modelo: vehiculo.modeloId,
     año: vehiculo.añoId,
     patente: vehiculo.patenteId
-  });
-
-
-  
+  });  
 
   const handleChangeText = (name, value) => {
     setCar({ ...car, [name]: value });

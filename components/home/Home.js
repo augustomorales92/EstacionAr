@@ -26,7 +26,6 @@ const Home = (props) => {
   const [location, setLocation] = useState({});
   const navigation = useNavigation();
 
-console.log('aca esta la locacion',location.coords)
   
   
 const _getLocation = async ()=>{

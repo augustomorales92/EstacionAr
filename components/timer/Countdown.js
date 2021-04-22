@@ -8,6 +8,7 @@ import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
 import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions"
+import firebase from "../../back/db/firebase";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
@@ -18,9 +19,9 @@ const Countdown = (props) => {
   const patente = useSelector(state => state.carReducer.selectCar.patenteId);
   const marca = useSelector(state => state.carReducer.selectCar.marcaId)
   const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
-
+  console.log('el userrrrrrrr --->',userInfoNow)
   const dispatch = useDispatch();
-
+  const [userInfoNow, setUserInfoNow] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [modalAlert, setModalAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -40,6 +41,7 @@ const Countdown = (props) => {
     dispatch(addParkingDocument({user, time, zone, patente, mode, marca, modelo}))
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
+    getUserInfoNow()
   };
 
   const endParking = () => {
@@ -58,6 +60,16 @@ const Countdown = (props) => {
     let splitTime = Math.round(time / 180000);
     setPrice(priceHalfHour * splitTime);
   }
+
+  const getUserInfoNow = () => {
+   return firebase.db
+      .collection("users")
+      .doc(user)
+      .onSnapshot((querySnap) => {
+        console.log('este es el query snap',querySnap.data())
+        setUserInfoNow(querySnap.data());
+      });
+  };
 
   useEffect(
     function () {
@@ -83,7 +95,10 @@ const Countdown = (props) => {
 
   useEffect(() => {
     isFinished && dispatch(addNewParking({ user, patente, price, finalTime, zone }));
+
   }, [isRunning]);
+
+
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
@@ -109,7 +124,7 @@ const Countdown = (props) => {
             <Button
               title="Iniciar"
               buttonStyle={styles.button}
-              onPress={() => startParking()}
+              onPress={() => startParking() }
               disabled={isRunning && true || !button && true}
             ></Button>
             <Button

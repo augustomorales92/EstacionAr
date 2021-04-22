@@ -7,12 +7,13 @@ import { HomeContainer } from "./HomeContainer";
 import { AddCarContainer } from "./AddCarContainer";
 import { UserContainer } from "./UserContainer";
 // import Login from "../components/login/Login";
-import { getUserLogged } from "../redux/reducer/userActions";
+import { getUserLogged,setUserInfo } from "../redux/reducer/userActions";
 import { useDispatch,useSelector } from "react-redux";
 import CustomDrawerContent from './drawerContainer/Drawer';
 import {drawerItemsMain} from './drawerContainer/DrawerItemsMain';
 import {getAllCars, selectedCar} from '../redux/reducer/carActions'
 import { ParkingHistoryContainer } from "./ParkingHistoryContainer"
+import firebase from "../back/db/firebase";
 
 const Drawer = createDrawerNavigator();
 
@@ -40,6 +41,16 @@ const Main = () => {
   .catch((error)=>{console.log(error)})
     
   }, [user]);
+
+  const getUserInfoNow = () => {
+
+    return firebase.db
+       .collection("users")
+       .doc(user)
+       .onSnapshot((querySnap) => {
+       dispatch(setUserInfo(querySnap.data()));
+       });
+   };
 
   return (
     // <NavigationContainer>

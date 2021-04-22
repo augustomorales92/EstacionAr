@@ -4,56 +4,15 @@ import { View, SafeAreaView, Modal, Pressable, ScrollView } from "react-native";
 import { Button, Card, Text, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
-
-// import MapView , { Marker,PROVIDER_GOOGLE,Polyline,Polygon,Callout }from 'react-native-maps';
+import {coord, coord1} from './coordenadas'
+import MapView , { Marker,PROVIDER_GOOGLE,Polyline,Polygon,Circle }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
-const coord = [
-  {
-    latitude: -26.820214,
-    longitude: -65.194147,
-  },
-  {
-    latitude: -26.816051,
-    longitude: -65.215484,
-  },
-  {
-    latitude: -26.840433,
-    longitude: -65.221531,
-  },
-  {
-    latitude: -26.844661,
-    longitude: -65.20025,
-  },
-  {
-    latitude: -26.820214,
-    longitude: -65.194147,
-  },
-];
-const coord1 = [
-  {
-    latitude: -26.82233,
-    longitude: -65.198042,
-  },
-  {
-    latitude: -26.822056,
-    longitude: -65.199482,
-  },
-  {
-    latitude: -26.823411,
-    longitude: -65.199813,
-  },
-  {
-    latitude: -26.82367,
-    longitude: -65.198375,
-  },
-  {
-    latitude: -26.82233,
-    longitude: -65.198042,
-  },
-];
+
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -64,9 +23,24 @@ const Home = (props) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userReducer);
   const { selectCar, allUserCars } = useSelector((state) => state.carReducer);
-
+  const [location, setLocation] = useState({});
   const navigation = useNavigation();
 
+console.log('aca esta la locacion',location.coords)
+  
+  
+const _getLocation = async ()=>{
+  const {status} = Permissions.askAsync(Permissions.LOCATION);
+  if(status !== 'granted');{
+      console.log('permiso no garantizado');
+      
+  }
+  const userLocation = await Location.getCurrentPositionAsync({});
+  setLocation(userLocation)
+}
+
+ 
+  
   const handleChangeText = (name, value) => {
     setInput({ ...input, [name]: value });
   };
@@ -88,6 +62,7 @@ const Home = (props) => {
 
   useEffect(() => {
     !modalVisible && getUserInfoNow(user);
+    _getLocation()
   }, []);
 
 
@@ -99,6 +74,7 @@ const Home = (props) => {
   return (
     <ScrollView style={{ backgroundColor: "black", height: "100%" }}>
       <View style={{ marginHorizontal: 15, marginVertical: 10 }}>
+      {/* <Text style={{color:'white'}}>{JSON.stringify(location)}</Text> */}
         <Card containerStyle={styles.card}>
           <View
             style={{
@@ -189,14 +165,17 @@ const Home = (props) => {
       </View>
       <View style={{ marginHorizontal: 15 }}>
         <Card containerStyle={styles.card}>
-          {/* <MapView
+          {location.coords &&
+          <MapView
       initialRegion={{
-        latitude: -26.8248387,
-        longitude: -65.2050432,
+        latitude:location.coords.latitude,
+        longitude: location.coords.longitude,
         longitudeDelta: 0.09,
         latitudeDelta: 0.05,
       }}  
-      minZoomLevel={10}
+      minZoomLevel={13}
+      showsUserLocation = { true }
+      followUserLocation = { true }
       style={styles.map} > 
       <Polygon
       coordinates={coord1}
@@ -222,7 +201,8 @@ const Home = (props) => {
         provider={PROVIDER_GOOGLE}
         anchor={{x: 1, y: 2}}
       ></Marker> 
-      </MapView> */}
+       
+      </MapView>}
         </Card>
 
         {/*--------------------------MODAl--------------------*/}

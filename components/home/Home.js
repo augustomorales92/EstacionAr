@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserCredit, getUserInfo } from "../../redux/reducer/userActions";
 import firebase from "../../back/db/firebase";
 
-import MapView , { Marker,PROVIDER_GOOGLE,Polyline,Polygon,Callout }from 'react-native-maps';
+// import MapView , { Marker,PROVIDER_GOOGLE,Polyline,Polygon,Callout }from 'react-native-maps';
 import { selectedCar } from "../../redux/reducer/carActions";
 
 const coord = [
@@ -189,7 +189,7 @@ const Home = (props) => {
       </View>
       <View style={{ marginHorizontal: 15 }}>
         <Card containerStyle={styles.card}>
-          <MapView
+          {/* <MapView
       initialRegion={{
         latitude: -26.8248387,
         longitude: -65.2050432,
@@ -222,7 +222,7 @@ const Home = (props) => {
         provider={PROVIDER_GOOGLE}
         anchor={{x: 1, y: 2}}
       ></Marker> 
-      </MapView>
+      </MapView> */}
         </Card>
 
         {/*--------------------------MODAl--------------------*/}

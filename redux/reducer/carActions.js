@@ -157,7 +157,7 @@ export const addZoneDocument = createAsyncThunk(
   ({ user, time, zone, mode, patente, modelo, marca }) => {
     console.log("AGREGANDO DOCUMENTO ZONA");
     mode === "fraccionado" ? (time = time / 6000) : time;
-    const date = getDate();
+    const date = getDate().split(' ')[0];
     console.log(
       "la infooooo llegando --->",
       user,

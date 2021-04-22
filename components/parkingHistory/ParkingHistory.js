@@ -41,7 +41,7 @@ const ParkingHistory = () => {
           </Text>
         </View>
         {allParkingHistory
-          .slice(allParkingHistory.length - 10, allParkingHistory.length)
+          .slice(allParkingHistory.length - 10, allParkingHistory.length).reverse()
           .map((history) => (
             <Card containerStyle={styles.card} key={history.date}>
               <Text h6>{history.date}</Text>

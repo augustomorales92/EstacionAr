@@ -12,14 +12,13 @@ import firebase from "../../back/db/firebase";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
-  const {zone} = vehiculo
+  const { zone } = vehiculo;
 
   const timer = useSelector(state => state.userReducer.time);
   const user = useSelector(state => state.userReducer.user);
   const patente = useSelector(state => state.carReducer.selectCar.patenteId);
   const marca = useSelector(state => state.carReducer.selectCar.marcaId)
   const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
-  console.log('el userrrrrrrr --->',userInfoNow)
   const dispatch = useDispatch();
   const [userInfoNow, setUserInfoNow] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,26 +32,40 @@ const Countdown = (props) => {
   const [isFinished, setIsFinished] = useState(false);
   const [addTime, setAddTime] = useState(0);
   const [button, setButton] = useState(true);
-  const [mode, setMode] = useState('fraccionado')
+  const [mode, setMode] = useState("fraccionado");
+  
+  console.log('el userrrrrrrr --->',userInfoNow)
+  const [inicio, setInicio] = useState(null);
 
   const navigation = useNavigation();
 
   const startParking = () => {
-    dispatch(addParkingDocument({user, time, zone, patente, mode, marca, modelo}))
+    let arranqueH = new Date().getHours();
+    let arranqueM = new Date().getMinutes();
+    let arranque = `${arranqueH}:${arranqueM}`;
+    setInicio(arranque);
+    dispatch(
+      addParkingDocument({ user, time, zone, patente, mode, marca, modelo })
+    );
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
     getUserInfoNow()
   };
 
   const endParking = () => {
+    let finalH = new Date().getHours();
+    let finalM = new Date().getMinutes().zfill(2);
+    let final = `${finalH}:${finalM}`;
     setFinalTime(format(timer + addTime - time));
     //setTimeParking(parkingTime)
     setRunning(false);
     setIsFinished(true);
     calculateParkingPrice(timer + addTime);
-    setButton(!button)
-    deleteParkingDocument(patente)
-    dispatch(addZoneDocument ({user, time, zone, patente, mode, marca, modelo}))
+    setButton(!button);
+    deleteParkingDocument(patente);
+    dispatch(
+      addZoneDocument({ user, time, zone, patente, mode, marca, modelo, final, inicio })
+    );
   };
 
   function calculateParkingPrice(time) {
@@ -117,15 +130,15 @@ const Countdown = (props) => {
           >
             <Button
               title="Cancelar"
-              disabled={isRunning && true || !button && true}
+              disabled={(isRunning && true) || (!button && true)}
               buttonStyle={styles.button}
               onPress={() => navigation.goBack()}
             />
             <Button
               title="Iniciar"
               buttonStyle={styles.button}
-              onPress={() => startParking() }
-              disabled={isRunning && true || !button && true}
+              onPress={() => startParking()}
+              disabled={(isRunning && true) || (!button && true)}
             ></Button>
             <Button
               title="Finalizar"
@@ -135,7 +148,7 @@ const Countdown = (props) => {
                 //endParking();
                 setModalAlert(!modalAlert);
               }}
-              disabled={time === 0 ? true : false || !button && true}
+              disabled={time === 0 ? true : false || (!button && true)}
             ></Button>
             <Button
               buttonStyle={styles.button}

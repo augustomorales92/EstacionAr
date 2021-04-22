@@ -79,7 +79,7 @@ const Parking = (props) => {
   };
 
   return (
-    <ScrollView>
+   
       <SafeAreaView style={styles.container}>
         {!scanned ? (
           <>
@@ -216,7 +216,7 @@ const Parking = (props) => {
           </View>
         )}
       </SafeAreaView>
-    </ScrollView>
+   
   );
 };
 

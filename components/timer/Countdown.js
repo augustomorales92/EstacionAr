@@ -7,24 +7,20 @@ import { styles } from "./CountdownStyle";
 import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
-import {
-  addParkingDocument,
-  deleteParkingDocument,
-  addZoneDocument,
-} from "../../redux/reducer/carActions";
+import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions"
+import firebase from "../../back/db/firebase";
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
   const { zone } = vehiculo;
 
-  const timer = useSelector((state) => state.userReducer.time);
-  const user = useSelector((state) => state.userReducer.user);
-  const patente = useSelector((state) => state.carReducer.selectCar.patenteId);
-  const marca = useSelector((state) => state.carReducer.selectCar.marcaId);
-  const modelo = useSelector((state) => state.carReducer.selectCar.modeloId);
-
+  const timer = useSelector(state => state.userReducer.time);
+  const user = useSelector(state => state.userReducer.user);
+  const patente = useSelector(state => state.carReducer.selectCar.patenteId);
+  const marca = useSelector(state => state.carReducer.selectCar.marcaId)
+  const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
   const dispatch = useDispatch();
-
+  const [userInfoNow, setUserInfoNow] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [modalAlert, setModalAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -37,7 +33,8 @@ const Countdown = (props) => {
   const [addTime, setAddTime] = useState(0);
   const [button, setButton] = useState(true);
   const [mode, setMode] = useState("fraccionado");
-
+  
+  console.log('el userrrrrrrr --->',userInfoNow)
   const [inicio, setInicio] = useState(null);
 
   const navigation = useNavigation();
@@ -52,6 +49,7 @@ const Countdown = (props) => {
     );
     setRunning(!isRunning);
     calculateParkingPrice(timer + addTime);
+    getUserInfoNow()
   };
 
   const endParking = () => {
@@ -74,6 +72,16 @@ const Countdown = (props) => {
     let splitTime = Math.round(time / 180000);
     setPrice(priceHalfHour * splitTime);
   }
+
+  const getUserInfoNow = () => {
+   return firebase.db
+      .collection("users")
+      .doc(user)
+      .onSnapshot((querySnap) => {
+        console.log('este es el query snap',querySnap.data())
+        setUserInfoNow(querySnap.data());
+      });
+  };
 
   useEffect(
     function () {
@@ -98,9 +106,11 @@ const Countdown = (props) => {
   }, [time]);
 
   useEffect(() => {
-    isFinished &&
-      dispatch(addNewParking({ user, patente, price, finalTime, zone }));
+    isFinished && dispatch(addNewParking({ user, patente, price, finalTime, zone }));
+
   }, [isRunning]);
+
+
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>

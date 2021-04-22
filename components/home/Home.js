@@ -26,7 +26,6 @@ const Home = (props) => {
   const [location, setLocation] = useState({});
   const navigation = useNavigation();
   
-  
 const _getLocation = async ()=>{
   const {status} = Permissions.askAsync(Permissions.LOCATION);
   if(status !== 'granted');{

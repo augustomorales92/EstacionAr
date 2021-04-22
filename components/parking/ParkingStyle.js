@@ -28,10 +28,6 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "black",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "black",
-  },
   clock: {
     fontSize: 10,
     fontFamily: "Courier-Bold",
@@ -51,6 +47,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "black",
     borderRadius: 10,
     opacity: 0.8,
+    borderColor: "black",
   },
   input2: {
     backgroundColor: "orange",

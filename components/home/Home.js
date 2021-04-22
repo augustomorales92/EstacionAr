@@ -222,9 +222,7 @@ const _getLocation = async ()=>{
                 Ingresa el monto que desea cargar
               </Text>
               <Input
-                //label="Email"
                 placeholder="$"
-                // errorMessage={message}
                 inputStyle={styles.colorInput}
                 onChangeText={(value) => handleChangeText("credit", value)}
               />

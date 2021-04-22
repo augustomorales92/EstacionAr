@@ -18,15 +18,16 @@ const SignUp = (props) => {
     lastname: "",
     email: "",
     password: "",
+    password2: ""
   });
   const [errorEmail, setErrorEmail] = useState("");
+  const [isOkEmail, setIsOkEmail] = useState(false);
+
   const [errorPassword, setErrorPassword] = useState("");
   const [errorPassword2, setErrorPassword2] = useState("");
-  const [isOkEmail, setIsOkEmail] = useState(false);
   const [isOkPassword, setIsOkPassword] = useState(false);
   const [isOkPassword2, setIsOkPassword2] = useState(false);
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setrepeatPassword] = useState("");
+
   let everythingIsOk = false;
 
   const saveNewUser = () => {
@@ -76,28 +77,29 @@ const SignUp = (props) => {
     setInput({ ...input, [name]: value });
   };
 
-  const onBlurValidateEmail = (e) => {
-    if (validateEmail(e) !== false) {
+  const onBlurValidateEmail = (email) => {
+    if (validateEmail(email)) {
       setIsOkEmail(true);
-      // dispatch(emailVerification(e))
+      setErrorEmail("");
     } else {
-      setErrorEmail("ingresa un email valido");
+      setErrorEmail("ingresa un email válido");
+      setIsOkEmail(false);
     }
   };
 
-  const onBlurValidatePassword = (e) => {
-    if (validatePassword(e) !== false) {
+  const onBlurValidatePassword = (password) => {
+    if (validatePassword(password)) {
       setIsOkPassword(true);
-      setPassword(e);
+      setErrorPassword("");
     } else {
       setErrorPassword("ingresa una contraseña de mas de 6 caracteres");
+      setIsOkPassword(false);
     }
   };
 
-  const onBlurValidatePassword2 = (e) => {
-    if (validatePassword(e) !== false) {
+  const onBlurValidatePassword2 = (password) => {
+    if (validatePassword(password)) {
       setIsOkPassword2(true);
-      setrepeatPassword(e);
     } else {
       setErrorPassword2("ingresa una contraseña de mas de 6 caracteres");
     }
@@ -105,7 +107,7 @@ const SignUp = (props) => {
 
   const isOkFunction = () => {
     return (everythingIsOk =
-      isOkEmail && isOkPassword && isOkPassword2 && password == repeatPassword);
+      isOkEmail && isOkPassword && isOkPassword2 && input.password === input.password2);
   };
 
   return (
@@ -142,37 +144,40 @@ const SignUp = (props) => {
               placeholder="juanrodriguez@adress.com"
               inputStyle={styles.colorInput}
               onChangeText={(value) => handleChangeText("email", value)}
-              onBlur={(e) => {
-                onBlurValidateEmail(e.nativeEvent.text);
-              }}
+              onBlur={() => onBlurValidateEmail(input.email)}
+              errorStyle={{ fontSize: 15 }}
               errorMessage={!isOkEmail && errorEmail}
             />
-            <Input
-              label="Contraseña"
-              name="password"
-              secureTextEntry={true}
-              placeholder="*********"
-              inputStyle={styles.colorInput}
-              onChangeText={(value) => handleChangeText("password", value)}
-              onBlur={(e) => {
-                onBlurValidatePassword(e.nativeEvent.text);
-              }}
-              errorMessage={!isOkPassword && errorPassword}
-            />
-            <Input
-              label="Repetir contraseña"
-              placeholder="*********"
-              secureTextEntry={true}
-              inputStyle={styles.colorInput}
-              onChangeText={(value) => handleChangeText("password2", value)}
-              onBlur={(e) => {
-                onBlurValidatePassword2(e.nativeEvent.text);
-              }}
-              errorMessage={
-                (!isOkPassword2 && errorPassword2) ||
-                (password != repeatPassword && "las contraseñas no coinciden")
-              }
-            />
+          <Input
+            label="Contraseña"
+            name="password"
+            secureTextEntry={true}
+            placeholder="*********"
+            inputStyle={styles.colorInput}
+            onChangeText={(value) => handleChangeText("password", value)}
+            onBlur={(e) => {
+              onBlurValidatePassword(input.password);
+            }}
+            errorStyle={{ fontSize: 15 }}
+            errorMessage={!isOkPassword && errorPassword}
+            value={input.password}
+          />
+          <Input
+            label="Repetir contraseña"
+            placeholder="*********"
+            secureTextEntry={true}
+            inputStyle={styles.colorInput}
+            onChangeText={(value) => handleChangeText("password2", value)}
+            onBlur={(e) => {
+              onBlurValidatePassword2(input.password2);
+            }}
+            errorStyle={{ fontSize: 15 }}
+            errorMessage={
+              (!isOkPassword2 && errorPassword2) ||
+              (input.password != input.password2 && "las contraseñas no coinciden")
+            }
+            value={input.password2}
+          />
           </Card>
           <View>
             <Button

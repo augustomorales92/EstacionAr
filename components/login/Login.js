@@ -52,7 +52,7 @@ const Login = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
       .then((error) => {
-        console.log('ERROR COMPONENTE LOGIN', error)
+        alert('Email o contraseña incorrectos. Vuelva a intentarlo')
         if (error) {
           setMessage(error.error.message.split(":")[1]);
           setMistake(!mistake);
@@ -192,7 +192,7 @@ const Login = () => {
         return setModalVisible(!modalVisible);
       })
       .catch(function (error) {
-        return setMessage("no es un correo");
+        return setMessage("correo no registrado");
       });
   };
 

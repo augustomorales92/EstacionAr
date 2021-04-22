@@ -52,6 +52,7 @@ const Login = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
       .then((error) => {
+        console.log('ERROR COMPONENTE LOGIN', error)
         if (error) {
           setMessage(error.error.message.split(":")[1]);
           setMistake(!mistake);
@@ -129,43 +130,42 @@ const Login = () => {
     }
   };
 
-  const loginFacebook = async () => {
-    Facebook.initializeAsync({ appId: fbAppId });
-    const {
-      type,
-      token,
-      expirationDate,
-      permissions,
-      declinedPermissions,
-    } = await Facebook.logInWithReadPermissionsAsync({
-      permission: ["public_profile"],
-    });
-    if (type == "success") {
-      const credential = Firebase.auth.FacebookAuthProvider.credential(token);
+  // const loginFacebook = async () => {
+  //   Facebook.initializeAsync({ appId: fbAppId });
+  //   const {
+  //     type,
+  //     token,
+  //     expirationDate,
+  //     permissions,
+  //     declinedPermissions,
+  //   } = await Facebook.logInWithReadPermissionsAsync({
+  //     permission: ["public_profile"],
+  //   });
+  //   if (type == "success") {
+  //     const credential = Firebase.auth.FacebookAuthProvider.credential(token);
 
-      firebase.auth.signInWithCredential(credential).catch((error) => {
-        console.log(error);
-      });
-    }
-  };
+  //     firebase.auth.signInWithCredential(credential).catch((error) => {
+  //       console.log(error);
+  //     });
+  //   }
+  // };
 
-  const onBlurValidateEmail = (e) => {
-    console.log("valid email", validateEmail(e));
-    if (validateEmail(e)) {
+  const onBlurValidateEmail = (email) => {
+    if (validateEmail(email)) {
       setIsOkEmail(true);
       setErrorEmail("");
     } else {
-      setErrorEmail("ingresa un email valido");
+      setErrorEmail("ingresa un email válido");
       setIsOkEmail(false);
     }
   };
 
-  const onBlurValidatePassword = (e) => {
-    if (validatePassword(e) !== false) {
+  const onBlurValidatePassword = (password) => {
+    if (validatePassword(password)) {
       setIsOkPassword(true);
       setErrorPassword("");
     } else {
-      setErrorPassword("ingresa una contraseña de mas de 6 caracteres");
+      setErrorPassword("ingresa una contraseña de más de 6 caracteres");
       setIsOkPassword(false);
     }
   };
@@ -213,10 +213,9 @@ const Login = () => {
           placeholder="email@adress.com"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("email", value)}
-          onBlur={(e) => {
-            onBlurValidateEmail(e.nativeEvent.text);
-          }}
+          onBlur={() => onBlurValidateEmail(input.email)}
           value={input.email}
+          errorStyle={{ fontSize: 15 }}
           errorMessage={!isOkEmail && errorEmail}
         />
         <Input
@@ -227,9 +226,7 @@ const Login = () => {
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("password", value)}
           errorStyle={{ fontSize: 15 }}
-          onBlur={(e) => {
-            onBlurValidatePassword(e.nativeEvent.text);
-          }}
+          onBlur={() => onBlurValidatePassword(input.password)}
           value={input.password}
           errorMessage={
             (!isOkPassword && errorPassword) || (mistake && message)

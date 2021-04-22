@@ -35,13 +35,10 @@ const ParkingHistory = () => {
   return (
     <ScrollView style={{ backgroundColor: "black" }}>
       <View>
-        <View style={styles.view}>
-          <Text h4 style={{ fontWeight: "bold" }}>
-            HISTORIAL
-          </Text>
-        </View>
+
         {allParkingHistory
           .slice(allParkingHistory.length - 10, allParkingHistory.length)
+          .reverse()
           .map((history) => (
             <Card containerStyle={styles.card} key={history.date}>
               <Text h6>{history.date}</Text>

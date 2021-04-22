@@ -76,10 +76,7 @@ const Login = () => {
         androidClientId: androidClient,
       });
       if (result.type === "success") {
-        //console.log(result);
-        // setIsLoading(true);
         const credential = Firebase.auth.GoogleAuthProvider.credential(
-          //Set the tokens to Firebase
           result.idToken,
           result.accessToken
         );

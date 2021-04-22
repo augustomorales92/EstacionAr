@@ -45,10 +45,7 @@ const addcar = (props) => {
   };
 
   return (
-    // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   style={styles.container}
-    // >
+  
     <SafeAreaView style={styles.container}>
       <Card containerStyle={styles.input}>
         <Input
@@ -98,7 +95,6 @@ const addcar = (props) => {
         />
       </View>
     </SafeAreaView>
-    // </KeyboardAvoidingView>
   );
 };
 export default addcar;

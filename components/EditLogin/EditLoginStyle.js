@@ -47,8 +47,10 @@ export const styles = StyleSheet.create({
     input: {
       backgroundColor:'black',
       borderRadius:10,
-      opacity:0.5,
-      marginTop:30
+      opacity:0.8,
+      marginTop:30,
+      borderColor:"black",
+
       },
       colorInput:{
         color:'white'

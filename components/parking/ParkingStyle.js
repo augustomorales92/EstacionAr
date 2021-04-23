@@ -28,13 +28,9 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "black",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "black",
-  },
   clock: {
     fontSize: 10,
-    fontFamily: "Courier-Bold",
+    //fontFamily: "Courier-Bold",
     height: 40,
     marginTop: "4%",
   },
@@ -44,13 +40,14 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   colores2: {
-    fontSize: 30,
-    marginTop: 50,
+    fontSize: 20,
+    marginTop: 20,
   },
   input: {
     backgroundColor: "black",
     borderRadius: 10,
-    opacity: 0.5,
+    opacity: 0.8,
+    borderColor: "black",
   },
   input2: {
     backgroundColor: "orange",
@@ -66,5 +63,19 @@ export const styles = StyleSheet.create({
   },
   colorInput: {
     color: "white",
+  },
+  code:{
+    backgroundColor: "black",
+    borderRadius: 10,
+    opacity: 0.8,
+    borderColor: "black",
+    width: "60%" ,
+  },
+  Qr:{
+    backgroundColor: "black",
+    borderRadius: 100,
+    opacity: 0.8,
+    borderColor: "black",
+    width: "27%" ,
   },
 });

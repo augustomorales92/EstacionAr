@@ -6,12 +6,12 @@ export const drawerItemsMain = [
     },
     {
       key: 'agregar un auto',
-      title: 'Agregar un Vehiculo',
+      title: 'Agregar un Vehículo',
       route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
     },
     {
         key: 'autos',
-        title: 'Mis Vehiculos',
+        title: 'Mis Vehículos',
         route: {nav: 'MainDrawer', routeName: 'Settings', title: 'Settings'},
       },
       {

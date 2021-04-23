@@ -154,10 +154,10 @@ export const deleteParkingDocument = (patente) => {
 
 export const addZoneDocument = createAsyncThunk(
   "addZoneDocument",
-  ({ user, time, zone, mode, patente, modelo, marca }) => {
+  ({ user, time, zone, mode, patente, modelo, marca, final, inicio }) => {
     console.log("AGREGANDO DOCUMENTO ZONA");
     mode === "fraccionado" ? (time = time / 6000) : time;
-    const date = getDate();
+    const date = getDate().split(' ')[0];
     console.log(
       "la infooooo llegando --->",
       user,
@@ -168,7 +168,9 @@ export const addZoneDocument = createAsyncThunk(
       mode,
       patente,
       modelo,
-      marca
+      marca,
+      final, 
+      inicio
     );
     return firebase.db
       .collection("zones")
@@ -183,6 +185,8 @@ export const addZoneDocument = createAsyncThunk(
           modelo,
           marca,
           date,
+          final,
+          inicio
         }),
       })
       .then(() => {

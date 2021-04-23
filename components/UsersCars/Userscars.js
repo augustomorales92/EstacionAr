@@ -51,13 +51,13 @@ const Userscars = (props) => {
               }}
             />
           </View>
-          <Card.Title style={styles.titulo}>{car.modelo}</Card.Title>
+          <Card.Title style={styles.titulo}>{car.patente}</Card.Title>
           <Card.Divider />
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={styles.texto}>
-              {car.patente} {"\n"} {car.marca}
+            {car.marca}{"\n"}{car.modelo}
             </Text>
             <View>
               <CheckBox
@@ -110,7 +110,7 @@ const Userscars = (props) => {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>
-                  Desea eliminar su vehiculo?
+                  ¿Desea eliminar su vehículo?
                 </Text>
 
                 <View
@@ -152,11 +152,10 @@ const Userscars = (props) => {
       <View style={styles.fixToText}>
         {!userCarsNow.length > 0 && (
           <Button
-            title="Agregar Vehiculo"
+            title="Agregar Vehículo"
             buttonStyle={styles.button1}
             icon={<Icon name="car" color="white" style={{ marginRight: 10 }} />}
             onPress={() => {
-              /* Alert.alert("Auto estacionado")  */
               return setTimeout(
                 () => props.navigation.navigate("agregar un auto"),
                 1000

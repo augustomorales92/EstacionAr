@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -24,8 +25,7 @@ import { setUserTime, getUserTime } from "../../redux/reducer/userActions";
 import { setUserZone } from "../../redux/reducer/userActions";
 
 const Parking = (props) => {
-  const vehiculo = props.route.params
-  //console.log('ZONE DE PARKING', vehiculo)
+  const vehiculo = props.route.params;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -39,27 +39,25 @@ const Parking = (props) => {
     zone: "",
   });
 
-  const handleBarCodeScanned = async (/* {type, data} */) => {
+  const handleBarCodeScanned = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
     if (status === "granted") {
       setScanned(true);
-      //Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
-      /* setDato({data}) */
+     
     } else {
       Alert.alert("Access denied");
     }
   };
   const scanner = ({ type, data }) => {
-    setInput({zone: data})
-    setIsOkZone(true)
+    setInput({ zone: data });
+    setIsOkZone(true);
     setScanned(false);
   };
 
   const handleChangeText = (name, value) => {
-    setIsOkZone(true)
+    setIsOkZone(true);
     setInput({ ...input, [name]: value });
   };
-  
 
   const onBlurValidateZone = (e) => {
     if (e) {
@@ -81,23 +79,43 @@ const Parking = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {!scanned ? (
-        <>
-          <Card containerStyle={styles.input}>
-            <Input
-              type="number"
-              label="Ingresar código de manzana"
-              placeholder="112"
-              value={input.zone}
-              inputStyle={styles.colorInput}
-              keyboardType="numeric"
-              onChangeText={(value) => handleChangeText("zone", value)}
-              onFocus={(e) => onBlurValidateZone(e.nativeEvent.text)}
-              errorMessage={!isOkZone && errorMessage}
-            />
-          </Card>
-          <View style={{ justifyContent: "space-around" }}>
+   
+      <SafeAreaView style={styles.container}>
+        {!scanned ? (
+          <>
+              <View style={{ displey: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+            <Card containerStyle={styles.code}>
+              <Input
+                type="number"
+                label="Código de manzana"
+                placeholder="10"
+                value={input.zone}
+                inputStyle={styles.colorInput}
+                keyboardType="numeric"
+                onChangeText={(value) => handleChangeText("zone", value)}
+                onFocus={(e) => onBlurValidateZone(e.nativeEvent.text)}
+                errorMessage={!isOkZone && errorMessage}
+              />
+            </Card>
+              <Card containerStyle={styles.Qr}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    buttonStyle={styles.button}
+                    onPress={() => setScanned(true)}
+                    icon={<Icon name="qrcode" size={70} color="white" />}
+                  ></Button>
+                </View>
+              </Card>
+            </View>
+            <View style={styles.fixToText}>
+              <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
+            </View>
+
             <Card containerStyle={styles.input}>
               <View
                 style={{
@@ -105,130 +123,99 @@ const Parking = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.colores}>Escanear QR</Text>
+                <Text style={styles.clock}>
+                  <Clock time={time} />
+                </Text>
+
                 <Button
                   buttonStyle={styles.button}
-                  onPress={() => setScanned(true)}
-                  icon={<Icon name="camera" size={60} color="white" />}
+                  onPress={() => {
+                    addTime(180000);
+                  }}
+                  icon={<Icon name="clock" size={60} color="white" />}
                 ></Button>
               </View>
             </Card>
-          </View>
-          <View style={styles.fixToText}>
-            <Text style={styles.colores2}>Tiempo de estacionamiento</Text>
-          </View>
 
-          <Card containerStyle={styles.input}>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.clock}>
-                <Clock time={time} />
-              </Text>
-
-              <Button
-                buttonStyle={styles.button}
-                onPress={() => {
-                  addTime(180000);
+            <Card containerStyle={styles.input}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
-                icon={<Icon name="clock" size={60} color="white" />}
-              ></Button>
-            </View>
-          </Card>
+              >
+                <Text style={styles.colores}>Libre</Text>
 
-          <Card containerStyle={styles.input}>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.colores}> Libre</Text>
+                <Button
+                  buttonStyle={styles.button}
+                  onPress={() => {
+                    addTime(0);
+                  }}
+                  icon={<Icon name="stopwatch" size={60} color="white" />}
+                ></Button>
+              </View>
+            </Card>
 
+            <View style={styles.lastButton}>
               <Button
-                buttonStyle={styles.button}
+                buttonStyle={styles.buttons}
+                disabled={!isOkZone}
+                title="Ir a estacionar"
                 onPress={() => {
-                  addTime(0);
-                }}
-                icon={<Icon name="stopwatch" size={60} color="white" />}
-              ></Button>
-            </View>
-          </Card>
-
-       
-
-          {/* <Card containerStyle={styles.input2}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.clock}>
-            <Clock time={time} />
-          </Text>
-
-          <Button
-            buttonStyle={styles.buttons2}
-            title="reset"
-            onPress={() => {
-              addTime(0);
-            }}
-          ></Button>
-        </View>
-      </Card> */}
-
-          <View style={styles.lastButton}>
-            <Button
-              buttonStyle={styles.buttons}
-              disabled={!isOkZone}
-              title="ir a estacionar"
-              onPress={() => {
-                setInput({zone:''})
-                if (vehiculo) {
-                  time > 0
-                    ? navigation.navigate("Countdown", {zone: input.zone})
-                    : navigation.navigate("Timer", {zone: input.zone});
-                } else {
-                  Alert.alert(
-                    "No tiene un vehiculo",
-                    "Seleccione un vehiculo",
-                    [
-                      {
-                        text: "ok",
-                        onPress: () => {
-                          saveZone()
-                          navigation.navigate("autos");
+                  setInput({ zone: "" });
+                  if (vehiculo) {
+                    time > 0
+                      ? navigation.navigate("Countdown", { zone: input.zone })
+                      : navigation.navigate("Timer", { zone: input.zone });
+                  } else {
+                    Alert.alert(
+                      "No tiene un vehículo",
+                      "Seleccione un vehículo",
+                      [
+                        {
+                          text: "ok",
+                          onPress: () => {
+                            saveZone();
+                            navigation.navigate("autos");
+                          },
                         },
-                      },
-                    ],
-                    { cancelable: false }
-                  );
-                }
+                      ],
+                      { cancelable: false }
+                    );
+                  }
+                }}
+              ></Button>
+            </View>
+          </>
+        ) : (
+          <View style={{ flex: 1, width: "100%", backgroundColor: "black" }}>
+            <BarCodeScanner
+              style={{
+                flex: 1,
+                height: "50%",
+                justifyContent: "center",
+                flexDirection: "column",
+                marginTop: "40%",
+                marginBottom: "40%",
+                marginLeft: "5%",
+                marginRight: "5%",
               }}
-            ></Button>
+              onBarCodeScanned={scanned ? scanner : handleBarCodeScanned}
+              barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
+            ></BarCodeScanner>
+            {scanned && (
+              <Button
+                title={"Salir"}
+                type="outline"
+                buttonStyle={{ backgroundColor: "white" }}
+                titleStyle={{ color: "black", fontWeight: "bold" }}
+                onPress={() => setScanned(false)}
+              />
+            )}
           </View>
-        </>
-      ) : (
-        <View style={{ flex: 1, width: "100%", backgroundColor: "black" }}>
-          <BarCodeScanner
-            style={{
-              flex: 1,
-              height: "50%",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "40%",
-              marginBottom: "40%",
-              marginLeft: "5%",
-              marginRight: "5%",
-            }}
-            onBarCodeScanned={scanned ? scanner : handleBarCodeScanned}
-            barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-          ></BarCodeScanner>
-          {scanned && (
-            <Button
-              title={"Salir"}
-              type="outline"
-              buttonStyle={{ backgroundColor: "white" }}
-              titleStyle={{ color: "black", fontWeight: "bold" }}
-              onPress={() => setScanned(false)}
-            />
-          )}
-        </View>
-      )}
-    </SafeAreaView>
+        )}
+      </SafeAreaView>
+   
   );
 };
 

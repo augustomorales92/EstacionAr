@@ -15,13 +15,14 @@ export const ParkingHistoryContainer = () => {
         name="parkingHistory"
         component={ParkingHistory}
         options={({ navigation }) => ({
-          title: "",
+          title: "Historial",
+          headerTitleAlign: "center",
           headerStyle: {
             backgroundColor: "#F9B233",
             elevation: 0,
             shadowColor: 'transparent',
           },
-          headerTintColor: "#fff",
+          headerTintColor: "#774D00",
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -39,6 +40,20 @@ export const ParkingHistoryContainer = () => {
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+            />
+          ),
+          headerRight: () => (
+            <Button
+              type="clear"
+              icon={
+                <Icon
+                  name="arrow-circle-left"
+                  size={35}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

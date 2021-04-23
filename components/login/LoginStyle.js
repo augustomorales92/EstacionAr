@@ -35,7 +35,9 @@ export const styles = StyleSheet.create({
   input: {
     backgroundColor: "black",
     borderRadius: 10,
-    opacity: 0.5,
+    opacity: 0.8,
+    borderColor:"black",
+
   },
   clearButton: {
     color: "black",

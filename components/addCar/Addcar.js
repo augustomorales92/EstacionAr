@@ -25,7 +25,8 @@ const addcar = (props) => {
   });
 
   const handleChangeText = (name, value) => {
-    setCar({ ...car, [name]: value });
+    if (name === 'patente') setCar({ ...car, [name]: value.toUpperCase() })
+    else setCar({ ...car, [name]: value});
   };
 
   const setUserCar = () => {
@@ -45,22 +46,19 @@ const addcar = (props) => {
   };
 
   return (
-    // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   style={styles.container}
-    // >
+  
     <SafeAreaView style={styles.container}>
       <Card containerStyle={styles.input}>
         <Input
           label="Marca"
-          placeholder="chevrolet"
+          placeholder="Chevrolet"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("marca", value)}
           value={car.marca}
         />
         <Input
           label="Modelo"
-          placeholder="corsa"
+          placeholder="Corsa"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("modelo", value)}
           value={car.modelo}
@@ -82,7 +80,7 @@ const addcar = (props) => {
       </Card>
       <View style={styles.fixToText}>
         <Button
-          title="Agregar vehiculo"
+          title="Agregar vehículo"
           buttonStyle={styles.colores}
           onPress={() => {
             setUserCar();
@@ -98,7 +96,6 @@ const addcar = (props) => {
         />
       </View>
     </SafeAreaView>
-    // </KeyboardAvoidingView>
   );
 };
 export default addcar;

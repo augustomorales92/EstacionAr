@@ -145,3 +145,5 @@ export const setUserCredit = createAsyncThunk("setUserCredit", ({user, credit}) 
       console.log("Error cargando saldo:", error);
     });
 }); 
+
+export const setUserInfo = createAction("setUserInfo");

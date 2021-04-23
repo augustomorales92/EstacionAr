@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   },
   clock: {
     fontSize: 10,
-    fontFamily: "Courier-Bold",
+    //fontFamily: "Courier-Bold",
     height: 40,
     marginTop: "4%",
   },
@@ -63,5 +63,19 @@ export const styles = StyleSheet.create({
   },
   colorInput: {
     color: "white",
+  },
+  code:{
+    backgroundColor: "black",
+    borderRadius: 10,
+    opacity: 0.8,
+    borderColor: "black",
+    width: "60%" ,
+  },
+  Qr:{
+    backgroundColor: "black",
+    borderRadius: 100,
+    opacity: 0.8,
+    borderColor: "black",
+    width: "27%" ,
   },
 });

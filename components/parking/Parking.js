@@ -83,10 +83,11 @@ const Parking = (props) => {
       <SafeAreaView style={styles.container}>
         {!scanned ? (
           <>
-            <Card containerStyle={styles.input}>
+              <View style={{ displey: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+            <Card containerStyle={styles.code}>
               <Input
                 type="number"
-                label="Ingresar código de manzana"
+                label="Código de manzana"
                 placeholder="112"
                 value={input.zone}
                 inputStyle={styles.colorInput}
@@ -96,19 +97,17 @@ const Parking = (props) => {
                 errorMessage={!isOkZone && errorMessage}
               />
             </Card>
-            <View style={{ justifyContent: "space-around" }}>
-              <Card containerStyle={styles.input}>
+              <Card containerStyle={styles.Qr}>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text style={styles.colores}>Escanear QR</Text>
                   <Button
                     buttonStyle={styles.button}
                     onPress={() => setScanned(true)}
-                    icon={<Icon name="camera" size={60} color="white" />}
+                    icon={<Icon name="qrcode" size={70} color="white" />}
                   ></Button>
                 </View>
               </Card>

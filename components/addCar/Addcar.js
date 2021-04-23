@@ -74,7 +74,7 @@ const addcar = (props) => {
           placeholder="AB 123 CD"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("patente", value)}
-          value={car.patente.toUpperCase()}
+          value={car.patente}
         />
       </Card>
       <View style={styles.fixToText}>

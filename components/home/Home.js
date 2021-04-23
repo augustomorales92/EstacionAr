@@ -109,7 +109,7 @@ const _getLocation = async ()=>{
                       justifyContent: "space-around",
                     }}
                   >
-                    <Text h4>Seleccione un vehiculo </Text>
+                    <Text h4>Seleccione un vehículo </Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Button
@@ -128,9 +128,9 @@ const _getLocation = async ()=>{
                       justifyContent: "space-around",
                     }}
                   >
-                    <Text h3>{selectCar.modeloId} </Text>
                     <Card.Divider style={{ color: "black" }} />
-                    <Text h4>{selectCar.patenteId}</Text>
+                    <Text h4>{selectCar.patenteId.toUpperCase()}</Text>
+                    <Text h4>{selectCar.modeloId} </Text>
                     <Text h4>{selectCar.marcaId}</Text>
                   </View>
                   <View

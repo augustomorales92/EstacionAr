@@ -50,14 +50,14 @@ const addcar = (props) => {
       <Card containerStyle={styles.input}>
         <Input
           label="Marca"
-          placeholder="chevrolet"
+          placeholder="Chevrolet"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("marca", value)}
           value={car.marca}
         />
         <Input
           label="Modelo"
-          placeholder="corsa"
+          placeholder="Corsa"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("modelo", value)}
           value={car.modelo}
@@ -74,12 +74,12 @@ const addcar = (props) => {
           placeholder="AB 123 CD"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("patente", value)}
-          value={car.patente}
+          value={car.patente.toUpperCase()}
         />
       </Card>
       <View style={styles.fixToText}>
         <Button
-          title="Agregar vehiculo"
+          title="Agregar vehículo"
           buttonStyle={styles.colores}
           onPress={() => {
             setUserCar();

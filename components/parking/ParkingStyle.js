@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
   },
   colores2: {
     fontSize: 20,
-    marginTop: 40,
+    marginTop: 20,
   },
   input: {
     backgroundColor: "black",

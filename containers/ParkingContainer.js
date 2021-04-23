@@ -45,14 +45,16 @@ export const ParkingContainer = () => {
         name="estacionar"
         component={Parking}
         options={({ navigation }) => ({
-          title: "",
+          title: "EstacionAr",
+          headerTitleAlign: "center",
+
           headerStyle: {
             backgroundColor: "#F9B233",
             elevation: 0,
             shadowColor: 'transparent',
           },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
+          headerTintColor: "#774D00",
+                    headerTitleStyle: {
             fontWeight: "bold",
           },
           headerLeft: () => (
@@ -71,6 +73,20 @@ export const ParkingContainer = () => {
               }}
             />
           ),
+          headerRight: () => (
+            <Button
+              type="clear"
+              icon={
+                <Icon
+                  name="arrow-circle-left"
+                  size={35}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => navigation.goBack()}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -78,13 +94,13 @@ export const ParkingContainer = () => {
              initialParams={vehiculo} 
             component={Countdown}
            options={({ navigation}) => ({
-                title: '',
+                title: 'Estacionamiento',
                 headerStyle: {
                     backgroundColor: '#F9B233',
                     elevation: 0,
                     shadowColor: 'transparent',
                   },
-                  headerTintColor: '#fff',
+                  headerTintColor: '#774D00',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
@@ -100,13 +116,13 @@ export const ParkingContainer = () => {
 
 
       <Stack.Screen name="Timer" component={Timer} initialParams={vehiculo} options={({ navigation }) => ({
-          title: "",
+          title: "Estacionamiento",
           headerStyle: {
             backgroundColor: "#F9B233",
             elevation: 0,
             shadowColor: 'transparent',
           },
-          headerTintColor: "#fff",
+          headerTintColor: "#774D00",
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -126,6 +142,7 @@ export const ParkingContainer = () => {
               }}
             />
           ),
+          
         })}/> 
     </Stack.Navigator>
 

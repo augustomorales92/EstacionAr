@@ -55,7 +55,7 @@ const SignUp = (props) => {
           })
           .then(() => verifyEmail());
       })
-      .catch((error) => Alert.alert("Registro incorrecto", error.message));
+      .catch((error) => Alert.alert("Registro incorrecto", 'El email provisto ya se encuentra registrado.'));
 
     const verifyEmail = () => {
       const user = firebase.auth.currentUser;
@@ -141,7 +141,7 @@ const SignUp = (props) => {
               label="Email"
               name="email"
               type="email"
-              placeholder="juanrodriguez@adress.com"
+              placeholder="email@address.com"
               inputStyle={styles.colorInput}
               onChangeText={(value) => handleChangeText("email", value)}
               onBlur={() => onBlurValidateEmail(input.email)}
@@ -183,7 +183,7 @@ const SignUp = (props) => {
             <Button
               disabled={!isOkFunction()}
               buttonStyle={styles.colores}
-              title="registrarse"
+              title="Registrarse"
               onPress={() => {
                 saveNewUser();
                // return setTimeout(() => props.navigation.popToTop(), 100);

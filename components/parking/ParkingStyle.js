@@ -40,8 +40,8 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   colores2: {
-    fontSize: 30,
-    marginTop: 50,
+    fontSize: 20,
+    marginTop: 20,
   },
   input: {
     backgroundColor: "black",

@@ -19,13 +19,14 @@ export const UsersCarsContainer = () => {
         name="autos"
         component={Userscars}
         options={({ navigation }) => ({
-          title: "",
+          title: "Mis vehículos",
+          headerTitleAlign: "center",
           headerStyle: {
             backgroundColor: "#F9B233",
             elevation: 0,
             shadowColor: 'transparent',
           },
-          headerTintColor: "#fff",
+          headerTintColor: "#774D00",
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -43,6 +44,20 @@ export const UsersCarsContainer = () => {
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+            />
+          ),
+          headerRight: () => (
+            <Button
+              type="clear"
+              icon={
+                <Icon
+                  name="arrow-circle-left"
+                  size={35}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => navigation.goBack()}
             />
           ),
         })}
@@ -75,6 +90,20 @@ export const UsersCarsContainer = () => {
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+            />
+          ),
+          headerRight: () => (
+            <Button
+              type="clear"
+              icon={
+                <Icon
+                  name="arrow-circle-left"
+                  size={35}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

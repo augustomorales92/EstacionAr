@@ -12,6 +12,9 @@ const Stack = createStackNavigator();
 
 export const HomeContainer = () => {
   let userInTheApp = useSelector((state) => state.userReducer);
+  const { user } = useSelector((state) => state.userReducer);
+
+  console.log("ESTE ES EL",user)
 
   return (
     <Stack.Navigator>

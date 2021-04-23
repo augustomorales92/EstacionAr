@@ -52,10 +52,10 @@ const Login = () => {
     const { email, password } = input;
     dispatch(logUser({ email, password }))
       .then((error) => {
-        alert('Email o contraseña incorrectos. Vuelva a intentarlo')
         if (error) {
           setMessage(error.error.message.split(":")[1]);
           setMistake(!mistake);
+          Alert.alert('Email o contraseña incorrectos. Vuelva a intentarlo')
         } else {
           navigation.navigate("drawer");
         }
@@ -207,7 +207,7 @@ const Login = () => {
         <Input
           ref={mails}
           label="Email"
-          placeholder="email@adress.com"
+          placeholder="email@address.com"
           inputStyle={styles.colorInput}
           onChangeText={(value) => handleChangeText("email", value)}
           onBlur={() => onBlurValidateEmail(input.email)}
@@ -297,7 +297,7 @@ const Login = () => {
       <View style={styles.signin}>
         <Button
           type="clear"
-          title="¿No tenes cuenta? Registrate!"
+          title="¿No tenes cuenta? Regístrate!"
           titleStyle={styles.clearButton}
           onPress={() => navigation.navigate("Registrate")}
         ></Button>

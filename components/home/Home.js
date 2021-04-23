@@ -109,7 +109,7 @@ const _getLocation = async ()=>{
                       justifyContent: "space-around",
                     }}
                   >
-                    <Text h4>Seleccione un vehiculo </Text>
+                    <Text h4>Seleccione vehiculo</Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Button

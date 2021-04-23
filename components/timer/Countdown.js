@@ -78,7 +78,6 @@ const Countdown = (props) => {
       .collection("users")
       .doc(user)
       .onSnapshot((querySnap) => {
-        console.log('este es el query snap',querySnap.data())
         setUserInfoNow(querySnap.data());
       });
   };
@@ -116,14 +115,15 @@ const Countdown = (props) => {
     <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
       <View>
         <Card containerStyle={styles.card}>
-          <Text h4>Vehiculo a estacionar</Text>
-          <Text h5>Patente: {vehiculo.patenteId}</Text>
+          <Text h4>Vehículo a estacionar</Text>
+          <Text h5>Patente: {vehiculo.patenteId.toUpperCase()}</Text>
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
           <Text h5>Código de manzana: {zone}</Text>
+          <Text h5>Precio: ${price}</Text>
         </Card>
         <Card containerStyle={styles.card}>
-          <ClockTimer time={time} />
+          <ClockTimer time={time} style={{color: "red"}} />
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
@@ -144,7 +144,6 @@ const Countdown = (props) => {
               buttonStyle={styles.button}
               onPress={() => {
                 calculateParkingPrice(timer + addTime);
-                //endParking();
                 setModalAlert(!modalAlert);
               }}
               disabled={time === 0 ? true : false || (!button && true)}
@@ -190,7 +189,7 @@ const Countdown = (props) => {
                     marginBottom: 5,
                   }}
                 >
-                  <Text>ID Transaccion:</Text>
+                  <Text>ID Transacción:</Text>
                   <Text>d5g4s65fg4</Text>
                 </View>
               </View>

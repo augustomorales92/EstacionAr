@@ -8,7 +8,11 @@ import { format } from "./Format";
 import { useNavigation } from "@react-navigation/native";
 import { addNewParking } from "../../redux/reducer/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions";
+import {
+  addParkingDocument,
+  deleteParkingDocument,
+  addZoneDocument,
+} from "../../redux/reducer/carActions";
 
 const Timer = (props) => {
   const dispatch = useDispatch();
@@ -21,13 +25,13 @@ const Timer = (props) => {
   const [price, setPrice] = React.useState(0);
   const [credit, setCredit] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [mode, setMode] = React.useState('libre')
+  const [mode, setMode] = React.useState("libre");
 
   const navigation = useNavigation();
   const { user } = useSelector((state) => state.userReducer);
-  const patente = useSelector(state => state.carReducer.selectCar.patenteId);
-  const marca = useSelector(state => state.carReducer.selectCar.marcaId)
-  const modelo = useSelector(state => state.carReducer.selectCar.modeloId)
+  const patente = useSelector((state) => state.carReducer.selectCar.patenteId);
+  const marca = useSelector((state) => state.carReducer.selectCar.marcaId);
+  const modelo = useSelector((state) => state.carReducer.selectCar.modeloId);
   const { zone } = vehiculo;
 
   const getUserCreditNow = (userId) => {
@@ -40,8 +44,10 @@ const Timer = (props) => {
   };
 
   function runningOn() {
-    const time = credit / 100
-    dispatch(addParkingDocument({user, time, zone, mode, patente, marca, modelo}))
+    const time = credit / 100;
+    dispatch(
+      addParkingDocument({ user, time, zone, mode, patente, marca, modelo })
+    );
     setRunning(true);
   }
 
@@ -50,8 +56,10 @@ const Timer = (props) => {
     setIsFinished(true);
     setFinalTime(format(time));
     calculateParkingPrice(time);
-    deleteParkingDocument(patente)
-    dispatch(addZoneDocument ({user, time, zone, patente, mode, marca, modelo}))
+    deleteParkingDocument(patente);
+    dispatch(
+      addZoneDocument({ user, time, zone, patente, mode, marca, modelo })
+    );
   }
 
   function calculateParkingPrice(time) {
@@ -63,13 +71,13 @@ const Timer = (props) => {
     }
   }
 
-  React.useEffect (() => {
-    getUserCreditNow(user)
-    console.log(credit)
-  }, [credit])
+  React.useEffect(() => {
+    getUserCreditNow(user);
+  }, [credit]);
 
   React.useEffect(() => {
-    isFinished && dispatch(addNewParking({user, patente, price, finalTime, zone}))
+    isFinished &&
+      dispatch(addNewParking({ user, patente, price, finalTime, zone }));
   }, [isRunning]);
 
   React.useEffect(
@@ -78,7 +86,7 @@ const Timer = (props) => {
       if (isRunning) {
         intervalo = setInterval(() => {
           setTime((time) => time + 100);
-        }, 1000); // tiempo original es 1000
+        }, 1000);
       }
       return () => {
         clearInterval(intervalo);
@@ -88,11 +96,11 @@ const Timer = (props) => {
   );
 
   return (
-    <SafeAreaView style={{backgroundColor:'black',flex:1}}>
+    <SafeAreaView style={{ backgroundColor: "black", flex: 1 }}>
       <View>
-      <Card containerStyle={styles.card}>
-          <Text h4>Vehiculo a estacionar</Text>
-          <Text h5>Patente: {vehiculo.patenteId}</Text>
+        <Card containerStyle={styles.card}>
+          <Text h4>Vehículo a estacionar</Text>
+          <Text h5>Patente: {vehiculo.patenteId.toUpperCase()}</Text>
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
           <Text h5>Código de manzana: {zone}</Text>
@@ -151,11 +159,8 @@ const Timer = (props) => {
                     marginBottom: 5,
                   }}
                 >
-                  
-
                   <Text>Tiempo:</Text>
-                   <Text>{finalTime}</Text>
-                  
+                  <Text>{finalTime}</Text>
                 </View>
                 <View
                   style={{
@@ -163,10 +168,9 @@ const Timer = (props) => {
                     justifyContent: "space-between",
                     marginBottom: 5,
                   }}
-                > 
+                >
                   <Text>Monto a pagar:</Text>
                   <Text>${price}</Text>
-                  
                 </View>
                 <View
                   style={{
@@ -177,62 +181,78 @@ const Timer = (props) => {
                 >
                   <Text>ID Transaccion:</Text>
                   <Text>d5g4s65fg4</Text>
-                  
                 </View>
               </View>
               <Button
                 title="CONFIRMAR"
                 buttonStyle={styles.button}
-                onPress={()=>{
-                  navigation.navigate("drawer")
-                  navigation.goBack()
+                onPress={() => {
+                  navigation.navigate("drawer");
+                  navigation.goBack();
                 }}
               />
             </Card>
           </>
         )}
         {/* vvvv------------------ MODAL ----------------vvvv*/}
-        {<Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Esta seguro de finalizar el estacionamiento?</Text>
-           
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Pressable
-                  style={[styles.button2, styles.buttonClose]}
-                  onPress={() => {
-                     endParking()  
-                     dispatch(addNewParking({user, patente, price, finalTime, zone}))
-                     setModalVisible(!modalVisible)
-               } }
+        {
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  ¿Desea finalizar?
+                </Text>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <Text style={styles.textStyle}> SI </Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button2, styles.buttonClose, { marginTop: 10 }]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>NO</Text>
-                </Pressable>
+                  <View>
+                    <Pressable
+                      style={[styles.button2, styles.buttonClose]}
+                      onPress={() => {
+                        endParking();
+                        dispatch(
+                          addNewParking({
+                            user,
+                            patente,
+                            price,
+                            finalTime,
+                            zone,
+                          })
+                        );
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <Text style={styles.textStyle}> SI </Text>
+                    </Pressable>
+                    <Pressable
+                      style={[
+                        styles.button2,
+                        styles.buttonClose,
+                        { marginTop: 10 },
+                      ]}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <Text style={styles.textStyle}>NO</Text>
+                    </Pressable>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        </View>
-      </Modal>}
+          </Modal>
+        }
         {/*^^^^------------------ MODAL ----------------^^^^ */}
-
-
       </View>
     </SafeAreaView>
   );

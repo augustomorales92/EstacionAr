@@ -57,7 +57,7 @@ const Userscars = (props) => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={styles.texto}>
-              {car.patente} {"\n"} {car.marca}
+              {car.patente.toUpperCase()}{"\n"}{car.marca}
             </Text>
             <View>
               <CheckBox
@@ -110,7 +110,7 @@ const Userscars = (props) => {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>
-                  Desea eliminar su vehiculo?
+                  ¿Desea eliminar su vehículo?
                 </Text>
 
                 <View
@@ -152,11 +152,10 @@ const Userscars = (props) => {
       <View style={styles.fixToText}>
         {!userCarsNow.length > 0 && (
           <Button
-            title="Agregar Vehiculo"
+            title="Agregar Vehículo"
             buttonStyle={styles.button1}
             icon={<Icon name="car" color="white" style={{ marginRight: 10 }} />}
             onPress={() => {
-              /* Alert.alert("Auto estacionado")  */
               return setTimeout(
                 () => props.navigation.navigate("agregar un auto"),
                 1000

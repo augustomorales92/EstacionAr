@@ -88,7 +88,7 @@ const Parking = (props) => {
               <Input
                 type="number"
                 label="Código de manzana"
-                placeholder="112"
+                placeholder="10"
                 value={input.zone}
                 inputStyle={styles.colorInput}
                 keyboardType="numeric"
@@ -144,7 +144,7 @@ const Parking = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.colores}> Libre</Text>
+                <Text style={styles.colores}>Libre</Text>
 
                 <Button
                   buttonStyle={styles.button}
@@ -160,7 +160,7 @@ const Parking = (props) => {
               <Button
                 buttonStyle={styles.buttons}
                 disabled={!isOkZone}
-                title="ir a estacionar"
+                title="Ir a estacionar"
                 onPress={() => {
                   setInput({ zone: "" });
                   if (vehiculo) {
@@ -169,8 +169,8 @@ const Parking = (props) => {
                       : navigation.navigate("Timer", { zone: input.zone });
                   } else {
                     Alert.alert(
-                      "No tiene un vehiculo",
-                      "Seleccione un vehiculo",
+                      "No tiene un vehículo",
+                      "Seleccione un vehículo",
                       [
                         {
                           text: "ok",

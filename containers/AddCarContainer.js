@@ -15,7 +15,7 @@ export const AddCarContainer = () => {
         name="agregar un auto"
         component={Addcar}
         options={({ navigation }) => ({
-          title: "Agregar vehiculo",
+          title: "Agregar vehículo",
           headerTitleAlign: "center",
           headerTintColor: "#774D00",
           headerStyle: {
@@ -40,6 +40,20 @@ export const AddCarContainer = () => {
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+            />
+          ),
+          headerRight: () => (
+            <Button
+              type="clear"
+              icon={
+                <Icon
+                  name="arrow-circle-left"
+                  size={35}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => navigation.goBack()}
             />
           ),
         })}

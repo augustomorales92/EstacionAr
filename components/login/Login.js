@@ -55,6 +55,7 @@ const Login = () => {
         if (error) {
           setMessage(error.error.message.split(":")[1]);
           setMistake(!mistake);
+          Alert.alert('Email o contraseña incorrectos. Vuelva a intentarlo')
         } else {
           navigation.navigate("drawer");
         }

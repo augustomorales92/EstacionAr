@@ -20,7 +20,7 @@ const addcar = (props) => {
   });
 
   const handleChangeText = (name, value) => {
-    setCar({ ...car, [name]: value });
+    setCar({ ...car, [name]: value});
   };
 
   const setUserCar = () => {
@@ -39,7 +39,7 @@ const addcar = (props) => {
         <Card.Title style={styles.titulo}>{`PATENTE`}</Card.Title>
         <Card.Title
           style={styles.titulo}
-        >{` ${car.patente.toUpperCase()}`}</Card.Title>
+        >{` ${car.patente}`}</Card.Title>
         <Card.Divider />
         <View>
           <Input

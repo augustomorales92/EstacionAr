@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { addNewParking, setUserZone } from "../../redux/reducer/userActions";
 import {addParkingDocument, deleteParkingDocument, addZoneDocument} from "../../redux/reducer/carActions"
 import firebase from "../../back/db/firebase";
+const RandExp = require('randexp')
 
 const Countdown = (props) => {
   const vehiculo = props.route.params;
@@ -116,11 +117,11 @@ const Countdown = (props) => {
       <View>
         <Card containerStyle={styles.card}>
           <Text h4>Vehículo a estacionar</Text>
-          <Text h5>Patente: {vehiculo.patenteId.toUpperCase()}</Text>
+          <Text h5>Patente: {vehiculo.patenteId}</Text>
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
           <Text h5>Código de manzana: {zone}</Text>
-          <Text h5>Precio: ${price}</Text>
+          {/* <Text h5>Precio: ${price}</Text> */}
         </Card>
         <Card containerStyle={styles.card}>
           <ClockTimer time={time} style={{color: "red"}} />
@@ -190,7 +191,7 @@ const Countdown = (props) => {
                   }}
                 >
                   <Text>ID Transacción:</Text>
-                  <Text>d5g4s65fg4</Text>
+                  <Text>{new RandExp(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}$/).gen()}</Text>
                 </View>
               </View>
               <Button

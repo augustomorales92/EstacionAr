@@ -13,6 +13,7 @@ import {
   deleteParkingDocument,
   addZoneDocument,
 } from "../../redux/reducer/carActions";
+const RandExp = require('randexp')  
 
 const Timer = (props) => {
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ const Timer = (props) => {
       <View>
         <Card containerStyle={styles.card}>
           <Text h4>Vehículo a estacionar</Text>
-          <Text h5>Patente: {vehiculo.patenteId.toUpperCase()}</Text>
+          <Text h5>Patente: {vehiculo.patenteId}</Text>
           <Text h5>Modelo: {vehiculo.modeloId}</Text>
           <Text h5>Marca: {vehiculo.marcaId}</Text>
           <Text h5>Código de manzana: {zone}</Text>

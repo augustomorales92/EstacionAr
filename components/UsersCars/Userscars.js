@@ -51,13 +51,13 @@ const Userscars = (props) => {
               }}
             />
           </View>
-          <Card.Title style={styles.titulo}>{car.modelo}</Card.Title>
+          <Card.Title style={styles.titulo}>{car.patente}</Card.Title>
           <Card.Divider />
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={styles.texto}>
-              {car.patente.toUpperCase()}{"\n"}{car.marca}
+            {car.marca}{"\n"}{car.modelo}
             </Text>
             <View>
               <CheckBox

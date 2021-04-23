@@ -25,7 +25,8 @@ const addcar = (props) => {
   });
 
   const handleChangeText = (name, value) => {
-    setCar({ ...car, [name]: value });
+    if (name === 'patente') setCar({ ...car, [name]: value.toUpperCase() })
+    else setCar({ ...car, [name]: value});
   };
 
   const setUserCar = () => {

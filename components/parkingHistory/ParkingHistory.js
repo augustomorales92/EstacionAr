@@ -42,7 +42,7 @@ const ParkingHistory = () => {
           .map((history) => (
             <Card containerStyle={styles.card} key={history.date}>
               <Text h6>{history.date}</Text>
-              <Text h4>{history.patente.toUpperCase()}</Text>
+              <Text h4>{history.patente}</Text>
               <View
                 style={{
                   flexDirection: "row",
